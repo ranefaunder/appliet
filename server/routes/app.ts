@@ -27,10 +27,31 @@ export default async function (req: BunRequest<"/:lang/"> | BunRequest<"/:lang/*
   const staticRoot = resolveStaticRootFromUrl(req.url);
   const [ssrHtml, metaHead] = await Promise.all([serverSideRender(req, App, ssrContext), getMeta(req)]);
 
+  const fontGeist = `${staticRoot}/styles/fonts/geist.woff2`;
+  const fontNotoSerif = `${staticRoot}/styles/fonts/noto-serif.woff2`;
+
   const html = /*html*/ `<!DOCTYPE html>
     <html lang="${escapeHtmlAttribute(req.params.lang)}">
       <head>
         ${metaHead}
+        <link rel="preload" href="${escapeHtmlAttribute(fontGeist)}" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="${escapeHtmlAttribute(fontNotoSerif)}" as="font" type="font/woff2" crossorigin />
+        <style>
+          @font-face {
+            font-style: normal;
+            font-weight: 100 900;
+            src: url("${escapeHtmlAttribute(fontGeist)}") format("woff2");
+            font-family: "Geist";
+            font-display: swap;
+          }
+          @font-face {
+            font-style: normal;
+            font-weight: 100 900;
+            src: url("${escapeHtmlAttribute(fontNotoSerif)}") format("woff2");
+            font-family: "Noto Serif";
+            font-display: swap;
+          }
+        </style>
         <link rel="stylesheet" href="${escapeHtmlAttribute(`${staticRoot}/styles/faunder-ui.css`)}" />
         <link rel="stylesheet" href="${escapeHtmlAttribute(`${staticRoot}/styles/style.css`)}" />
         <link rel="stylesheet" href="${escapeHtmlAttribute(`${staticRoot}/styles/font-faces.css`)}" />

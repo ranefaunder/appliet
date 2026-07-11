@@ -23,7 +23,7 @@ import meta from "./api/meta";
 await initDb();
 
 const server = Bun.serve({
-  port: Number(process.env.PORT) || 8040,
+  port: Number(process.env.PORT) || 8090,
   development: process.env.NODE_ENV !== "production",
 
   routes: {

@@ -24,13 +24,13 @@ cp .env.example .env
 bun run dev
 ```
 
-Open http://localhost:8040
+Open http://localhost:8090
 
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `bun run dev` | Dev server with hot reload (port 8040) |
+| `bun run dev` | Dev server with hot reload (port 8090) |
 | `bun run start` | Production server |
 | `bun test` | Unit tests |
 | `bun run test:e2e` | Playwright E2E tests |

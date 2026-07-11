@@ -134,6 +134,50 @@ export const translations = {
   "Web component code": { fi: "Web-komponentin koodi" },
   "Copy code": { fi: "Kopioi koodi" },
   "Close": { fi: "Sulje" },
+  "AI-powered app builder": { fi: "Tekoälykäyttöinen sovelluspaja" },
+  "Ready in minutes": { fi: "Valmista minuuteissa" },
+  "Describe your idea and get a working app instantly — no setup, no waiting.": {
+    fi: "Kuvaile ideasi ja saat toimivan sovelluksen heti — ei asennusta, ei odottelua.",
+  },
+  "Truly yours": { fi: "Täysin sinun" },
+  "Your apps store data right in your browser. No accounts to wire up, no servers to manage.": {
+    fi: "Sovelluksesi tallentavat datan suoraan selaimeesi. Ei tilien kytkentää, ei palvelimien ylläpitoa.",
+  },
+  "No code required": { fi: "Ei koodia" },
+  "Just write what you need in plain language. App Studo builds the rest.": {
+    fi: "Kirjoita vain mitä tarvitset arkikielellä. App Studo rakentaa loput.",
+  },
+  "Make every idea an app": { fi: "Tee jokaisesta ideasta sovellus" },
+  "Describe it and watch it take shape — right where you work.": {
+    fi: "Kuvaile se ja katso, miten se muotoutuu — juuri siellä missä työskentelet.",
+  },
+  "Frequently asked questions": { fi: "Usein kysytyt kysymykset" },
+  "What is App Studo?": { fi: "Mikä on App Studo?" },
+  "App Studo lets you build small personal apps just by describing what you want. They run in your browser, work instantly, and keep your data on your device.": {
+    fi: "App Studolla rakennat pieniä henkilökohtaisia sovelluksia kuvailemalla mitä haluat. Ne toimivat selaimessasi, heti, ja pitävät datasi laitteellasi.",
+  },
+  "What kind of apps can I build?": { fi: "Millaisia sovelluksia voin rakentaa?" },
+  "Anything small and personal: trackers, journals, calculators, checklists, simple games, or quick one-off tools that make your life easier.": {
+    fi: "Mitä tahansa pientä ja henkilökohtaista: seurantoja, päiväkirjoja, laskureita, tarkistuslistoja, yksinkertaisia pelejä tai kertakäyttöisiä työkaluja, jotka helpottavat arkeasi.",
+  },
+  "Where is my data stored?": { fi: "Mihin datani tallennetaan?" },
+  "Each app saves its data locally in your browser. Nothing is sent to a server, so your notes and entries stay private to you.": {
+    fi: "Jokainen sovellus tallentaa datansa paikallisesti selaimeesi. Mitään ei lähetetä palvelimelle, joten muistiinpanosi ja merkintäsi pysyvät yksityisinä.",
+  },
+  "Can I share the apps I build?": { fi: "Voinko jakaa rakentamani sovellukset?" },
+  "Yes. Publish an app to the community gallery so others can discover and use it, or remix apps that others have shared.": {
+    fi: "Kyllä. Julkaise sovellus yhteisögalleriaan, jotta muut löytävät ja käyttävät sitä, tai remiksoi muiden jakamia sovelluksia.",
+  },
+  "What will you build?": { fi: "Mitä sinä rakennat?" },
+  "Describe your idea and see it come to life in minutes.": {
+    fi: "Kuvaile ideasi ja näe se heräävän eloon minuuteissa.",
+  },
+  "Discover apps built by the community.": {
+    fi: "Löydä yhteisön rakentamia sovelluksia.",
+  },
+  "$count remixes": {
+    fi: "$count remiksiä",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;
