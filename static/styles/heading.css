@@ -1,0 +1,20 @@
+[ui-heading="xs"] {
+  margin-inline: -0.5rem;
+  border-bottom: 1px solid var(--neutral-200);
+  padding-bottom: 0.25em;
+  padding-inline: 0.5rem;
+  color: var(--neutral-600);
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+[ui-heading~="lg"],
+[ui-heading~="xl"],
+[ui-heading~="xxl"] {
+  font-weight: 800;
+  line-height: 1;
+  font-family: "Noto Serif", serif;
+  letter-spacing: -0.025em;
+}

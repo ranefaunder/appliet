@@ -1,0 +1,42 @@
+import { html, css } from "/utils/markup";
+import { useRef, useEffect } from "preact/hooks";
+import { useLocation } from "preact-iso";
+import { getLang } from "/utils/lang";
+import { t } from "/utils/i18n";
+
+export default function RegistrationSuccessDialog() {
+  const { route, path } = useLocation();
+  const lang = getLang(path ?? "") ?? "en";
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    function handler() {
+      dialogRef.current?.showModal();
+    }
+    window.addEventListener("open-registration-success-dialog", handler);
+    return () => window.removeEventListener("open-registration-success-dialog", handler);
+  }, []);
+
+  const view = html`
+    <dialog id="registration-success-dialog" ref=${dialogRef} ui-dialog="xs" closedby="any">
+      <header>
+        <h2>Welcome to App Studo</h2>
+      </header>
+      <p>You are now logged in. Describe what you need and start building your first app.</p>
+      <footer>
+        <button
+          type="button"
+          ui-button="primary block"
+          onClick=${() => {
+            dialogRef.current?.close();
+            route(`/${lang}/`, true);
+          }}
+        >
+          ${t("Start building")}
+        </button>
+      </footer>
+    </dialog>
+  `;
+
+  return [view, css``];
+}

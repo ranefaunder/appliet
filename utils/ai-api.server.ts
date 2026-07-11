@@ -1,0 +1,35 @@
+import { AiRequestError } from "/utils/ai-core.server";
+import { apiError } from "/utils/api.server";
+import { t } from "/utils/i18n";
+import type { Language } from "/types/i18n-types";
+
+export function apiErrorFromAi(err: unknown, language: Language): Response | null {
+  if (!(err instanceof AiRequestError)) return null;
+
+  switch (err.code) {
+    case "INSUFFICIENT_CREDITS":
+      return apiError({
+        code: "INSUFFICIENT_CREDITS",
+        message: t("AI credits insufficient. Add credits to OpenRouter or switch to a cheaper model.", language),
+        status: 402,
+      });
+    case "RATE_LIMIT_EXCEEDED":
+      return apiError({
+        code: "RATE_LIMIT_EXCEEDED",
+        message: t("Too many requests. Wait a moment before retrying.", language),
+        status: 429,
+      });
+    case "API_KEY_INVALID":
+      return apiError({
+        code: "API_KEY_INVALID",
+        message: t("AI service misconfigured. Try again later.", language),
+        status: 503,
+      });
+    default:
+      return apiError({
+        code: "GENERATION_FAILED",
+        message: t("Could not create app. Try again.", language),
+        status: 500,
+      });
+  }
+}

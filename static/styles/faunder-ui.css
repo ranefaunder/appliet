@@ -1,0 +1,3787 @@
+/* Faunder UI 0.3.11 */
+/* src/reset.css */
+:where(*) {
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+:where(body) {
+  background: var(--white);
+  color: var(--neutral-800);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+
+/* src/color.css */
+:root {
+  --tw-red-50: oklch(97.1% .013 17.38);
+  --tw-red-100: oklch(93.6% .032 17.717);
+  --tw-red-200: oklch(88.5% .062 18.334);
+  --tw-red-300: oklch(80.8% .114 19.571);
+  --tw-red-400: oklch(70.4% .191 22.216);
+  --tw-red-500: oklch(63.7% .237 25.331);
+  --tw-red-600: oklch(57.7% .245 27.325);
+  --tw-red-700: oklch(50.5% .213 27.518);
+  --tw-red-800: oklch(44.4% .177 26.899);
+  --tw-red-900: oklch(39.6% .141 25.723);
+  --tw-red-950: oklch(25.8% .092 26.042);
+  --tw-orange-50: oklch(98% .016 73.684);
+  --tw-orange-100: oklch(95.4% .038 75.164);
+  --tw-orange-200: oklch(90.1% .076 70.697);
+  --tw-orange-300: oklch(83.7% .128 66.29);
+  --tw-orange-400: oklch(75% .183 55.934);
+  --tw-orange-500: oklch(70.5% .213 47.604);
+  --tw-orange-600: oklch(64.6% .222 41.116);
+  --tw-orange-700: oklch(55.3% .195 38.402);
+  --tw-orange-800: oklch(47% .157 37.304);
+  --tw-orange-900: oklch(40.8% .123 38.172);
+  --tw-orange-950: oklch(26.6% .079 36.259);
+  --tw-yellow-50: oklch(98.7% .026 102.212);
+  --tw-yellow-100: oklch(97.3% .071 103.193);
+  --tw-yellow-200: oklch(94.5% .129 101.54);
+  --tw-yellow-300: oklch(90.5% .182 98.111);
+  --tw-yellow-400: oklch(85.2% .199 91.936);
+  --tw-yellow-500: oklch(79.5% .184 86.047);
+  --tw-yellow-600: oklch(68.1% .162 75.834);
+  --tw-yellow-700: oklch(55.4% .135 66.442);
+  --tw-yellow-800: oklch(47.6% .114 61.907);
+  --tw-yellow-900: oklch(42.1% .095 57.708);
+  --tw-yellow-950: oklch(28.6% .066 53.813);
+  --tw-green-50: oklch(98.2% .018 155.826);
+  --tw-green-100: oklch(96.2% .044 156.743);
+  --tw-green-200: oklch(92.5% .084 155.995);
+  --tw-green-300: oklch(87.1% .15 154.449);
+  --tw-green-400: oklch(79.2% .209 151.711);
+  --tw-green-500: oklch(72.3% .219 149.579);
+  --tw-green-600: oklch(62.7% .194 149.214);
+  --tw-green-700: oklch(52.7% .154 150.069);
+  --tw-green-800: oklch(44.8% .119 151.328);
+  --tw-green-900: oklch(39.3% .095 152.535);
+  --tw-green-950: oklch(26.6% .065 152.934);
+  --tw-sky-50: oklch(97.7% .013 236.62);
+  --tw-sky-100: oklch(95.1% .026 236.824);
+  --tw-sky-200: oklch(90.1% .058 230.902);
+  --tw-sky-300: oklch(82.8% .111 230.318);
+  --tw-sky-400: oklch(74.6% .16 232.661);
+  --tw-sky-500: oklch(68.5% .169 237.323);
+  --tw-sky-600: oklch(58.8% .158 241.966);
+  --tw-sky-700: oklch(50% .134 242.749);
+  --tw-sky-800: oklch(44.3% .11 240.79);
+  --tw-sky-900: oklch(39.1% .09 240.876);
+  --tw-sky-950: oklch(29.3% .066 243.157);
+  --tw-indigo-50: oklch(96.2% .018 272.314);
+  --tw-indigo-100: oklch(93% .034 272.788);
+  --tw-indigo-200: oklch(87% .065 274.039);
+  --tw-indigo-300: oklch(78.5% .115 274.713);
+  --tw-indigo-400: oklch(67.3% .182 276.935);
+  --tw-indigo-500: oklch(58.5% .233 277.117);
+  --tw-indigo-600: oklch(51.1% .262 276.966);
+  --tw-indigo-700: oklch(45.7% .24 277.023);
+  --tw-indigo-800: oklch(39.8% .195 277.366);
+  --tw-indigo-900: oklch(35.9% .144 278.697);
+  --tw-indigo-950: oklch(25.7% .09 281.288);
+  --tw-gray-50: oklch(98.5% .002 247.839);
+  --tw-gray-100: oklch(96.7% .003 264.542);
+  --tw-gray-200: oklch(92.8% .006 264.531);
+  --tw-gray-300: oklch(87.2% .01 258.338);
+  --tw-gray-400: oklch(70.7% .022 261.325);
+  --tw-gray-500: oklch(55.1% .027 264.364);
+  --tw-gray-600: oklch(44.6% .03 256.802);
+  --tw-gray-700: oklch(37.3% .034 259.733);
+  --tw-gray-800: oklch(27.8% .033 256.848);
+  --tw-gray-900: oklch(21% .034 264.665);
+  --tw-gray-950: oklch(13% .028 261.692);
+  --white: oklch(100% 0 0);
+  --black: oklch(0% 0 0);
+  --neutral-50: var(--tw-gray-50);
+  --neutral-100: var(--tw-gray-100);
+  --neutral-200: var(--tw-gray-200);
+  --neutral-300: var(--tw-gray-300);
+  --neutral-400: var(--tw-gray-400);
+  --neutral-500: var(--tw-gray-500);
+  --neutral-600: var(--tw-gray-600);
+  --neutral-700: var(--tw-gray-700);
+  --neutral-800: var(--tw-gray-800);
+  --neutral-900: var(--tw-gray-900);
+  --neutral-950: var(--tw-gray-950);
+  --primary-50: var(--tw-indigo-50);
+  --primary-100: var(--tw-indigo-100);
+  --primary-200: var(--tw-indigo-200);
+  --primary-300: var(--tw-indigo-300);
+  --primary-400: var(--tw-indigo-400);
+  --primary-500: var(--tw-indigo-500);
+  --primary-600: var(--tw-indigo-600);
+  --primary-700: var(--tw-indigo-700);
+  --primary-800: var(--tw-indigo-800);
+  --primary-900: var(--tw-indigo-900);
+  --primary-950: var(--tw-indigo-950);
+  --secondary-50: var(--tw-orange-50);
+  --secondary-100: var(--tw-orange-100);
+  --secondary-200: var(--tw-orange-200);
+  --secondary-300: var(--tw-orange-300);
+  --secondary-400: var(--tw-orange-400);
+  --secondary-500: var(--tw-orange-500);
+  --secondary-600: var(--tw-orange-600);
+  --secondary-700: var(--tw-orange-700);
+  --secondary-800: var(--tw-orange-800);
+  --secondary-900: var(--tw-orange-900);
+  --secondary-950: var(--tw-orange-950);
+  --error-chroma: .75;
+  --error-50: oklch(from var(--tw-red-50) l calc(c * var(--error-chroma)) h);
+  --error-100: oklch(from var(--tw-red-100) l calc(c * var(--error-chroma)) h);
+  --error-200: oklch(from var(--tw-red-200) l calc(c * var(--error-chroma)) h);
+  --error-300: oklch(from var(--tw-red-300) l calc(c * var(--error-chroma)) h);
+  --error-400: oklch(from var(--tw-red-400) l calc(c * var(--error-chroma)) h);
+  --error-500: oklch(from var(--tw-red-500) l calc(c * var(--error-chroma)) h);
+  --error-600: oklch(from var(--tw-red-600) l calc(c * var(--error-chroma)) h);
+  --error-700: oklch(from var(--tw-red-700) l calc(c * var(--error-chroma)) h);
+  --error-800: oklch(from var(--tw-red-800) l calc(c * var(--error-chroma)) h);
+  --error-900: oklch(from var(--tw-red-900) l calc(c * var(--error-chroma)) h);
+  --error-950: oklch(from var(--tw-red-950) l calc(c * var(--error-chroma)) h);
+  --warning-chroma: .75;
+  --warning-50: oklch(from var(--tw-yellow-50) l calc(c * var(--warning-chroma)) h);
+  --warning-100: oklch(from var(--tw-yellow-100) l calc(c * var(--warning-chroma)) h);
+  --warning-200: oklch(from var(--tw-yellow-200) l calc(c * var(--warning-chroma)) h);
+  --warning-300: oklch(from var(--tw-yellow-300) l calc(c * var(--warning-chroma)) h);
+  --warning-400: oklch(from var(--tw-yellow-400) l calc(c * var(--warning-chroma)) h);
+  --warning-500: oklch(from var(--tw-yellow-500) l calc(c * var(--warning-chroma)) h);
+  --warning-600: oklch(from var(--tw-yellow-600) l calc(c * var(--warning-chroma)) h);
+  --warning-700: oklch(from var(--tw-yellow-700) l calc(c * var(--warning-chroma)) h);
+  --warning-800: oklch(from var(--tw-yellow-800) l calc(c * var(--warning-chroma)) h);
+  --warning-900: oklch(from var(--tw-yellow-900) l calc(c * var(--warning-chroma)) h);
+  --warning-950: oklch(from var(--tw-yellow-950) l calc(c * var(--warning-chroma)) h);
+  --success-chroma: .75;
+  --success-50: oklch(from var(--tw-green-50) l calc(c * var(--success-chroma)) h);
+  --success-100: oklch(from var(--tw-green-100) l calc(c * var(--success-chroma)) h);
+  --success-200: oklch(from var(--tw-green-200) l calc(c * var(--success-chroma)) h);
+  --success-300: oklch(from var(--tw-green-300) l calc(c * var(--success-chroma)) h);
+  --success-400: oklch(from var(--tw-green-400) l calc(c * var(--success-chroma)) h);
+  --success-500: oklch(from var(--tw-green-500) l calc(c * var(--success-chroma)) h);
+  --success-600: oklch(from var(--tw-green-600) l calc(c * var(--success-chroma)) h);
+  --success-700: oklch(from var(--tw-green-700) l calc(c * var(--success-chroma)) h);
+  --success-800: oklch(from var(--tw-green-800) l calc(c * var(--success-chroma)) h);
+  --success-900: oklch(from var(--tw-green-900) l calc(c * var(--success-chroma)) h);
+  --success-950: oklch(from var(--tw-green-950) l calc(c * var(--success-chroma)) h);
+  --info-chroma: .75;
+  --info-50: oklch(from var(--tw-sky-50) l calc(c * var(--info-chroma)) h);
+  --info-100: oklch(from var(--tw-sky-100) l calc(c * var(--info-chroma)) h);
+  --info-200: oklch(from var(--tw-sky-200) l calc(c * var(--info-chroma)) h);
+  --info-300: oklch(from var(--tw-sky-300) l calc(c * var(--info-chroma)) h);
+  --info-400: oklch(from var(--tw-sky-400) l calc(c * var(--info-chroma)) h);
+  --info-500: oklch(from var(--tw-sky-500) l calc(c * var(--info-chroma)) h);
+  --info-600: oklch(from var(--tw-sky-600) l calc(c * var(--info-chroma)) h);
+  --info-700: oklch(from var(--tw-sky-700) l calc(c * var(--info-chroma)) h);
+  --info-800: oklch(from var(--tw-sky-800) l calc(c * var(--info-chroma)) h);
+  --info-900: oklch(from var(--tw-sky-900) l calc(c * var(--info-chroma)) h);
+  --info-950: oklch(from var(--tw-sky-950) l calc(c * var(--info-chroma)) h);
+}
+
+/* src/focus.css */
+:where(:focus-visible) {
+  outline: 2px solid oklch(from var(--primary-500) l calc(c * .75) h);
+  outline-offset: 2px;
+}
+
+/* src/hr.css */
+:where(hr:not([ui-off])) {
+  border: none;
+  background: var(--grey-200);
+  height: 1px;
+}
+
+/* src/icon.css */
+:root {
+  --ui-icon-spinner: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23000000%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M136%2C32V64a8%2C8%2C0%2C0%2C1-16%2C0V32a8%2C8%2C0%2C0%2C1%2C16%2C0Zm37.25%2C58.75a8%2C8%2C0%2C0%2C0%2C5.66-2.35l22.63-22.62a8%2C8%2C0%2C0%2C0-11.32-11.32L167.6%2C77.09a8%2C8%2C0%2C0%2C0%2C5.65%2C13.66ZM224%2C120H192a8%2C8%2C0%2C0%2C0%2C0%2C16h32a8%2C8%2C0%2C0%2C0%2C0-16Zm-45.09%2C47.6a8%2C8%2C0%2C0%2C0-11.31%2C11.31l22.62%2C22.63a8%2C8%2C0%2C0%2C0%2C11.32-11.32ZM128%2C184a8%2C8%2C0%2C0%2C0-8%2C8v32a8%2C8%2C0%2C0%2C0%2C16%2C0V192A8%2C8%2C0%2C0%2C0%2C128%2C184ZM77.09%2C167.6%2C54.46%2C190.22a8%2C8%2C0%2C0%2C0%2C11.32%2C11.32L88.4%2C178.91A8%2C8%2C0%2C0%2C0%2C77.09%2C167.6ZM72%2C128a8%2C8%2C0%2C0%2C0-8-8H32a8%2C8%2C0%2C0%2C0%2C0%2C16H64A8%2C8%2C0%2C0%2C0%2C72%2C128ZM65.78%2C54.46A8%2C8%2C0%2C0%2C0%2C54.46%2C65.78L77.09%2C88.4A8%2C8%2C0%2C0%2C0%2C88.4%2C77.09Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+}
+
+:where([ui-icon~="caret-down"]) {
+  --ui-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+:where([ui-icon~="heart"]) {
+  --ui-icon-open-rotate: 90deg;
+  --ui-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+:where([ui-icon~="star"]) {
+  --ui-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+:where([ui-icon~="plus"]) {
+  --ui-icon-open-rotate: 135deg;
+  --ui-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+:where([ui-icon~="x"]) {
+  --ui-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+:where([ui-icon~="spinner"]) {
+  --ui-icon: var(--ui-icon-spinner);
+  animation: ui-loading 1s linear infinite;
+}
+
+:where([ui-icon~="download-simple"]) {
+  --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23000000%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M228%2C144v64a12%2C12%2C0%2C0%2C1-12%2C12H40a12%2C12%2C0%2C0%2C1-12-12V144a12%2C12%2C0%2C0%2C1%2C24%2C0v52H204V144a12%2C12%2C0%2C0%2C1%2C24%2C0Zm-108.49%2C8.49a12%2C12%2C0%2C0%2C0%2C17%2C0l40-40a12%2C12%2C0%2C0%2C0-17-17L140%2C115V32a12%2C12%2C0%2C0%2C0-24%2C0v83L96.49%2C95.51a12%2C12%2C0%2C0%2C0-17%2C17Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+}
+
+@keyframes ui-loading {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+:where([ui-icon]):where(i) {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  mask-image: var(--ui-icon, none);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-color: currentColor;
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+  line-height: 0;
+}
+
+:where([ui-icon]):where(svg) {
+  fill: currentColor;
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+}
+
+:where([ui-icon]):where(img) {
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+  object-fit: contain;
+}
+
+:where([ui-icon]):where(span) {
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+  font-size: var(--ui-icon-size, 20px);
+  line-height: 1;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):before {
+  display: inline-block;
+  flex-shrink: 0;
+  mask-image: var(--ui-icon, none);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-color: currentColor;
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+  content: "";
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):where([ui-icon~="-"]):before {
+  background-color: #0000;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"])[ui-icon~="trailing"]:before {
+  order: 1;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):where([ui-button~="xs"]):before {
+  --ui-icon-size: 14px;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):where([ui-button~="sm"]):before {
+  --ui-icon-size: 18px;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):where([ui-button~="lg"]):before {
+  --ui-icon-size: 24px;
+}
+
+:where([ui-icon]):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"]):where([ui-button~="xl"]):before {
+  --ui-icon-size: 32px;
+}
+
+:where([ui-icon]):where([ui-icon~="xs"]) {
+  --ui-icon-size: 14px;
+}
+
+:where([ui-icon]):where([ui-icon~="sm"]) {
+  --ui-icon-size: 18px;
+}
+
+:where([ui-icon]):where([ui-icon~="lg"]) {
+  --ui-icon-size: 24px;
+}
+
+:where([ui-icon]):where([ui-icon~="xl"]) {
+  --ui-icon-size: 32px;
+}
+
+:where([ui-icon]):where([ui-icon~="2xl"]) {
+  --ui-icon-size: 40px;
+}
+
+:where([ui-icon]):where([ui-icon~="3xl"]) {
+  --ui-icon-size: 48px;
+}
+
+:where([ui-icon]):where([ui-icon~="4xl"]) {
+  --ui-icon-size: 56px;
+}
+
+:where([ui-icon]):where([ui-icon~="5xl"]) {
+  --ui-icon-size: 64px;
+}
+
+:where([ui-icon]):where([ui-icon~="6xl"]) {
+  --ui-icon-size: 80px;
+}
+
+/* src/inline.css */
+:where(strong:not([ui-off])) {
+  font-weight: 600;
+}
+
+:where(b:not([ui-off])) {
+  font-weight: 600;
+}
+
+:where(em:not([ui-off])) {
+  font-style: italic;
+}
+
+:where(i:not([ui-off])) {
+  font-style: italic;
+}
+
+:where(small:not([ui-off])) {
+  font-size: .875rem;
+}
+
+:where(mark:not([ui-off])) {
+  background-color: var(--neutral-50);
+  padding: 2px 4px;
+}
+
+:where(del:not([ui-off])) {
+  text-decoration: line-through;
+}
+
+:where(s:not([ui-off])) {
+  text-decoration: line-through;
+}
+
+:where(ins:not([ui-off])) {
+  text-decoration: underline;
+}
+
+:where(u:not([ui-off])) {
+  text-decoration: underline;
+}
+
+:where(sub:not([ui-off])) {
+  vertical-align: sub;
+  font-size: .75em;
+  line-height: 0;
+}
+
+:where(sup:not([ui-off])) {
+  vertical-align: super;
+  font-size: .75em;
+  line-height: 0;
+}
+
+:where(kbd:not([ui-off])) {
+  box-shadow: 0 1px 0 oklch(from var(--neutral-800) l c h / 10%);
+  border: 1px solid var(--neutral-200);
+  border-radius: 4px;
+  background-color: var(--neutral-50);
+  padding: 2px 6px;
+  font-size: .875em;
+  font-family: ui-monospace, monospace;
+}
+
+:where(abbr:not([ui-off])) {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+:where(q:not([ui-off])) {
+  quotes: "«" "»" "‹" "›";
+}
+
+:where(q:not([ui-off])):before {
+  content: open-quote;
+}
+
+:where(q:not([ui-off])):after {
+  content: close-quote;
+}
+
+:where(cite:not([ui-off])) {
+  font-style: italic;
+}
+
+:where(samp:not([ui-off])) {
+  font-size: .875em;
+  font-family: ui-monospace, monospace;
+}
+
+:where(var:not([ui-off])) {
+  font-style: italic;
+  font-size: .875em;
+  font-family: ui-monospace, monospace;
+}
+
+/* src/code.css */
+:where(code:not([ui-off]):not(pre > code)) {
+  border-radius: 4px;
+  background-color: var(--neutral-800);
+  padding: 2px 6px;
+  color: var(--white);
+  font-size: .875em;
+  font-family: ui-monospace, monospace;
+}
+
+:where(pre:not([ui-off]):has( > code)) {
+  border-radius: 12px;
+  background-color: var(--neutral-800);
+  padding: 8px 16px;
+  color: var(--white);
+  font-size: .875em;
+  font-family: ui-monospace, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+:where(pre:not([ui-off]):has( > code)) > :where(code) {
+  display: block;
+}
+
+:where(pre:not([ui-off]):has( > code)):where([ui-code~="scroll"]) {
+  overflow: auto;
+  white-space: pre;
+}
+
+/* src/link.css */
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])) {
+  color: var(--primary-800);
+  text-decoration: underline;
+}
+
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])):where(:hover) {
+  color: var(--primary-600);
+}
+
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])):where(:active) {
+  color: var(--primary-500);
+}
+
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])):where([ui-link~="inherit"]) {
+  color: inherit;
+}
+
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])):where([ui-link~="inherit"]):where(:hover) {
+  color: var(--primary-600);
+}
+
+:where(a:not([ui-off]):not([ui-button]):not([ui-card]), [ui-link]:not([ui-off]):not([ui-button]):not([ui-card])):where([ui-link~="inherit"]):where(:active) {
+  color: var(--primary-500);
+}
+
+/* src/heading.css */
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])) {
+  display: block;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])):where([ui-heading~="xs"]) {
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])):where([ui-heading~="sm"]) {
+  font-size: .875rem;
+  line-height: 1.4;
+}
+
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])):where([ui-heading~="lg"]) {
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])):where([ui-heading~="xl"]) {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+:where([ui-heading], h1, h2, h3, h4, h5, h6, legend):where(:not([ui-off])):where([ui-heading~="xxl"]) {
+  font-size: 2.25rem;
+  line-height: 1.1;
+}
+
+/* src/list.css */
+:where(ul:not([ui-off]), ol:not([ui-off])) {
+  padding-left: 40px;
+}
+
+:where(ul[ui-off], ol[ui-off]) {
+  padding: 0;
+  list-style: none;
+}
+
+/* src/input.css */
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select) {
+  display: inline-block;
+  box-sizing: border-box;
+  box-shadow: inset 0 4px 8px -4px var(--neutral-100), 0 4px 12px -4px oklch(from var(--black) l c h / 5%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 100%;
+  color: var(--neutral-800);
+  font-size: 16px;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where(:hover) {
+  border-color: var(--neutral-300);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+  color: var(--neutral-400);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select)::placeholder {
+  color: var(--neutral-400);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where(:disabled)::placeholder {
+  color: var(--neutral-400);
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where([ui-input~="sm"]) {
+  border-radius: 6px;
+  padding: 4px 8px;
+  min-height: 24px;
+  font-size: .875rem;
+}
+
+:where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select):where([ui-input~="lg"]) {
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-height: 48px;
+  font-size: 1.125rem;
+}
+
+@supports (-webkit-touch-callout: none) {
+  :where(:not([ui-button]):not([ui-off])):where(input:not([type]), input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], input[type="tel"], input[type="search"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[list="datalist"], textarea, select) {
+    font-size: 16px;
+  }
+}
+
+:where(label:has( > input[type="checkbox"][ui-input~="switch"]:not([ui-off]))) {
+  display: flex;
+  align-items:  center;
+  gap: .5rem;
+  cursor: pointer;
+}
+
+:where(label:has( > input[type="radio"][ui-input~="switch"]:not([ui-off]))) {
+  display: flex;
+  align-items:  center;
+  gap: .5rem;
+  cursor: pointer;
+}
+
+:where(label:has( > input[type="checkbox"][ui-input~="switch"]:not([ui-off])[disabled])) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(label:has( > input[type="radio"][ui-input~="switch"]:not([ui-off])[disabled])) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="checkbox"][ui-input~="switch"]:not([ui-off]) + label) {
+  cursor: pointer;
+}
+
+:where([ui-row] input[type="radio"][ui-input~="switch"]:not([ui-off]) + label) {
+  cursor: pointer;
+}
+
+:where([ui-row] input[type="checkbox"][ui-input~="switch"]:not([ui-off])[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="radio"][ui-input~="switch"]:not([ui-off])[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])) {
+  --ui-switch-thumb-size: 16px;
+  --ui-switch-thumb-offset: 2px;
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  transition: background-color .2s, border-color .2s;
+  cursor: pointer;
+  border: 1px solid var(--neutral-300);
+  border-radius: 999px;
+  background: var(--neutral-100);
+  width: calc(var(--ui-switch-thumb-size) * 2 + var(--ui-switch-thumb-offset) * 2);
+  height: calc(var(--ui-switch-thumb-size)  + var(--ui-switch-thumb-offset) * 2 + 2px);
+  user-select: none;
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where([ui-input~="sm"]) {
+  --ui-switch-thumb-size: 10px;
+  --ui-switch-thumb-offset: 0px;
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where([ui-input~="lg"]) {
+  --ui-switch-thumb-size: 23px;
+  --ui-switch-thumb-offset: 3px;
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):before {
+  position: absolute;
+  top: var(--ui-switch-thumb-offset);
+  left: var(--ui-switch-thumb-offset);
+  transition: left .2s;
+  box-shadow: 0 1px 2px oklch(from var(--black) l c h / 20%), 0 2px 4px oklch(from var(--black) l c h / 10%);
+  border-radius: 50%;
+  background: var(--white);
+  width: var(--ui-switch-thumb-size);
+  height: var(--ui-switch-thumb-size);
+  content: "";
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):after {
+  display: none;
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:hover) {
+  background: var(--neutral-50);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:checked) {
+  border: 1px solid var(--primary-800);
+  background: var(--primary-800);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:checked):before {
+  left: calc(100% - var(--ui-switch-thumb-size)  - var(--ui-switch-thumb-offset));
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:hover) {
+  background: var(--primary-700);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:disabled):before {
+  background: var(--neutral-50);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:disabled):before {
+  background: var(--neutral-300);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])) {
+  --ui-switch-thumb-size: 16px;
+  --ui-switch-thumb-offset: 2px;
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  transition: background-color .2s, border-color .2s;
+  cursor: pointer;
+  border: 1px solid var(--neutral-300);
+  border-radius: 999px;
+  background: var(--neutral-100);
+  width: calc(var(--ui-switch-thumb-size) * 2 + var(--ui-switch-thumb-offset) * 2);
+  height: calc(var(--ui-switch-thumb-size)  + var(--ui-switch-thumb-offset) * 2 + 2px);
+  user-select: none;
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where([ui-input~="sm"]) {
+  --ui-switch-thumb-size: 10px;
+  --ui-switch-thumb-offset: 0px;
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where([ui-input~="lg"]) {
+  --ui-switch-thumb-size: 23px;
+  --ui-switch-thumb-offset: 3px;
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):before {
+  position: absolute;
+  top: var(--ui-switch-thumb-offset);
+  left: var(--ui-switch-thumb-offset);
+  transition: left .2s;
+  box-shadow: 0 1px 2px oklch(from var(--black) l c h / 20%), 0 2px 4px oklch(from var(--black) l c h / 10%);
+  border-radius: 50%;
+  background: var(--white);
+  width: var(--ui-switch-thumb-size);
+  height: var(--ui-switch-thumb-size);
+  content: "";
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):after {
+  display: none;
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:hover) {
+  background: var(--neutral-50);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:checked) {
+  border: 1px solid var(--primary-800);
+  background: var(--primary-800);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:checked):before {
+  left: calc(100% - var(--ui-switch-thumb-size)  - var(--ui-switch-thumb-offset));
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:hover) {
+  background: var(--primary-700);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:disabled):before {
+  background: var(--neutral-50);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="radio"][ui-input~="switch"]:not([ui-off])):where(:checked):where(:disabled):before {
+  background: var(--neutral-300);
+}
+
+/* src/select.css */
+:where(select:not([ui-off])) {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Crect x='0' y='0' width='28' height='28' fill='%23E9E9E9' rx='4'/%3E%3Cpath d='M10 12 L14 16 L18 12' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 6px center;
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  padding-right: 38px;
+}
+
+:where(select:not([ui-off])):where(:hover) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Crect x='0' y='0' width='28' height='28' fill='%23EEEEEE' rx='4'/%3E%3Cpath d='M10 12 L14 16 L18 12' fill='none' stroke='%23444444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+:where(select:not([ui-off])):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M10 12 L14 16 L18 12' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 6px center;
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  background-color: var(--neutral-100);
+  color: var(--neutral-400);
+}
+
+:where(select:not([ui-off])):where([ui-input~="sm"]) {
+  border-radius: 6px;
+  background-position: right 4px center;
+  background-size: 20px 20px;
+  padding: 4px 28px 4px 8px;
+  min-height: 24px;
+  font-size: .875rem;
+}
+
+:where(select:not([ui-off])):where([ui-input~="sm"]):where(:hover) {
+  background-position: right 4px center;
+  background-size: 20px 20px;
+}
+
+:where(select:not([ui-off])):where([ui-input~="sm"]):where(:disabled) {
+  background-position: right 4px center;
+  background-size: 20px 20px;
+}
+
+:where(select:not([ui-off])):where([ui-input~="lg"]) {
+  border-radius: 10px;
+  background-position: right 8px center;
+  background-size: 32px 32px;
+  padding: 12px 48px 12px 16px;
+  min-height: 48px;
+  font-size: 1.125rem;
+}
+
+:where(select:not([ui-off])):where([ui-input~="lg"]):where(:hover) {
+  background-position: right 8px center;
+  background-size: 32px 32px;
+}
+
+:where(select:not([ui-off])):where([ui-input~="lg"]):where(:disabled) {
+  background-position: right 8px center;
+  background-size: 32px 32px;
+}
+
+/* src/accordion.css */
+:where([ui-accordion] details) {
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
+}
+
+:where([ui-accordion] details):where(:first-child) {
+  padding-top: 0;
+}
+
+:where([ui-accordion] details):where(:last-child) {
+  padding-bottom: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where([ui-accordion] details) {
+    interpolate-size: allow-keywords;
+  }
+}
+
+:where([ui-accordion] details)::details-content {
+  opacity: 0;
+  transition: content-visibility .25s ease-out allow-discrete, opacity .25s ease-out, block-size .25s ease-out;
+  block-size: 0;
+  overflow-y: clip;
+}
+
+:where([ui-accordion] details)[open]::details-content {
+  opacity: 1;
+  block-size: auto;
+}
+
+:where([ui-accordion] details):where(:not(:first-child)) {
+  border-top: 1px solid var(--neutral-100);
+}
+
+:where([ui-accordion] details) :where(summary) {
+  display: flex;
+  justify-content: space-between;
+  align-items:  center;
+  gap: .5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+:where([ui-accordion] details) :where(summary):before {
+  display: inline-block;
+  flex-shrink: 0;
+  order: 1;
+  transform-origin: center;
+  mask-image: var(--ui-icon, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"));
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  transition: rotate .2s;
+  background-color: currentColor;
+  width: var(--ui-icon-size, 20px);
+  height: var(--ui-icon-size, 20px);
+  content: "";
+}
+
+:where([ui-accordion] details) :where(details[open] > summary):before {
+  rotate: var(--ui-icon-open-rotate, 180deg);
+}
+
+:where([ui-accordion~="leading-icon"] summary) {
+  justify-content: start;
+}
+
+:where([ui-accordion~="leading-icon"] summary):before {
+  order: 0;
+}
+
+/* src/card.css */
+:where([ui-card]) {
+  box-shadow: 0 0 32px oklch(from var(--neutral-900) l c h / 2%);
+  border: 1px solid var(--neutral-100);
+  border-radius: 1rem;
+  background-color: var(--white);
+  padding: 1.5rem;
+}
+
+:where([ui-card]):where(a) {
+  display: block;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+:where([ui-card]):where(a):hover {
+  background-color: color-mix(in oklch, var(--white) 25%, var(--neutral-50));
+}
+
+:where([ui-card]):where(a):active {
+  background-color: var(--white);
+}
+
+:where([ui-card]):where([ui-card~="neutral"]) {
+  border-color: var(--neutral-200);
+  background-color: var(--neutral-100);
+}
+
+:where([ui-card]):where([ui-card~="primary"]) {
+  border-color: var(--primary-100);
+  background-color: var(--primary-50);
+  color: var(--primary-900);
+}
+
+:where([ui-card]):where([ui-card~="secondary"]) {
+  border-color: var(--secondary-100);
+  background-color: var(--secondary-50);
+  color: var(--secondary-900);
+}
+
+:where([ui-card]):where([ui-card~="error"]) {
+  border-color: var(--error-100);
+  background-color: var(--error-50);
+  color: var(--error-900);
+}
+
+:where([ui-card]):where([ui-card~="warning"]) {
+  border-color: var(--warning-100);
+  background-color: var(--warning-50);
+  color: var(--warning-900);
+}
+
+:where([ui-card]):where([ui-card~="success"]) {
+  border-color: var(--success-100);
+  background-color: var(--success-50);
+  color: var(--success-900);
+}
+
+:where([ui-card]):where([ui-card~="info"]) {
+  border-color: var(--info-100);
+  background-color: var(--info-50);
+  color: var(--info-900);
+}
+
+:where([ui-card]):where(a[ui-card~="neutral"]):hover {
+  background-color: color-mix(in oklch, var(--neutral-100), var(--neutral-200));
+}
+
+:where([ui-card]):where(a[ui-card~="primary"]):hover {
+  background-color: color-mix(in oklch, var(--primary-50), var(--primary-100));
+}
+
+:where([ui-card]):where(a[ui-card~="secondary"]):hover {
+  background-color: color-mix(in oklch, var(--secondary-50), var(--secondary-100));
+}
+
+:where([ui-card]):where(a[ui-card~="error"]):hover {
+  background-color: color-mix(in oklch, var(--error-50), var(--error-100));
+}
+
+:where([ui-card]):where(a[ui-card~="warning"]):hover {
+  background-color: color-mix(in oklch, var(--warning-50), var(--warning-100));
+}
+
+:where([ui-card]):where(a[ui-card~="success"]):hover {
+  background-color: color-mix(in oklch, var(--success-50), var(--success-100));
+}
+
+:where([ui-card]):where(a[ui-card~="info"]):hover {
+  background-color: color-mix(in oklch, var(--info-50), var(--info-100));
+}
+
+:where([ui-card]):where(a[ui-card~="neutral"]):active {
+  background-color: var(--neutral-100);
+}
+
+:where([ui-card]):where(a[ui-card~="primary"]):active {
+  background-color: var(--primary-50);
+}
+
+:where([ui-card]):where(a[ui-card~="secondary"]):active {
+  background-color: var(--secondary-50);
+}
+
+:where([ui-card]):where(a[ui-card~="error"]):active {
+  background-color: var(--error-50);
+}
+
+:where([ui-card]):where(a[ui-card~="warning"]):active {
+  background-color: var(--warning-50);
+}
+
+:where([ui-card]):where(a[ui-card~="success"]):active {
+  background-color: var(--success-50);
+}
+
+:where([ui-card]):where(a[ui-card~="info"]):active {
+  background-color: var(--info-50);
+}
+
+/* src/button.css */
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ) {
+  display: inline-flex;
+  justify-content: center;
+  align-items:  center;
+  gap: .25em;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 15%);
+  border: 1px solid var(--neutral-300);
+  border-bottom-color: var(--neutral-300);
+  border-radius: 8px;
+  background: linear-gradient(to bottom, var(--neutral-100), var(--neutral-200));
+  padding: 6px 16px;
+  min-height: 42px;
+  color: var(--neutral-800);
+  font-weight: 500;
+  font-size: 1rem;
+  user-select: none;
+  text-decoration: none;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where(:hover) {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where(:active) {
+  box-shadow: inset 0 -2px 4px -1px var(--neutral-50), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 10%);
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-50));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where(:has(:checked)) {
+  box-shadow: inset 0 -2px 4px -1px var(--neutral-50), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 10%);
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-50));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-300);
+  background: var(--neutral-200);
+  color: var(--neutral-500);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([aria-busy="true"]) {
+  --ui-loading-color: var(--neutral-950);
+  position: relative;
+  box-shadow: inset 0 -2px 4px -1px var(--neutral-50), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 10%);
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-50));
+  pointer-events: none;
+  color: #0000;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([aria-busy="true"]):where( >  > *) {
+  opacity: 0;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([aria-busy="true"]):after {
+  display: block;
+  position: absolute;
+  mask-image: var(--ui-icon-spinner);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  animation: ui-loading 1s linear infinite;
+  margin: auto;
+  inset: 0;
+  background-color: var(--ui-loading-color);
+  aspect-ratio: 1;
+  width: 1.25em;
+  content: "";
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]) {
+  box-shadow: inset 0 1px 0 0 var(--primary-500), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-900));
+  color: var(--primary-50);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]):where(:hover) {
+  background: linear-gradient(to bottom, var(--primary-600), var(--primary-800));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]):where(:active) {
+  box-shadow: inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 30%);
+  background: linear-gradient(to bottom, var(--primary-500), var(--primary-700));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]):where(:has(:checked)) {
+  box-shadow: inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 30%);
+  background: linear-gradient(to bottom, var(--primary-500), var(--primary-700));
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-800);
+  background: oklch(from var(--primary-700) l calc(c * .25) h);
+  color: oklch(from var(--primary-200) l calc(c * .25) h);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="primary"]):where([aria-busy="true"]) {
+  --ui-loading-color: var(--white);
+  box-shadow: inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--neutral-950) l c h / 30%);
+  background: linear-gradient(to bottom, var(--primary-600), var(--primary-700));
+  color: #0000;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]) {
+  box-shadow: none;
+  border: 1px solid #0000;
+  background: none;
+  color: var(--neutral-800);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]):where(:hover) {
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+  color: var(--neutral-800);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]):where(:active) {
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-50);
+  color: var(--neutral-800);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]):where(:has(:checked)) {
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-50);
+  color: var(--neutral-800);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]):where(:disabled) {
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: var(--neutral-400);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="tertiary"]):where([aria-busy="true"]) {
+  --ui-loading-color: var(--neutral-600);
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-50);
+  color: #0000;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="xs"]) {
+  border-radius: 4px;
+  padding: 2px 8px;
+  min-height: 28px;
+  font-size: .75rem;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="sm"]) {
+  border-radius: 6px;
+  padding: 4px 12px;
+  min-height: 34px;
+  font-size: .875rem;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="lg"]) {
+  border-radius: 10px;
+  padding: 8px 24px;
+  min-height: 52px;
+  font-size: 1.125rem;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="xl"]) {
+  border-radius: 10px;
+  padding: 8px 28px;
+  min-height: 64px;
+  font-size: 1.125rem;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"]) {
+  padding-inline-start: 32px;
+  padding-inline-end: 32px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"][ui-button~="xs"]) {
+  padding-inline-start: 16px;
+  padding-inline-end: 16px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"][ui-button~="sm"]) {
+  padding-inline-start: 20px;
+  padding-inline-end: 20px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"][ui-button~="md"]) {
+  padding-inline-start: 32px;
+  padding-inline-end: 32px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"][ui-button~="lg"]) {
+  padding-inline-start: 40px;
+  padding-inline-end: 40px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="wide"][ui-button~="xl"]) {
+  padding-inline-start: 48px;
+  padding-inline-end: 48px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="block"]) {
+  width: 100%;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="square"]) {
+  padding: 3px;
+  aspect-ratio: 1;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="square"][ui-button~="xs"]) {
+  padding: 1px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="square"][ui-button~="sm"]) {
+  padding: 2px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="square"][ui-button~="lg"]) {
+  padding: 4px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="square"][ui-button~="xl"]) {
+  padding: 5px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="circle"]) {
+  border-radius: 50%;
+  padding: 3px;
+  aspect-ratio: 1;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="circle"][ui-button~="xs"]) {
+  padding: 1px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="circle"][ui-button~="sm"]) {
+  padding: 2px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="circle"][ui-button~="lg"]) {
+  padding: 4px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="circle"][ui-button~="xl"]) {
+  padding: 5px;
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]) {
+  margin: -8px;
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  padding: 8px;
+  color: var(--neutral-800);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]):where(:hover) {
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: var(--primary-700);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]):where(:active) {
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: var(--primary-500);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]):where(:has(:checked)) {
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: var(--primary-500);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]):where(:disabled) {
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: var(--neutral-400);
+}
+
+:where(:not([ui-off]):not([ui-link])):where([ui-button], button, input[type="button"], input[type="submit"], input[type="reset"], ):where([ui-button~="inline"]):where([aria-busy="true"]) {
+  --ui-loading-color: var(--neutral-700);
+  box-shadow: none;
+  border-color: #0000;
+  background: none;
+  color: #0000;
+}
+
+:where(input[type="checkbox"][ui-button]:not([ui-off])) {
+  appearance: none;
+  width: auto;
+}
+
+:where(input[type="checkbox"][ui-button]:not([ui-off])):after {
+  content: attr(aria-label);
+}
+
+:where(input[type="checkbox"][ui-button]:not([ui-off])):where(:checked) {
+  box-shadow: inset 0 2px 6px oklch(from var(--neutral-950) l c h / 22%), inset 0 -1px 0 var(--neutral-50);
+  border-color: var(--neutral-400);
+  background: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+:where(input[type="checkbox"][ui-button]:not([ui-off])):where(:checked):where([ui-button~="primary"]) {
+  box-shadow: inset 0 0 0 1px oklch(from var(--neutral-950) l c h / 35%), inset 0 2px 8px oklch(from var(--neutral-950) l c h / 55%), inset 0 -1px 0 var(--primary-100);
+  border-color: var(--primary-800);
+  background: var(--primary-800);
+  color: var(--primary-50);
+}
+
+:where(input[type="radio"][ui-button]:not([ui-off])) {
+  appearance: none;
+  width: auto;
+}
+
+:where(input[type="radio"][ui-button]:not([ui-off])):after {
+  content: attr(aria-label);
+}
+
+:where(input[type="radio"][ui-button]:not([ui-off])):where(:checked) {
+  box-shadow: inset 0 2px 6px oklch(from var(--neutral-950) l c h / 22%), inset 0 -1px 0 var(--neutral-50);
+  border-color: var(--neutral-400);
+  background: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+:where(input[type="radio"][ui-button]:not([ui-off])):where(:checked):where([ui-button~="primary"]) {
+  box-shadow: inset 0 0 0 1px oklch(from var(--neutral-950) l c h / 35%), inset 0 2px 8px oklch(from var(--neutral-950) l c h / 55%), inset 0 -1px 0 var(--primary-100);
+  border-color: var(--primary-800);
+  background: var(--primary-800);
+  color: var(--primary-50);
+}
+
+/* src/dialog.css */
+:where(dialog[ui-dialog]) {
+  display: none;
+  transition: transform .2s ease-out, opacity .2s ease-out;
+  margin: auto;
+  box-shadow: inset 0 0 0 1px var(--neutral-100), 0 8px 8px -8px oklch(from var(--black) l c h / 30%);
+  border: none;
+  border-radius: 12px;
+  background: var(--white);
+  padding: 0;
+  width: 800px;
+  max-width: 90vw;
+  max-height: 90dvh;
+  overflow: hidden;
+  color: var(--neutral-800);
+}
+
+:where(dialog[ui-dialog]):where([open]) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@starting-style {
+  :where(dialog[ui-dialog]) {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="xs"]) {
+  width: 400px;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="sm"]) {
+  width: 600px;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="lg"]) {
+  width: 1200px;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="xl"]) {
+  width: 1600px;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="left"]) {
+  opacity: 1;
+  transition: transform .2s ease-out;
+  border-radius: 12px;
+  height: calc(100dvh - 2rem);
+  max-height: calc(100dvh - 2rem);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="right"]) {
+  opacity: 1;
+  transition: transform .2s ease-out;
+  border-radius: 12px;
+  height: calc(100dvh - 2rem);
+  max-height: calc(100dvh - 2rem);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="right"]) {
+  margin: 1rem 1rem 1rem auto;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="right"][open]) {
+  transform: translateX(0);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="left"]) {
+  margin: 1rem auto 1rem 1rem;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="left"][open]) {
+  transform: translateX(0);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="right"][ui-dialog~="edge"]) {
+  margin: 0 0 0 auto;
+  border-radius: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="left"][ui-dialog~="edge"]) {
+  margin: 0 auto 0 0;
+  border-radius: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+@starting-style {
+  :where(dialog[ui-dialog]):where([ui-dialog~="right"]) {
+    transform: translateX(100%);
+  }
+
+  :where(dialog[ui-dialog]):where([ui-dialog~="left"]) {
+    transform: translateX(-100%);
+  }
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="top"]) {
+  opacity: 1;
+  transition: transform .2s ease-out;
+  border-radius: 12px;
+  max-width: calc(100% - 2rem);
+  max-height: calc(90dvh - 2rem);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="bottom"]) {
+  opacity: 1;
+  transition: transform .2s ease-out;
+  border-radius: 12px;
+  max-width: calc(100% - 2rem);
+  max-height: calc(90dvh - 2rem);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="top"]) {
+  margin: 1rem auto auto;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="top"][open]) {
+  transform: translateY(0);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="bottom"]) {
+  margin: auto auto 1rem;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="bottom"][open]) {
+  transform: translateY(0);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="top"][ui-dialog~="edge"]) {
+  margin: 0 auto auto;
+  border-radius: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="top"][ui-dialog~="edge"][open]) {
+  transform: translateY(0);
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="bottom"][ui-dialog~="edge"]) {
+  margin: auto auto 0;
+  border-radius: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+:where(dialog[ui-dialog]):where([ui-dialog~="bottom"][ui-dialog~="edge"][open]) {
+  transform: translateY(0);
+}
+
+@starting-style {
+  :where(dialog[ui-dialog]):where([ui-dialog~="top"]):not([ui-dialog~="edge"]) {
+    transform: translateY(-100%);
+  }
+
+  :where(dialog[ui-dialog]):where([ui-dialog~="bottom"]):not([ui-dialog~="edge"]) {
+    transform: translateY(100%);
+  }
+
+  :where(dialog[ui-dialog]):where([ui-dialog~="top"][ui-dialog~="edge"]) {
+    transform: translateY(-100%);
+  }
+
+  :where(dialog[ui-dialog]):where([ui-dialog~="bottom"][ui-dialog~="edge"]) {
+    transform: translateY(100%);
+  }
+}
+
+:where(dialog[ui-dialog])::backdrop {
+  opacity: 1;
+  backdrop-filter: blur(2px);
+  transition: opacity .2s ease-out, backdrop-filter .2s ease-out;
+  transition-behavior: allow-discrete;
+  background: oklch(from var(--black) l c h / 20%);
+}
+
+@starting-style {
+  :where(dialog[ui-dialog])::backdrop {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+}
+
+:where(dialog[ui-dialog] > header) {
+  padding: 24px 24px 16px;
+}
+
+:where(dialog[ui-dialog] > footer) {
+  padding: 16px 24px 24px;
+}
+
+:where(dialog[ui-dialog~="left"] > footer) {
+  margin-top: auto;
+}
+
+:where(dialog[ui-dialog~="right"] > footer) {
+  margin-top: auto;
+}
+
+:where(dialog[ui-dialog~="top"] > footer) {
+  margin-top: auto;
+}
+
+:where(dialog[ui-dialog~="bottom"] > footer) {
+  margin-top: auto;
+}
+
+:where(dialog[ui-dialog~="top"] > :not(header):not(footer)) {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+:where(dialog[ui-dialog~="bottom"] > :not(header):not(footer)) {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+:where(dialog[ui-dialog] > :not(header):not(footer)) {
+  flex: 0 auto;
+  padding-inline-start: 24px;
+  padding-inline-end: 24px;
+  overflow-y: auto;
+}
+
+:where(dialog[ui-dialog]:not(:has( > header)) > :not(header):not(footer)) {
+  padding-top: 24px;
+}
+
+:where(dialog[ui-dialog]:not(:has( > footer)) > :not(header):not(footer)) {
+  padding-bottom: 24px;
+}
+
+:where(dialog[ui-dialog~="left"] > :not(header):not(footer)) {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+:where(dialog[ui-dialog~="right"] > :not(header):not(footer)) {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+:where(body:has(dialog[ui-dialog][open])) {
+  overflow: hidden;
+}
+
+:where(body:has(dialog[ui-dialog~="allow-page-scroll"][open])) {
+  overflow: auto;
+}
+
+/* src/menu.css */
+:where([ui-menu]) {
+  position: relative;
+  anchor-scope: --menu-trigger;
+  anchor-name: --menu-trigger;
+}
+
+:where([ui-menu] > [role="menu"]) {
+  position-anchor: --menu-trigger;
+  position: fixed;
+  margin: 0;
+  inset: auto;
+  box-shadow: 0 4px 12px oklch(from var(--black) l c h / 10%);
+  border: 1px solid var(--neutral-100);
+  border-radius: 8px;
+  background-color: var(--white);
+  min-width: max-content;
+  list-style: none;
+}
+
+:where([ui-menu] > [role="menu"]:popover-open) {
+  display: flex;
+  flex-direction: column;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitem"]) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 8px 16px;
+  color: var(--neutral-800);
+  font-weight: 400;
+  text-align: left;
+  text-decoration: none;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitem"]):where(:has( > .ui-icon)) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitem"]):where(:hover) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitem"]):where(:active) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitem"]):where(:disabled) {
+  cursor: default;
+  color: var(--neutral-300);
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemcheckbox"]) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 8px 16px;
+  color: var(--neutral-800);
+  font-weight: 400;
+  text-align: left;
+  text-decoration: none;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemcheckbox"]):where(:has( > .ui-icon)) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemcheckbox"]):where(:hover) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemcheckbox"]):where(:active) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemcheckbox"]):where(:disabled) {
+  cursor: default;
+  color: var(--neutral-300);
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemradio"]) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 8px 16px;
+  color: var(--neutral-800);
+  font-weight: 400;
+  text-align: left;
+  text-decoration: none;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemradio"]):where(:has( > .ui-icon)) {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  gap: 8px;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemradio"]):where(:hover) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemradio"]):where(:active) {
+  box-shadow: none;
+  background: var(--neutral-50);
+  color: inherit;
+}
+
+:where([ui-menu] > [role="menu"] > [role="menuitemradio"]):where(:disabled) {
+  cursor: default;
+  color: var(--neutral-300);
+}
+
+:where([ui-menu] > [role="menu"] > hr) {
+  border: none;
+  border-top: 1px solid var(--neutral-100);
+  padding: 0;
+}
+
+:where([ui-menu] > [role="menu"]) {
+  position-area: block-end;
+  position-try-fallbacks: --bottom-to-top;
+}
+
+:where([ui-menu="bottom-left"] > [role="menu"]) {
+  position-area: block-end span-inline-start;
+  position-try-fallbacks: --bottom-left-fallback, --bottom-left-fallback-2, --bottom-left-fallback-3;
+}
+
+:where([ui-menu~="bottom-right"] > [role="menu"]) {
+  position-area: block-end span-inline-end;
+  position-try-fallbacks: --bottom-right-fallback, --bottom-right-fallback-2, --bottom-right-fallback-3;
+}
+
+:where([ui-menu~="top"] > [role="menu"]) {
+  position-area: block-start;
+  position-try-fallbacks: --top-to-bottom;
+}
+
+:where([ui-menu="top-left"] > [role="menu"]) {
+  position-area: block-start span-inline-start;
+  position-try-fallbacks: --top-left-fallback, --top-left-fallback-2, --top-left-fallback-3;
+}
+
+:where([ui-menu~="top-right"] > [role="menu"]) {
+  position-area: block-start span-inline-end;
+  position-try-fallbacks: --top-right-fallback, --top-right-fallback-2, --top-right-fallback-3;
+}
+
+:where([ui-menu~="left"] > [role="menu"]) {
+  position-area: inline-start center;
+  position-try-fallbacks: --left-to-right;
+}
+
+:where([ui-menu="left-top"] > [role="menu"]) {
+  position-area: inline-start span-block-start;
+  position-try-fallbacks: --left-top-fallback, --left-top-fallback-2, --left-top-fallback-3;
+}
+
+:where([ui-menu~="left-bottom"] > [role="menu"]) {
+  position-area: inline-start span-block-end;
+  position-try-fallbacks: --left-bottom-fallback, --left-bottom-fallback-2, --left-bottom-fallback-3;
+}
+
+:where([ui-menu~="right"] > [role="menu"]) {
+  position-area: inline-end center;
+  position-try-fallbacks: --right-to-left;
+}
+
+:where([ui-menu~="right-top"] > [role="menu"]) {
+  position-area: inline-end span-block-start;
+  position-try-fallbacks: --right-top-fallback, --right-top-fallback-2, --right-top-fallback-3;
+}
+
+:where([ui-menu~="right-bottom"] > [role="menu"]) {
+  position-area: inline-end span-block-end;
+  position-try-fallbacks: --right-bottom-fallback, --right-bottom-fallback-2, --right-bottom-fallback-3;
+}
+
+@position-try --bottom-to-top {
+  position-area: block-start;
+}
+
+@position-try --top-to-bottom {
+  position-area: block-end;
+}
+
+@position-try --left-to-right {
+  position-area: inline-end center;
+}
+
+@position-try --right-to-left {
+  position-area: inline-start center;
+}
+
+@position-try --bottom-left-fallback {
+  position-area: block-end span-inline-end;
+}
+
+@position-try --bottom-left-fallback-2 {
+  position-area: block-start span-inline-start;
+}
+
+@position-try --bottom-left-fallback-3 {
+  position-area: block-start span-inline-end;
+}
+
+@position-try --bottom-right-fallback {
+  position-area: block-end span-inline-start;
+}
+
+@position-try --bottom-right-fallback-2 {
+  position-area: block-start span-inline-end;
+}
+
+@position-try --bottom-right-fallback-3 {
+  position-area: block-start span-inline-start;
+}
+
+@position-try --top-left-fallback {
+  position-area: block-start span-inline-end;
+}
+
+@position-try --top-left-fallback-2 {
+  position-area: block-end span-inline-start;
+}
+
+@position-try --top-left-fallback-3 {
+  position-area: block-end span-inline-end;
+}
+
+@position-try --top-right-fallback {
+  position-area: block-start span-inline-start;
+}
+
+@position-try --top-right-fallback-2 {
+  position-area: block-end span-inline-end;
+}
+
+@position-try --top-right-fallback-3 {
+  position-area: block-end span-inline-start;
+}
+
+@position-try --left-top-fallback {
+  position-area: inline-start span-block-end;
+}
+
+@position-try --left-top-fallback-2 {
+  position-area: inline-end span-block-start;
+}
+
+@position-try --left-top-fallback-3 {
+  position-area: inline-end span-block-end;
+}
+
+@position-try --left-bottom-fallback {
+  position-area: inline-start span-block-start;
+}
+
+@position-try --left-bottom-fallback-2 {
+  position-area: inline-end span-block-end;
+}
+
+@position-try --left-bottom-fallback-3 {
+  position-area: inline-end span-block-start;
+}
+
+@position-try --right-top-fallback {
+  position-area: inline-end span-block-end;
+}
+
+@position-try --right-top-fallback-2 {
+  position-area: inline-start span-block-start;
+}
+
+@position-try --right-top-fallback-3 {
+  position-area: inline-start span-block-end;
+}
+
+@position-try --right-bottom-fallback {
+  position-area: inline-end span-block-start;
+}
+
+@position-try --right-bottom-fallback-2 {
+  position-area: inline-start span-block-end;
+}
+
+@position-try --right-bottom-fallback-3 {
+  position-area: inline-start span-block-start;
+}
+
+/* src/tooltip.css */
+:where([ui-tooltip]) {
+  display: inline-flex;
+  position: relative;
+  anchor-scope: --tooltip-anchor;
+  align-items:  center;
+  gap: .35rem;
+}
+
+:where([ui-tooltip] > [ui-button]) {
+  position: relative;
+  anchor-name: --tooltip-anchor;
+}
+
+:where([ui-tooltip] > a[ui-button]) {
+  position: relative;
+  anchor-name: --tooltip-anchor;
+}
+
+:where([ui-tooltip] > [role="tooltip"]) {
+  position: fixed;
+  position-anchor: --tooltip-anchor;
+  position-area: block-start center;
+  transform: translateY(-4px);
+  opacity: 0;
+  transition: opacity .12s, transform .15s;
+  margin: 0;
+  inset: auto;
+  box-shadow: 0 8px 20px oklch(from var(--black) l c h / 16%);
+  border: 1px solid var(--neutral-200);
+  border-radius: 6px;
+  background: var(--neutral-800);
+  padding: 8px 10px;
+  min-width: 100px;
+  max-width: 280px;
+  pointer-events: none;
+  color: var(--white);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+:where([ui-tooltip~="bottom"] > [role="tooltip"]) {
+  position-area: block-end center;
+  transform: translateY(4px);
+}
+
+:where([ui-tooltip~="top"] > [role="tooltip"]) {
+  position-area: block-start center;
+  transform: translateY(-4px);
+}
+
+:where([ui-tooltip~="left"] > [role="tooltip"]) {
+  position-area: inline-start center;
+  transform: translateX(-4px);
+}
+
+:where([ui-tooltip~="right"] > [role="tooltip"]) {
+  position-area: inline-end center;
+  transform: translateX(4px);
+}
+
+@media (hover: hover) {
+  :where([ui-tooltip]:hover > [role="tooltip"]) {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @starting-style {
+    :where([ui-tooltip]:hover > [role="tooltip"]) {
+      transform: translateY(-4px);
+      opacity: 0;
+    }
+  }
+
+  :where([ui-tooltip~="bottom"]:hover > [role="tooltip"]) {
+    transform: translateY(0);
+  }
+
+  @starting-style {
+    :where([ui-tooltip~="bottom"]:hover > [role="tooltip"]) {
+      transform: translateY(4px);
+    }
+  }
+
+  :where([ui-tooltip~="top"]:hover > [role="tooltip"]) {
+    transform: translateY(0);
+  }
+
+  @starting-style {
+    :where([ui-tooltip~="top"]:hover > [role="tooltip"]) {
+      transform: translateY(-4px);
+    }
+  }
+
+  :where([ui-tooltip~="left"]:hover > [role="tooltip"]) {
+    transform: translateX(0);
+  }
+
+  @starting-style {
+    :where([ui-tooltip~="left"]:hover > [role="tooltip"]) {
+      transform: translateX(-4px);
+    }
+  }
+
+  :where([ui-tooltip~="right"]:hover > [role="tooltip"]) {
+    transform: translateX(0);
+  }
+
+  @starting-style {
+    :where([ui-tooltip~="right"]:hover > [role="tooltip"]) {
+      transform: translateX(4px);
+    }
+  }
+}
+
+:where([ui-tooltip] [ui-button~="square"]) {
+  padding-right: .65rem;
+  padding-left: .65rem;
+}
+
+/* src/checkbox.css */
+:where(.ui-flex > input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(.ui-flex > input[type="checkbox"]:not(:-moz-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(.ui-flex > input[type="checkbox"]:not(:is([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="checkbox"]:not(:-moz-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="checkbox"]:not(:is([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 4px;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):hover {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):user-invalid {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"])))[aria-invalid="true"] {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):checked {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -60%;
+  rotate: 40deg;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: var(--white);
+  width: 4px;
+  height: 9px;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  rotate: none;
+  border-width: 0 0 2px;
+  border-style: solid;
+  border-color: var(--white);
+  width: 10px;
+  height: 0;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):disabled {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):disabled:after {
+  border-color: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):checked:after {
+  translate: -50% -58%;
+  border-width: 0 2px 2px 0;
+  width: 3px;
+  height: 7px;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 8px;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):checked:after {
+  translate: -50% -60%;
+  border-width: 0 2px 2px 0;
+  width: 5px;
+  height: 12px;
+}
+
+:where(input[type="checkbox"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 14px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 4px;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):hover {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):user-invalid {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"])))[aria-invalid="true"] {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):checked {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -60%;
+  rotate: 40deg;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: var(--white);
+  width: 4px;
+  height: 9px;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  rotate: none;
+  border-width: 0 0 2px;
+  border-style: solid;
+  border-color: var(--white);
+  width: 10px;
+  height: 0;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):disabled {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):disabled:after {
+  border-color: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):checked:after {
+  translate: -50% -58%;
+  border-width: 0 2px 2px 0;
+  width: 3px;
+  height: 7px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 8px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):checked:after {
+  translate: -50% -60%;
+  border-width: 0 2px 2px 0;
+  width: 5px;
+  height: 12px;
+}
+
+:where(input[type="checkbox"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 14px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 4px;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):hover {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):user-invalid {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"])))[aria-invalid="true"] {
+  border-color: var(--error-600);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):checked {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):checked:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -60%;
+  rotate: 40deg;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: var(--white);
+  width: 4px;
+  height: 9px;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  rotate: none;
+  border-width: 0 0 2px;
+  border-style: solid;
+  border-color: var(--white);
+  width: 10px;
+  height: 0;
+  content: "";
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):disabled {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):disabled:after {
+  border-color: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):checked:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):indeterminate:disabled:after {
+  border-color: var(--neutral-300);
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  border-radius: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):checked:after {
+  translate: -50% -58%;
+  border-width: 0 2px 2px 0;
+  width: 3px;
+  height: 7px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 8px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):checked:after {
+  translate: -50% -60%;
+  border-width: 0 2px 2px 0;
+  width: 5px;
+  height: 12px;
+}
+
+:where(input[type="checkbox"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):indeterminate:after {
+  border-width: 0 0 2px;
+  width: 14px;
+}
+
+/* src/radio.css */
+:where(.ui-flex > input[type="radio"]:not(:-webkit-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(.ui-flex > input[type="radio"]:not(:-moz-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(.ui-flex > input[type="radio"]:not(:is([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="radio"]:not(:-webkit-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="radio"]:not(:-moz-any([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where([ui-row] input[type="radio"]:not(:is([ui-off], [ui-input~="switch"]))[disabled] + label) {
+  cursor: default;
+  color: var(--neutral-500);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 50%;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:hover) {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked) {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--white);
+  width: 8px;
+  height: 8px;
+  content: "";
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled):after {
+  background-color: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled):after {
+  background-color: var(--neutral-300);
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):where(:checked):after {
+  width: 6px;
+  height: 6px;
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="radio"]:not(:-webkit-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):where(:checked):after {
+  width: 11px;
+  height: 11px;
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 50%;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:hover) {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked) {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--white);
+  width: 8px;
+  height: 8px;
+  content: "";
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled):after {
+  background-color: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled):after {
+  background-color: var(--neutral-300);
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):where(:checked):after {
+  width: 6px;
+  height: 6px;
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="radio"]:not(:-moz-any([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):where(:checked):after {
+  width: 11px;
+  height: 11px;
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))) {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 0 var(--white), inset 0 -2px 4px -1px var(--neutral-100), 0 4px 8px -4px oklch(from var(--black) l c h / 20%);
+  border: 1px solid var(--neutral-300);
+  border-radius: 50%;
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+  width: 20px;
+  height: 20px;
+  user-select: none;
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:hover) {
+  background: linear-gradient(to bottom, var(--neutral-50), var(--neutral-100));
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:user-invalid) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([aria-invalid="true"]) {
+  border-color: var(--error-600);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked) {
+  box-shadow: inset 0 1px 0 0 var(--primary-600), inset 0 -2px 4px -1px var(--primary-800), 0 4px 8px -4px oklch(from var(--black) l c h / 50%);
+  border: 1px solid var(--primary-800);
+  background: linear-gradient(to bottom, var(--primary-700), var(--primary-800));
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--white);
+  width: 8px;
+  height: 8px;
+  content: "";
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled) {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--neutral-200);
+  background: var(--neutral-100);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:disabled):after {
+  background-color: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled) {
+  box-shadow: none;
+  border-color: var(--neutral-500);
+  background: var(--neutral-400);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where(:checked):where(:disabled):after {
+  background-color: var(--neutral-300);
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]) {
+  width: 16px;
+  height: 16px;
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="sm"]):where(:checked):after {
+  width: 6px;
+  height: 6px;
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]) {
+  width: 28px;
+  height: 28px;
+}
+
+:where(input[type="radio"]:not(:is([ui-off], [ui-button], [ui-input~="switch"]))):where([ui-input~="lg"]):where(:checked):after {
+  width: 11px;
+  height: 11px;
+}
+
+/* src/field.css */
+:where([ui-field]) > :where(label) {
+  display: block;
+  margin-bottom: .25rem;
+  font-weight: 500;
+}
+
+:where([ui-field]) > :where(p:not([role])) {
+  margin-top: .125rem;
+  color: var(--neutral-600);
+  font-size: .875rem;
+}
+
+:where([ui-field]) > :where(p[role="error"]) {
+  display: none;
+  margin-top: .125rem;
+  color: var(--error-700);
+  font-size: .875rem;
+}
+
+:where([ui-field]) > :where(p[role="status"]) {
+  display: none;
+  margin-top: .125rem;
+  color: var(--success-700);
+  font-size: .875rem;
+}
+
+:where([ui-field]):where(:has(p[role="error"]):has(:user-invalid, [aria-invalid="true"])) :where(label) {
+  color: var(--error-700);
+}
+
+:where([ui-field]):where(:has(p[role="error"]):has(:user-invalid, [aria-invalid="true"])) > :where(p[role="error"]) {
+  display: revert;
+}
+
+:where([ui-field]):where(:has(p[role="error"]):has(:user-invalid, [aria-invalid="true"])) > :where(p:not([role])) {
+  display: none;
+}
+
+/* src/group.css */
+:where([ui-group]) {
+  display: inline-flex;
+}
+
+:where([ui-group] > :not(:last-child)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+:where([ui-group] > :not(:first-child)) {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+:where([ui-group] > [ui-menu]:not(:last-child) > button[popovertarget]) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+:where([ui-group] > [ui-menu]:not(:first-child) > button[popovertarget]) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+:where([ui-group~="block"]) {
+  display: flex;
+  width: 100%;
+}
+
+:where([ui-group~="block"]) > * {
+  flex: 1;
+}
+
+/* src/container.css */
+:where([ui-container]) {
+  --ui-container-min-padding: 16px;
+  container-type: inline-size;
+  padding-inline: max(calc(50% - 900px / 2), var(--ui-container-min-padding));
+}
+
+:where([ui-container~="xs"]) {
+  padding-inline: max(calc(50% - 400px / 2), var(--ui-container-min-padding));
+}
+
+:where([ui-container~="sm"]) {
+  padding-inline: max(calc(50% - 600px / 2), var(--ui-container-min-padding));
+}
+
+:where([ui-container~="lg"]) {
+  padding-inline: max(calc(50% - 1200px / 2), var(--ui-container-min-padding));
+}
+
+:where([ui-container~="xl"]) {
+  padding-inline: max(calc(50% - 1600px / 2), var(--ui-container-min-padding));
+}
+
+:where([ui-container~="full"]) {
+  padding-inline: var(--ui-container-min-padding);
+}
+
+@media (min-width: 600px) {
+  :where([ui-container]) {
+    --ui-container-min-padding: 24px;
+  }
+}
+
+/* src/row.css */
+:where([ui-row]) {
+  display: flex;
+  flex-direction: row;
+  min-width: 0;
+}
+
+:where([ui-row~="x-start"]) {
+  justify-content: flex-start;
+}
+
+:where([ui-row~="x-end"]) {
+  justify-content: flex-end;
+}
+
+:where([ui-row~="x-center"]) {
+  justify-content: center;
+}
+
+:where([ui-row~="x-between"]) {
+  justify-content: space-between;
+}
+
+:where([ui-row~="x-around"]) {
+  justify-content: space-around;
+}
+
+:where([ui-row~="x-evenly"]) {
+  justify-content: space-evenly;
+}
+
+:where([ui-row~="y-start"]) {
+  align-items:  flex-start;
+}
+
+:where([ui-row~="y-end"]) {
+  align-items:  flex-end;
+}
+
+:where([ui-row~="y-center"]) {
+  align-items:  center;
+}
+
+:where([ui-row~="y-stretch"]) {
+  align-items: stretch;
+}
+
+:where([ui-row~="gap-xs"]) {
+  gap: .25rem;
+}
+
+:where([ui-row~="gap-sm"]) {
+  gap: .5rem;
+}
+
+:where([ui-row~="gap-md"]) {
+  gap: 1rem;
+}
+
+:where([ui-row~="gap-lg"]) {
+  gap: 1.5rem;
+}
+
+:where([ui-row~="gap-xl"]) {
+  gap: 2.5rem;
+}
+
+:where([ui-row~="gap-2xl"]) {
+  gap: 4rem;
+}
+
+:where([ui-row~="gap-3xl"]) {
+  gap: 6rem;
+}
+
+:where([ui-row~="gap-4xl"]) {
+  gap: 8rem;
+}
+
+:where([ui-row~="gap-5xl"]) {
+  gap: 12rem;
+}
+
+:where([ui-row~="gap-6xl"]) {
+  gap: 16rem;
+}
+
+:where([ui-row~="wrap"]) {
+  flex-wrap: wrap;
+}
+
+:where([ui-row~="inline"]) {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* src/column.css */
+:where([ui-column]) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+:where([ui-column~="x-start"]) {
+  align-items:  flex-start;
+}
+
+:where([ui-column~="x-end"]) {
+  align-items:  flex-end;
+}
+
+:where([ui-column~="x-center"]) {
+  align-items:  center;
+}
+
+:where([ui-column~="x-stretch"]) {
+  align-items: stretch;
+}
+
+:where([ui-column~="y-start"]) {
+  justify-content: flex-start;
+}
+
+:where([ui-column~="y-end"]) {
+  justify-content: flex-end;
+}
+
+:where([ui-column~="y-center"]) {
+  justify-content: center;
+}
+
+:where([ui-column~="y-between"]) {
+  justify-content: space-between;
+}
+
+:where([ui-column~="y-around"]) {
+  justify-content: space-around;
+}
+
+:where([ui-column~="y-evenly"]) {
+  justify-content: space-evenly;
+}
+
+:where([ui-column~="y-stretch"]) {
+  justify-content: stretch;
+}
+
+:where([ui-column~="gap-xs"]) {
+  gap: .25rem;
+}
+
+:where([ui-column~="gap-sm"]) {
+  gap: .5rem;
+}
+
+:where([ui-column~="gap-md"]) {
+  gap: 1rem;
+}
+
+:where([ui-column~="gap-lg"]) {
+  gap: 1.5rem;
+}
+
+:where([ui-column~="gap-xl"]) {
+  gap: 2.5rem;
+}
+
+:where([ui-column~="gap-2xl"]) {
+  gap: 4rem;
+}
+
+:where([ui-column~="gap-3xl"]) {
+  gap: 6rem;
+}
+
+:where([ui-column~="gap-4xl"]) {
+  gap: 8rem;
+}
+
+:where([ui-column~="gap-5xl"]) {
+  gap: 12rem;
+}
+
+:where([ui-column~="gap-6xl"]) {
+  gap: 16rem;
+}
+
+/* src/margin.css */
+:where([ui-margin~="xs"]) {
+  margin: .25rem;
+}
+
+:where([ui-margin~="sm"]) {
+  margin: .5rem;
+}
+
+:where([ui-margin~="md"]) {
+  margin: 1rem;
+}
+
+:where([ui-margin~="lg"]) {
+  margin: 1.5rem;
+}
+
+:where([ui-margin~="xl"]) {
+  margin: 2.5rem;
+}
+
+:where([ui-margin~="2xl"]) {
+  margin: 4rem;
+}
+
+:where([ui-margin~="3xl"]) {
+  margin: 6rem;
+}
+
+:where([ui-margin~="4xl"]) {
+  margin: 8rem;
+}
+
+:where([ui-margin~="5xl"]) {
+  margin: 12rem;
+}
+
+:where([ui-margin~="6xl"]) {
+  margin: 16rem;
+}
+
+:where([ui-margin~="block-0"]) {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+:where([ui-margin~="block-xs"]) {
+  margin-block-start: .25rem;
+  margin-block-end: .25rem;
+}
+
+:where([ui-margin~="block-sm"]) {
+  margin-block-start: .5rem;
+  margin-block-end: .5rem;
+}
+
+:where([ui-margin~="block-md"]) {
+  margin-block-start: 1rem;
+  margin-block-end: 1rem;
+}
+
+:where([ui-margin~="block-lg"]) {
+  margin-block-start: 1.5rem;
+  margin-block-end: 1.5rem;
+}
+
+:where([ui-margin~="block-xl"]) {
+  margin-block-start: 2.5rem;
+  margin-block-end: 2.5rem;
+}
+
+:where([ui-margin~="block-2xl"]) {
+  margin-block-start: 4rem;
+  margin-block-end: 4rem;
+}
+
+:where([ui-margin~="block-3xl"]) {
+  margin-block-start: 6rem;
+  margin-block-end: 6rem;
+}
+
+:where([ui-margin~="block-4xl"]) {
+  margin-block-start: 8rem;
+  margin-block-end: 8rem;
+}
+
+:where([ui-margin~="block-5xl"]) {
+  margin-block-start: 12rem;
+  margin-block-end: 12rem;
+}
+
+:where([ui-margin~="block-6xl"]) {
+  margin-block-start: 16rem;
+  margin-block-end: 16rem;
+}
+
+:where([ui-margin~="inline-xs"]) {
+  margin-inline-start: .25rem;
+  margin-inline-end: .25rem;
+}
+
+:where([ui-margin~="inline-sm"]) {
+  margin-inline-start: .5rem;
+  margin-inline-end: .5rem;
+}
+
+:where([ui-margin~="inline-md"]) {
+  margin-inline-start: 1rem;
+  margin-inline-end: 1rem;
+}
+
+:where([ui-margin~="inline-lg"]) {
+  margin-inline-start: 1.5rem;
+  margin-inline-end: 1.5rem;
+}
+
+:where([ui-margin~="inline-xl"]) {
+  margin-inline-start: 2.5rem;
+  margin-inline-end: 2.5rem;
+}
+
+:where([ui-margin~="inline-2xl"]) {
+  margin-inline-start: 4rem;
+  margin-inline-end: 4rem;
+}
+
+:where([ui-margin~="inline-3xl"]) {
+  margin-inline-start: 6rem;
+  margin-inline-end: 6rem;
+}
+
+:where([ui-margin~="inline-4xl"]) {
+  margin-inline-start: 8rem;
+  margin-inline-end: 8rem;
+}
+
+:where([ui-margin~="inline-5xl"]) {
+  margin-inline-start: 12rem;
+  margin-inline-end: 12rem;
+}
+
+:where([ui-margin~="inline-6xl"]) {
+  margin-inline-start: 16rem;
+  margin-inline-end: 16rem;
+}
+
+:where([ui-margin~="top-xs"]) {
+  margin-top: .25rem;
+}
+
+:where([ui-margin~="top-sm"]) {
+  margin-top: .5rem;
+}
+
+:where([ui-margin~="top-md"]) {
+  margin-top: 1rem;
+}
+
+:where([ui-margin~="top-lg"]) {
+  margin-top: 1.5rem;
+}
+
+:where([ui-margin~="top-xl"]) {
+  margin-top: 2.5rem;
+}
+
+:where([ui-margin~="top-2xl"]) {
+  margin-top: 4rem;
+}
+
+:where([ui-margin~="top-3xl"]) {
+  margin-top: 6rem;
+}
+
+:where([ui-margin~="top-4xl"]) {
+  margin-top: 8rem;
+}
+
+:where([ui-margin~="top-5xl"]) {
+  margin-top: 12rem;
+}
+
+:where([ui-margin~="top-6xl"]) {
+  margin-top: 16rem;
+}
+
+:where([ui-margin~="bottom-xs"]) {
+  margin-bottom: .25rem;
+}
+
+:where([ui-margin~="bottom-sm"]) {
+  margin-bottom: .5rem;
+}
+
+:where([ui-margin~="bottom-md"]) {
+  margin-bottom: 1rem;
+}
+
+:where([ui-margin~="bottom-lg"]) {
+  margin-bottom: 1.5rem;
+}
+
+:where([ui-margin~="bottom-xl"]) {
+  margin-bottom: 2.5rem;
+}
+
+:where([ui-margin~="bottom-2xl"]) {
+  margin-bottom: 4rem;
+}
+
+:where([ui-margin~="bottom-3xl"]) {
+  margin-bottom: 6rem;
+}
+
+:where([ui-margin~="bottom-4xl"]) {
+  margin-bottom: 8rem;
+}
+
+:where([ui-margin~="bottom-5xl"]) {
+  margin-bottom: 12rem;
+}
+
+:where([ui-margin~="bottom-6xl"]) {
+  margin-bottom: 16rem;
+}
+
+:where([ui-margin~="left-xs"]) {
+  margin-left: .25rem;
+}
+
+:where([ui-margin~="left-sm"]) {
+  margin-left: .5rem;
+}
+
+:where([ui-margin~="left-md"]) {
+  margin-left: 1rem;
+}
+
+:where([ui-margin~="left-lg"]) {
+  margin-left: 1.5rem;
+}
+
+:where([ui-margin~="left-xl"]) {
+  margin-left: 2.5rem;
+}
+
+:where([ui-margin~="left-2xl"]) {
+  margin-left: 4rem;
+}
+
+:where([ui-margin~="left-3xl"]) {
+  margin-left: 6rem;
+}
+
+:where([ui-margin~="left-4xl"]) {
+  margin-left: 8rem;
+}
+
+:where([ui-margin~="left-5xl"]) {
+  margin-left: 12rem;
+}
+
+:where([ui-margin~="left-6xl"]) {
+  margin-left: 16rem;
+}
+
+:where([ui-margin~="right-xs"]) {
+  margin-right: .25rem;
+}
+
+:where([ui-margin~="right-sm"]) {
+  margin-right: .5rem;
+}
+
+:where([ui-margin~="right-md"]) {
+  margin-right: 1rem;
+}
+
+:where([ui-margin~="right-lg"]) {
+  margin-right: 1.5rem;
+}
+
+:where([ui-margin~="right-xl"]) {
+  margin-right: 2.5rem;
+}
+
+:where([ui-margin~="right-2xl"]) {
+  margin-right: 4rem;
+}
+
+:where([ui-margin~="right-3xl"]) {
+  margin-right: 6rem;
+}
+
+:where([ui-margin~="right-4xl"]) {
+  margin-right: 8rem;
+}
+
+:where([ui-margin~="right-5xl"]) {
+  margin-right: 12rem;
+}
+
+:where([ui-margin~="right-6xl"]) {
+  margin-right: 16rem;
+}
+
+/* src/padding.css */
+:where([ui-padding~="xs"]) {
+  padding: .25rem;
+}
+
+:where([ui-padding~="sm"]) {
+  padding: .5rem;
+}
+
+:where([ui-padding~="md"]) {
+  padding: 1rem;
+}
+
+:where([ui-padding~="lg"]) {
+  padding: 1.5rem;
+}
+
+:where([ui-padding~="xl"]) {
+  padding: 2.5rem;
+}
+
+:where([ui-padding~="2xl"]) {
+  padding: 4rem;
+}
+
+:where([ui-padding~="3xl"]) {
+  padding: 6rem;
+}
+
+:where([ui-padding~="4xl"]) {
+  padding: 8rem;
+}
+
+:where([ui-padding~="5xl"]) {
+  padding: 12rem;
+}
+
+:where([ui-padding~="6xl"]) {
+  padding: 16rem;
+}
+
+:where([ui-padding~="block-xs"]) {
+  padding-block-start: .25rem;
+  padding-block-end: .25rem;
+}
+
+:where([ui-padding~="block-sm"]) {
+  padding-block-start: .5rem;
+  padding-block-end: .5rem;
+}
+
+:where([ui-padding~="block-md"]) {
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
+}
+
+:where([ui-padding~="block-lg"]) {
+  padding-block-start: 1.5rem;
+  padding-block-end: 1.5rem;
+}
+
+:where([ui-padding~="block-xl"]) {
+  padding-block-start: 2.5rem;
+  padding-block-end: 2.5rem;
+}
+
+:where([ui-padding~="block-2xl"]) {
+  padding-block-start: 4rem;
+  padding-block-end: 4rem;
+}
+
+:where([ui-padding~="block-3xl"]) {
+  padding-block-start: 6rem;
+  padding-block-end: 6rem;
+}
+
+:where([ui-padding~="block-4xl"]) {
+  padding-block-start: 8rem;
+  padding-block-end: 8rem;
+}
+
+:where([ui-padding~="block-5xl"]) {
+  padding-block-start: 12rem;
+  padding-block-end: 12rem;
+}
+
+:where([ui-padding~="block-6xl"]) {
+  padding-block-start: 16rem;
+  padding-block-end: 16rem;
+}
+
+:where([ui-padding~="inline-xs"]) {
+  padding-inline-start: .25rem;
+  padding-inline-end: .25rem;
+}
+
+:where([ui-padding~="inline-sm"]) {
+  padding-inline-start: .5rem;
+  padding-inline-end: .5rem;
+}
+
+:where([ui-padding~="inline-md"]) {
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+:where([ui-padding~="inline-lg"]) {
+  padding-inline-start: 1.5rem;
+  padding-inline-end: 1.5rem;
+}
+
+:where([ui-padding~="inline-xl"]) {
+  padding-inline-start: 2.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+:where([ui-padding~="inline-2xl"]) {
+  padding-inline-start: 4rem;
+  padding-inline-end: 4rem;
+}
+
+:where([ui-padding~="inline-3xl"]) {
+  padding-inline-start: 6rem;
+  padding-inline-end: 6rem;
+}
+
+:where([ui-padding~="inline-4xl"]) {
+  padding-inline-start: 8rem;
+  padding-inline-end: 8rem;
+}
+
+:where([ui-padding~="inline-5xl"]) {
+  padding-inline-start: 12rem;
+  padding-inline-end: 12rem;
+}
+
+:where([ui-padding~="inline-6xl"]) {
+  padding-inline-start: 16rem;
+  padding-inline-end: 16rem;
+}
+
+:where([ui-padding~="top-xs"]) {
+  padding-top: .25rem;
+}
+
+:where([ui-padding~="top-sm"]) {
+  padding-top: .5rem;
+}
+
+:where([ui-padding~="top-md"]) {
+  padding-top: 1rem;
+}
+
+:where([ui-padding~="top-lg"]) {
+  padding-top: 1.5rem;
+}
+
+:where([ui-padding~="top-xl"]) {
+  padding-top: 2.5rem;
+}
+
+:where([ui-padding~="top-2xl"]) {
+  padding-top: 4rem;
+}
+
+:where([ui-padding~="top-3xl"]) {
+  padding-top: 6rem;
+}
+
+:where([ui-padding~="top-4xl"]) {
+  padding-top: 8rem;
+}
+
+:where([ui-padding~="top-5xl"]) {
+  padding-top: 12rem;
+}
+
+:where([ui-padding~="top-6xl"]) {
+  padding-top: 16rem;
+}
+
+:where([ui-padding~="bottom-xs"]) {
+  padding-bottom: .25rem;
+}
+
+:where([ui-padding~="bottom-sm"]) {
+  padding-bottom: .5rem;
+}
+
+:where([ui-padding~="bottom-md"]) {
+  padding-bottom: 1rem;
+}
+
+:where([ui-padding~="bottom-lg"]) {
+  padding-bottom: 1.5rem;
+}
+
+:where([ui-padding~="bottom-xl"]) {
+  padding-bottom: 2.5rem;
+}
+
+:where([ui-padding~="bottom-2xl"]) {
+  padding-bottom: 4rem;
+}
+
+:where([ui-padding~="bottom-3xl"]) {
+  padding-bottom: 6rem;
+}
+
+:where([ui-padding~="bottom-4xl"]) {
+  padding-bottom: 8rem;
+}
+
+:where([ui-padding~="bottom-5xl"]) {
+  padding-bottom: 12rem;
+}
+
+:where([ui-padding~="bottom-6xl"]) {
+  padding-bottom: 16rem;
+}
+
+:where([ui-padding~="left-xs"]) {
+  padding-left: .25rem;
+}
+
+:where([ui-padding~="left-sm"]) {
+  padding-left: .5rem;
+}
+
+:where([ui-padding~="left-md"]) {
+  padding-left: 1rem;
+}
+
+:where([ui-padding~="left-lg"]) {
+  padding-left: 1.5rem;
+}
+
+:where([ui-padding~="left-xl"]) {
+  padding-left: 2.5rem;
+}
+
+:where([ui-padding~="left-2xl"]) {
+  padding-left: 4rem;
+}
+
+:where([ui-padding~="left-3xl"]) {
+  padding-left: 6rem;
+}
+
+:where([ui-padding~="left-4xl"]) {
+  padding-left: 8rem;
+}
+
+:where([ui-padding~="left-5xl"]) {
+  padding-left: 12rem;
+}
+
+:where([ui-padding~="left-6xl"]) {
+  padding-left: 16rem;
+}
+
+:where([ui-padding~="right-xs"]) {
+  padding-right: .25rem;
+}
+
+:where([ui-padding~="right-sm"]) {
+  padding-right: .5rem;
+}
+
+:where([ui-padding~="right-md"]) {
+  padding-right: 1rem;
+}
+
+:where([ui-padding~="right-lg"]) {
+  padding-right: 1.5rem;
+}
+
+:where([ui-padding~="right-xl"]) {
+  padding-right: 2.5rem;
+}
+
+:where([ui-padding~="right-2xl"]) {
+  padding-right: 4rem;
+}
+
+:where([ui-padding~="right-3xl"]) {
+  padding-right: 6rem;
+}
+
+:where([ui-padding~="right-4xl"]) {
+  padding-right: 8rem;
+}
+
+:where([ui-padding~="right-5xl"]) {
+  padding-right: 12rem;
+}
+
+:where([ui-padding~="right-6xl"]) {
+  padding-right: 16rem;
+}
+
+/* src/shadow.css */
+:where([ui-shadow]) {
+  box-shadow: 0 4px 6px -1px oklch(from var(--neutral-900) l c h / 6%), 0 2px 4px -2px oklch(from var(--neutral-900) l c h / 6%);
+}
+
+:where([ui-shadow~="xs"]) {
+  box-shadow: 0 1px 2px 0 oklch(from var(--neutral-900) l c h / 6%);
+}
+
+:where([ui-shadow~="sm"]) {
+  box-shadow: 0 1px 3px 0 oklch(from var(--neutral-900) l c h / 6%), 0 1px 2px -1px oklch(from var(--neutral-900) l c h / 6%);
+}
+
+:where([ui-shadow~="lg"]) {
+  box-shadow: 0 10px 15px -3px oklch(from var(--neutral-900) l c h / 6%), 0 4px 6px -4px oklch(from var(--neutral-900) l c h / 6%);
+}
+
+:where([ui-shadow~="xl"]) {
+  box-shadow: 0 20px 25px -5px oklch(from var(--neutral-900) l c h / 6%), 0 8px 10px -6px oklch(from var(--neutral-900) l c h / 6%);
+}
+
+/* src/main.css */
+
