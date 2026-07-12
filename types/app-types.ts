@@ -20,6 +20,7 @@ export interface AppSummary {
   description: string;
   slug: string;
   visibility: AppVisibility;
+  ownerId: string;
   ownerNickname: string | null;
   remixCount: number;
   updatedAt: string;

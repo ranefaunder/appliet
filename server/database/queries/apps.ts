@@ -24,6 +24,7 @@ function toSummary(row: AppRow): AppSummary {
     description: row.description,
     slug: row.slug,
     visibility: row.visibility,
+    ownerId: row.owner_id,
     ownerNickname: row.owner_nickname ?? null,
     remixCount: row.remix_count ?? 0,
     updatedAt: row.updated_at,

@@ -8,7 +8,7 @@ import redirectRoute from "./routes/redirect";
 import robotsTxt from "./routes/robots-txt";
 import sitemapXml from "./routes/sitemap-xml";
 import siteWebmanifest from "./routes/site-webmanifest";
-import { appRunHtml, appRunModule } from "./routes/app-run";
+import { appPage, appRunRedirect, appModule } from "./routes/app-page";
 
 import authLogout from "./api/auth/logout";
 import authRegister from "./api/auth/register";
@@ -18,6 +18,9 @@ import userMe from "./api/user/me";
 import userMarketing from "./api/user/marketing";
 import appGenerate from "./api/app/generate";
 import appGet from "./api/app/get";
+import appEdit from "./api/app/edit";
+import appUpdateCode from "./api/app/update-code";
+import appEditHistory from "./api/app/edit-history";
 import appList from "./api/app/list";
 import meta from "./api/meta";
 
@@ -35,6 +38,9 @@ const server = Bun.serve({
     "/api/:lang/meta": meta,
     "/api/:lang/app/generate": appGenerate,
     "/api/:lang/app/get": appGet,
+    "/api/:lang/app/edit": appEdit,
+    "/api/:lang/app/update-code": appUpdateCode,
+    "/api/:lang/app/edit-history": appEditHistory,
     "/api/:lang/app/list": appList,
     "/api/:lang/user/me": userMe,
     "/api/:lang/user/marketing": userMarketing,
@@ -45,8 +51,10 @@ const server = Bun.serve({
 
     "/static/*": staticRoute,
     "/app.js": clientJsRoute,
-    "/:lang/app/:slug/run.js": appRunModule,
-    "/:lang/app/:slug/run": appRunHtml,
+    "/:lang/app/:slug/module.js": appModule,
+    "/:lang/app/:slug/run.js": appModule,
+    "/:lang/app/:slug/run": appRunRedirect,
+    "/:lang/app/:slug": appPage,
     "/:lang": redirectRoute,
     "/:lang/": appRoute,
     "/:lang/*": appRoute,

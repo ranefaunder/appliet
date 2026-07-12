@@ -3,6 +3,8 @@ import type { AppSummary } from "/types/app-types";
 import { useLocation } from "preact-iso";
 import { getLang } from "/utils/lang";
 import { t } from "/utils/i18n";
+import { appPageUrl, appEditUrl } from "/utils/app-url";
+import { user } from "/app/stores/userStore";
 
 type Props = {
   app: AppSummary;
@@ -29,7 +31,7 @@ function previewEmoji(slug: string): string {
 }
 
 function previewGradient(slug: string): string {
-  return PREVIEW_GRADIENTS[accentIndex(slug, PREVIEW_GRADIENTS.length)] ?? PREVIEW_GRADIENTS[0];
+  return PREVIEW_GRADIENTS[accentIndex(slug, PREVIEW_GRADIENTS.length)] ?? PREVIEW_GRADIENTS[0]!;
 }
 
 export default function AppCard({ app }: Props) {
@@ -37,26 +39,37 @@ export default function AppCard({ app }: Props) {
   const lang = getLang(path ?? "") ?? "en";
   const emoji = previewEmoji(app.slug);
   const gradient = previewGradient(app.slug);
+  const canEdit = user.value?.id === app.ownerId;
 
   const view = html`
-    <a href="/${lang}/app/${app.slug}" class="app-card" data-scope="AppCard" style=${{ "--card-gradient": gradient }}>
-      <div class="preview" aria-hidden="true">
-        <span class="emoji">${emoji}</span>
-      </div>
-      <div class="content">
-        <h3 class="title">${app.title}</h3>
-        <p class="description">${app.description}</p>
-        ${app.ownerNickname || app.remixCount > 0
-          ? html`
-            <div class="meta">
-              ${app.ownerNickname ? html`<span class="badge">${app.ownerNickname}</span>` : ""}
-              ${app.remixCount > 0
-                ? html`<span class="badge">${t("$count remixes", { count: app.remixCount })}</span>`
-                : ""}
-            </div>`
-          : ""}
-      </div>
-    </a>
+    <article class="app-card" data-scope="AppCard" style=${{ "--card-gradient": gradient }}>
+      <a href=${appPageUrl(lang, app.slug)} class="card-link">
+        <div class="preview" aria-hidden="true">
+          <span class="emoji">${emoji}</span>
+        </div>
+        <div class="content">
+          <h3 class="title">${app.title}</h3>
+          <p class="description">${app.description}</p>
+          ${app.ownerNickname || app.remixCount > 0
+            ? html`
+              <div class="meta">
+                ${app.ownerNickname ? html`<span class="badge">${app.ownerNickname}</span>` : ""}
+                ${app.remixCount > 0
+                  ? html`<span class="badge">${t("$count remixes", { count: app.remixCount })}</span>`
+                  : ""}
+              </div>`
+            : ""}
+        </div>
+      </a>
+      ${canEdit
+        ? html`
+          <div class="actions">
+            <a class="edit-btn" href=${appEditUrl(lang, app.slug)} ui-button="secondary sm">
+              ${t("Edit")}
+            </a>
+          </div>`
+        : ""}
+    </article>
   `;
 
   const style = css`
@@ -70,7 +83,6 @@ export default function AppCard({ app }: Props) {
         background: var(--white);
         color: inherit;
         overflow: hidden;
-        text-decoration: none;
         box-shadow:
           0 1px 2px oklch(from var(--neutral-900) l c h / 4%),
           0 12px 32px -20px oklch(from var(--primary-900) l c h / 18%);
@@ -86,6 +98,14 @@ export default function AppCard({ app }: Props) {
         box-shadow:
           0 2px 4px oklch(from var(--neutral-900) l c h / 5%),
           0 24px 48px -24px oklch(from var(--primary-900) l c h / 28%);
+      }
+
+      .card-link {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        color: inherit;
+        text-decoration: none;
       }
 
       .preview {
@@ -107,7 +127,7 @@ export default function AppCard({ app }: Props) {
         flex-direction: column;
         flex: 1;
         gap: 0.5rem;
-        padding: 1.125rem 1.25rem 1.25rem;
+        padding: 1.125rem 1.25rem 1rem;
       }
 
       .title {
@@ -144,6 +164,17 @@ export default function AppCard({ app }: Props) {
         color: var(--neutral-600);
         font-size: 0.75rem;
         font-weight: 500;
+      }
+
+      .actions {
+        padding: 0 1.25rem 1.25rem;
+      }
+
+      .edit-btn {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        text-decoration: none;
       }
     }
   `;

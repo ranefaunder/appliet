@@ -13,22 +13,23 @@ import { initAuthStore } from "./stores/userStore";
 import { initConfigStore } from "./stores/configStore";
 import { initI18nStore } from "./stores/i18nStore";
 import { initAppStore } from "./stores/appStore";
-import { initAppViewStore } from "./stores/appViewStore";
+import { initAppEditStore } from "./stores/appEditStore";
 import DevStores from "./components/headless/DevStores";
 import Home, { HomePath } from "./routes/Home";
 import Explore, { ExplorePath } from "./routes/Explore";
 import MyApps, { MyAppsPath } from "./routes/MyApps";
-import AppView, { AppViewPath } from "./routes/AppView";
 import Settings, { SettingsPath } from "./routes/Settings";
 import Login, { LoginPath } from "./routes/Login";
+import AppEdit, { AppEditPath } from "./routes/AppEdit";
 import NotFound from "./routes/NotFound";
+import { spaRouterScope } from "/utils/app-url";
 
 function initStores() {
   initConfigStore();
   initAuthStore();
   initI18nStore();
   initAppStore();
-  initAppViewStore();
+  initAppEditStore();
 }
 
 if (isClient) {
@@ -48,7 +49,7 @@ export default function App() {
   const currentLang = isClient
     ? (getLang(window.location.pathname) ?? "en")
     : ssrContext().language;
-  const locationScope = `/${currentLang}/`;
+  const locationScope = spaRouterScope(currentLang ?? "en");
 
   const view = html`
     <${LocationProvider} scope=${locationScope}>
@@ -60,9 +61,9 @@ export default function App() {
             <${Route} path=${HomePath} component=${withLayout(Home)} />
             <${Route} path=${ExplorePath} component=${withLayout(Explore)} />
             <${Route} path=${MyAppsPath} component=${withLayout(MyApps)} />
-            <${Route} path=${AppViewPath} component=${withLayout(AppView)} />
             <${Route} path=${SettingsPath} component=${withLayout(Settings)} />
             <${Route} path=${LoginPath} component=${withLayout(Login)} />
+            <${Route} path=${AppEditPath} component=${AppEdit} />
             <${Route} default component=${withLayout(NotFound)} />
           <//>
         </div>

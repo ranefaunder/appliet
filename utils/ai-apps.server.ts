@@ -1,23 +1,21 @@
+import { z } from "zod";
 import { requestJsonFromAi } from "/utils/ai-core.server";
-import { appConfigSchema, type AppConfig } from "/types/app-config-types";
+import { appConfigSchema, type AppConfig, type AppEditMessage } from "/types/app-config-types";
 import type { Language } from "/types/i18n-types";
 import { AVAILABLE_LANGUAGES } from "/i18n/languages";
 
 const aiAppSchema = appConfigSchema.omit({ version: true, status: true, prompt: true });
 
-export async function generateAppConfig(prompt: string, language: Language): Promise<AppConfig | null> {
-  const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
+const aiEditSchema = z.object({
+  summary: z.string().min(1),
+  title: z.string().min(1).max(80).optional(),
+  description: z.string().optional(),
+  code: z.string().min(1),
+});
 
-  const systemPrompt = `You build small personal apps for App Studo. Each app is a single, self-contained Web Component (custom element) written in vanilla JavaScript.
-
-Return one JSON object with:
-- title: short app name (max 60 chars), not the raw user prompt
-- description: 1-2 sentences describing what the app does
-- emoji: one relevant emoji
-- tagName: valid custom element name, lowercase with at least one hyphen (e.g. "run-log", "wine-journal")
-- code: complete JavaScript that registers the custom element
-
-## Architecture (required)
+/** Shared design + architecture guidelines used by both create and edit flows. */
+function designGuidelines(langName: string): string {
+  return `## Architecture (required)
 
 Structure the component class with clear separation of concerns:
 - constructor: attachShadow, define static shell markup (layout regions that rarely change)
@@ -154,6 +152,21 @@ Quality bar:
 - Data survives page reload via localStorage.
 - No console errors on first load with empty state; empty state is friendly.
 - tagName in customElements.define matches the JSON tagName exactly.`;
+}
+
+export async function generateAppConfig(prompt: string, language: Language): Promise<AppConfig | null> {
+  const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
+
+  const systemPrompt = `You build small personal apps for App Studo. Each app is a single, self-contained Web Component (custom element) written in vanilla JavaScript.
+
+Return one JSON object with:
+- title: short app name (max 60 chars), not the raw user prompt
+- description: 1-2 sentences describing what the app does
+- emoji: one relevant emoji
+- tagName: valid custom element name, lowercase with at least one hyphen (e.g. "run-log", "wine-journal")
+- code: complete JavaScript that registers the custom element
+
+${designGuidelines(langName)}`;
 
   const generated = await requestJsonFromAi({
     systemPrompt,
@@ -172,4 +185,82 @@ Quality bar:
     prompt,
     ...generated,
   };
+}
+
+/**
+ * Edit an existing app based on a natural-language instruction. Keeps the same
+ * custom element tagName so persisted localStorage data survives. Returns the
+ * updated config plus a short human-readable summary of what changed.
+ */
+export async function editAppConfig(opts: {
+  current: AppConfig;
+  history: AppEditMessage[];
+  instruction: string;
+  language: Language;
+}): Promise<{ config: AppConfig; summary: string } | null> {
+  const { current, history, instruction, language } = opts;
+  const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
+
+  const systemPrompt = `You are iterating on an existing App Studo app. The app is a single self-contained Web Component (custom element) written in vanilla JavaScript.
+
+You will receive the current full source code and a conversation of change requests. Apply the latest request and return the COMPLETE updated source code (never a diff, never partial code).
+
+Return one JSON object with:
+- summary: 1-2 sentences in ${langName} describing exactly what you changed (shown in the chat)
+- title: (optional) updated short app name, only if the change warrants it
+- description: (optional) updated 1-2 sentence description, only if it changed
+- code: the complete, updated JavaScript that registers the custom element
+
+## Hard constraints
+- Keep the EXACT same custom element tagName: "${current.tagName}". The code must still call customElements.define("${current.tagName}", ...). Do NOT rename it.
+- Preserve existing user data compatibility: keep the same localStorage keys and data shape unless the request explicitly requires changing them.
+- Make the smallest change that fully satisfies the request; do not rewrite unrelated parts or regress existing features.
+- Vanilla JavaScript only. NO imports, NO external libraries, NO network requests. Everything inside the Shadow DOM.
+
+${designGuidelines(langName)}`;
+
+  const recent = history.slice(-20);
+  const historyText = recent.length
+    ? recent
+        .map((m) => `${m.role === "user" ? "USER REQUEST" : "YOU (previous change)"}: ${m.content}`)
+        .join("\n\n")
+    : "(no previous messages)";
+
+  const userPrompt = `Current app title: ${current.title}
+Current app description: ${current.description}
+Custom element tagName: ${current.tagName}
+
+Current full source code:
+\`\`\`js
+${current.code}
+\`\`\`
+
+Conversation so far:
+${historyText}
+
+New change request:
+${instruction}
+
+Return the complete updated code and a short summary of what you changed.`;
+
+  const generated = await requestJsonFromAi({
+    systemPrompt,
+    userPrompt,
+    schema: aiEditSchema,
+  });
+
+  if (!generated) return null;
+
+  // Varmistus: päivitetyssä koodissa on säilytettävä sama tagName.
+  if (!generated.code.includes(current.tagName)) return null;
+
+  const config: AppConfig = {
+    ...current,
+    status: "ready",
+    code: generated.code,
+    title: generated.title?.trim() || current.title,
+    description: generated.description?.trim() || current.description,
+  };
+
+  return { config, summary: generated.summary.trim() };
 }

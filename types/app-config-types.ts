@@ -32,6 +32,15 @@ export type AppDetail = {
   canEdit: boolean;
 };
 
+export type AppEditRole = "user" | "assistant";
+
+export type AppEditMessage = {
+  id: string;
+  role: AppEditRole;
+  content: string;
+  createdAt: string;
+};
+
 export function parseAppConfig(json: string): AppConfig | null {
   try {
     const parsed = JSON.parse(json) as unknown;

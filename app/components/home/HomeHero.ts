@@ -1,10 +1,10 @@
 import { html, css } from "/utils/markup";
 import { useRef, useState } from "preact/hooks";
-import { useLocation } from "preact-iso";
 import { t } from "/utils/i18n";
 import { getLang } from "/utils/lang";
 import { isLoggedIn } from "/app/stores/userStore";
 import { apiFetch } from "/utils/api.client";
+import { appPageUrl } from "/utils/app-url";
 
 const EXAMPLES = [
   "tracking my camping gear",
@@ -24,7 +24,6 @@ const PREVIEW_APPS = [
 ];
 
 export default function HomeHero() {
-  const { route } = useLocation();
   const lang = getLang(typeof window !== "undefined" ? window.location.pathname : "/en/") ?? "en";
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState(false);
@@ -47,7 +46,7 @@ export default function HomeHero() {
         body: JSON.stringify({ prompt, language: lang }),
       });
       if (result.success) {
-        route(`/${lang}/app/${result.data.slug}`);
+        window.location.assign(appPageUrl(lang, result.data.slug));
       }
     } finally {
       setLoading(false);
