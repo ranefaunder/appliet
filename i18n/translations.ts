@@ -6,11 +6,11 @@ export const translations = {
   "Applet — Apply it.": {
     fi: "Applet — Toteuta se.",
   },
-  "Applet — Let AI make personal apps for your needs.": {
-    fi: "Applet — Anna tekoälyn tehdä henkilökohtaiset appit tarpeisiisi.",
+  "Applet — Your apps evolve with your needs.": {
+    fi: "Applet — Appisi kehittyvät tarpeidesi mukana.",
   },
-  "Let AI make personal apps for your needs.": {
-    fi: "Anna tekoälyn tehdä henkilökohtaiset appit tarpeisiisi.",
+  "Your apps evolve with your needs.": {
+    fi: "Appisi kehittyvät tarpeidesi mukana.",
   },
   "Describe what you need in plain language. Applet builds your app in minutes — no code required.": {
     fi: "Kuvaile mitä tarvitset arkikielellä. Applet rakentaa sovelluksen minuuteissa — ei koodia.",
@@ -56,9 +56,6 @@ export const translations = {
   },
   "Hi! I'm Applet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?": {
     fi: "Hei! Olen Applet — autan sinua rakentamaan henkilökohtaisen appin.\n\nKuvaile mitä tarvitset arkikielellä, esimerkiksi:\n• tapaseuranta\n• viinipäiväkirja\n• retken pakkauslista\n• tippilaskuri\n• lukulista\n\nParhaiten toimivat pienet, henkilökohtaiset työkalut — seurannat, päiväkirjat, checklistat, laskurit ja kertakäyttöiset apurit.\n\nMitä haluaisit rakentaa?",
-  },
-  "Your ideas. Your apps. Your data. Your way.": {
-    fi: "Ideasi. Appisi. Datasi. Sinun tapasi.",
   },
   "Sign in to open your applets": {
     fi: "Kirjaudu avataksesi appletisi",
@@ -122,9 +119,6 @@ export const translations = {
   },
   "Personal apps, applied.": {
     fi: "Henkilökohtaisia appeja, toteutettuna.",
-  },
-  "Every idea deserves its own app.": {
-    fi: "Jokainen idea ansaitsee oman appin.",
   },
   "No apps yet": {
     fi: "Ei vielä appeja",

@@ -32,7 +32,7 @@ export default async function (req: BunRequest): Promise<Response> {
   const manifest = {
     name: "Applet",
     short_name: "Applet",
-    description: t("Build personal apps for your needs. Describe what you need — Applet builds it in minutes.", lang),
+    description: t("Your apps evolve with your needs.", lang),
     start_url: `/${lang}/`,
     scope: "/",
     display: "standalone",

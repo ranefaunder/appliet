@@ -14,9 +14,8 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
   const view = html`
     <div data-scope="Home" ui-container="md" ui-padding="block-lg">
       <header class="hero" ui-column="gap-lg">
-        <div class="hero-copy" ui-column="gap-sm">
-          <h1 ui-heading="xl">${t("Let AI make personal apps for your needs.")}</h1>
-          <p class="subtitle">${t("Your ideas. Your apps. Your data. Your way.")}</p>
+        <div class="hero-copy">
+          <h1 ui-heading="xl">${t("Your apps evolve with your needs.")}</h1>
         </div>
         <a href=${`/${lang}/create`} ui-button="primary" ui-icon="plus" class="create-btn">
           ${t("Create Applet")}
@@ -35,10 +34,6 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
 
       .hero-copy {
         max-width: 28rem;
-      }
-
-      .subtitle {
-        color: var(--neutral-600);
       }
 
       .create-btn {
