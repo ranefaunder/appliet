@@ -24,4 +24,5 @@ export interface AppSummary {
   ownerNickname: string | null;
   remixCount: number;
   updatedAt: string;
+  isDraft: boolean;
 }

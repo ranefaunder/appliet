@@ -30,6 +30,18 @@ export const translations = {
   "New Applet": {
     fi: "Uusi Applet",
   },
+  "Drafts": {
+    fi: "Luonnokset",
+  },
+  "Starting chat…": {
+    fi: "Avataan keskustelua…",
+  },
+  "I built \"$title\" for you. Open the app or tell me what to change.": {
+    fi: "Rakensin sinulle appin \"$title\". Avaa app tai kerro mitä muutetaan.",
+  },
+  "Hi! I'm Applet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?": {
+    fi: "Hei! Olen Applet — autan sinua rakentamaan henkilökohtaisen appin.\n\nKuvaile mitä tarvitset arkikielellä, esimerkiksi:\n• tapaseuranta\n• viinipäiväkirja\n• retken pakkauslista\n• tippilaskuri\n• lukulista\n\nParhaiten toimivat pienet, henkilökohtaiset työkalut — seurannat, päiväkirjat, checklistat, laskurit ja kertakäyttöiset apurit.\n\nMitä haluaisit rakentaa?",
+  },
   "Your ideas. Your apps. Your data. Your way.": {
     fi: "Ideasi. Appisi. Datasi. Sinun tapasi.",
   },
@@ -38,6 +50,9 @@ export const translations = {
   },
   "Tap New Applet to build your first app.": {
     fi: "Napauta Uusi Applet rakentaaksesi ensimmäisen appisi.",
+  },
+  "Use Create Applet to build your first app.": {
+    fi: "Luo ensimmäinen app Create Applet -napilla.",
   },
   "Create": {
     fi: "Luo",

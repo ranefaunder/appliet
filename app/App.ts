@@ -58,7 +58,7 @@ export default function App() {
       >
         <div data-scope="App">
           <${Router}>
-            <${Route} path=${CreatePath} component=${withLayout(Create)} />
+            <${Route} path=${CreatePath} component=${Create} />
             <${Route} path=${MyAppsPath} component=${withLayout(MyApps)} />
             <${Route} path=${HomePath} component=${withLayout(Home)} />
             <${Route} path=${SettingsPath} component=${withLayout(Settings)} />

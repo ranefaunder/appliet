@@ -8,6 +8,17 @@ const PREVIEW_GRADIENTS = [
   "linear-gradient(145deg, oklch(74% 0.12 55), oklch(58% 0.14 35))",
 ];
 
+const DRAFT_COLORS = [
+  "oklch(65% 0.18 25)",
+  "oklch(62% 0.16 145)",
+  "oklch(60% 0.18 250)",
+  "oklch(64% 0.17 310)",
+  "oklch(68% 0.14 85)",
+  "oklch(58% 0.16 200)",
+  "oklch(63% 0.18 35)",
+  "oklch(60% 0.14 280)",
+];
+
 function accentIndex(slug: string, count: number): number {
   let hash = 0;
   for (const char of slug) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
@@ -20,4 +31,13 @@ export function previewEmoji(slug: string): string {
 
 export function previewGradient(slug: string): string {
   return PREVIEW_GRADIENTS[accentIndex(slug, PREVIEW_GRADIENTS.length)] ?? PREVIEW_GRADIENTS[0]!;
+}
+
+export function draftAccentColor(slug: string): string {
+  return DRAFT_COLORS[accentIndex(slug, DRAFT_COLORS.length)] ?? DRAFT_COLORS[0]!;
+}
+
+export function draftLetter(title: string): string {
+  const match = title.match(/[A-Za-zÀ-ÖØ-öø-ÿ0-9]/);
+  return (match?.[0] ?? "A").toUpperCase();
 }

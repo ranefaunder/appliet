@@ -4,6 +4,7 @@ import type { RoutePropsForPath } from "preact-iso";
 import { useRoute } from "preact-iso";
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { AppEditMessage } from "/types/app-config-types";
+import { isDraftConfig } from "/types/app-config-types";
 import { t } from "/utils/i18n";
 import { highlightJavaScript } from "/utils/highlight-js";
 import { appPageUrl } from "/utils/app-url";
@@ -34,6 +35,7 @@ export default function AppEdit(_props: RoutePropsForPath<typeof AppEditPath>) {
 
   const app = editApp.value;
   const loading = editLoading.value;
+  const creating = app != null && isDraftConfig(app.config);
 
   const view = html`
     <div data-scope="AppEdit">
@@ -42,9 +44,12 @@ export default function AppEdit(_props: RoutePropsForPath<typeof AppEditPath>) {
           <span aria-hidden="true">‹</span> ${t("My Applets")}
         </a>
         <div class="title" title=${app?.title ?? ""}>${app?.title ?? t("Editor")}</div>
-        <a class="open" href=${appPageUrl(lang, slug)} target="_blank" rel="noopener">
-          ${t("Open app")}
-        </a>
+        ${creating
+          ? html`<span class="open disabled">${t("Open app")}</span>`
+          : html`
+            <a class="open" href=${appPageUrl(lang, slug)} target="_blank" rel="noopener">
+              ${t("Open app")}
+            </a>`}
       </header>
 
       ${loading && !app
@@ -57,20 +62,20 @@ export default function AppEdit(_props: RoutePropsForPath<typeof AppEditPath>) {
                 <p ui-heading="sm">${t("You can only edit your own apps.")}</p>
                 <a href=${appPageUrl(lang, slug)} ui-button="primary">${t("Open app")}</a>
               </div>`
-            : html`<${EditWorkspace} slug=${slug} />`}
+            : html`<${EditWorkspace} slug=${slug} creating=${creating} />`}
     </div>
   `;
 
   return [view, style()];
 }
 
-function EditWorkspace({ slug }: { slug: string }) {
+function EditWorkspace({ slug, creating }: { slug: string; creating: boolean }) {
   return html`
     <div class="workspace">
-      <${ModeTabs} />
+      ${creating ? "" : html`<${ModeTabs} />`}
       ${editError.value ? html`<div class="error-banner">${editError.value}</div>` : ""}
-      ${editMode.value === "chat"
-        ? html`<${ChatPanel} slug=${slug} />`
+      ${creating || editMode.value === "chat"
+        ? html`<${ChatPanel} slug=${slug} creating=${creating} />`
         : html`<${CodePanel} slug=${slug} />`}
     </div>
   `;
@@ -102,7 +107,7 @@ function ModeTabs() {
   `;
 }
 
-function ChatPanel({ slug }: { slug: string }) {
+function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
   const [draft, setDraft] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
   const app = editApp.value;
@@ -110,17 +115,20 @@ function ChatPanel({ slug }: { slug: string }) {
   const messages = editMessages.value;
   const sending = editSending.value;
 
-  const displayMessages: AppEditMessage[] = originalPrompt
-    ? [
-        {
-          id: "original-prompt",
-          role: "user",
-          content: originalPrompt,
-          createdAt: "",
-        },
-        ...messages,
-      ]
-    : messages;
+  // Prefer stored chat (includes welcome). Fall back to legacy original-prompt display.
+  const displayMessages: AppEditMessage[] =
+    messages.length > 0
+      ? messages
+      : originalPrompt
+        ? [
+            {
+              id: "original-prompt",
+              role: "user",
+              content: originalPrompt,
+              createdAt: "",
+            },
+          ]
+        : [];
 
   useEffect(() => {
     const el = listRef.current;
@@ -153,7 +161,7 @@ function ChatPanel({ slug }: { slug: string }) {
             </div>`
           : displayMessages.map(
               (m) => html`
-                <div class=${m.role === "user" ? "msg user" : "msg assistant"} key=${m.id}>
+                <div class=${m.role === "user" ? "msg user" : "msg assistant"}>
                   ${m.id === "original-prompt"
                     ? html`<p class="msg-label">${t("Original prompt")}</p>`
                     : ""}
@@ -161,7 +169,12 @@ function ChatPanel({ slug }: { slug: string }) {
                 </div>`,
             )}
         ${sending
-          ? html`<div class="msg assistant"><div class="bubble typing">${t("AI is updating your app…")}</div></div>`
+          ? html`
+            <div class="msg assistant">
+              <div class="bubble typing">
+                ${creating ? t("AI is building your app.") : t("AI is updating your app…")}
+              </div>
+            </div>`
           : ""}
       </div>
 
@@ -169,14 +182,14 @@ function ChatPanel({ slug }: { slug: string }) {
         <textarea
           class="composer-input"
           rows="2"
-          placeholder=${t("e.g. add a dark mode toggle")}
+          placeholder=${creating ? t("Create an app for…") : t("e.g. add a dark mode toggle")}
           value=${draft}
           disabled=${sending}
           onInput=${(e: Event) => setDraft((e.target as HTMLTextAreaElement).value)}
           onKeyDown=${onKeyDown}
         ></textarea>
         <button type="submit" ui-button="primary" disabled=${sending || !draft.trim()}>
-          ${sending ? t("Sending…") : t("Send")}
+          ${sending ? t("Sending…") : creating ? t("Apply It") : t("Send")}
         </button>
       </form>
     </div>
@@ -277,6 +290,11 @@ function style() {
       .topbar .back:hover,
       .topbar .open:hover {
         background: var(--neutral-100);
+      }
+
+      .topbar .open.disabled {
+        color: var(--neutral-400);
+        pointer-events: none;
       }
 
       .topbar .title {
@@ -419,7 +437,7 @@ function style() {
         max-width: 42rem;
         padding: 0.625rem 0.875rem;
         border-radius: 1rem;
-        font-size: 0.9375rem;
+        font-size: 16px;
         line-height: 1.5;
         white-space: pre-wrap;
         word-break: break-word;

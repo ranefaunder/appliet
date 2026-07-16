@@ -13,6 +13,7 @@ type AppRow = {
   created_at: string;
   updated_at: string;
   published_at: string | null;
+  is_draft: number;
   owner_nickname?: string | null;
   remix_count?: number;
 };
@@ -28,6 +29,7 @@ function toSummary(row: AppRow): AppSummary {
     ownerNickname: row.owner_nickname ?? null,
     remixCount: row.remix_count ?? 0,
     updatedAt: row.updated_at,
+    isDraft: row.is_draft === 1,
   };
 }
 
@@ -72,12 +74,13 @@ export const dbCreateApp = (data: {
   slug: string;
   configJson: string;
   sourceAppId?: string | null;
+  isDraft?: boolean;
 }) => {
   const now = new Date().toISOString();
   return db
     .query(`
-      INSERT INTO apps (id, owner_id, title, description, slug, config_json, source_app_id, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO apps (id, owner_id, title, description, slug, config_json, source_app_id, is_draft, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .run(
       data.id,
@@ -87,6 +90,7 @@ export const dbCreateApp = (data: {
       data.slug,
       data.configJson,
       data.sourceAppId ?? null,
+      data.isDraft === false ? 0 : 1,
       now,
       now,
     );
@@ -117,19 +121,21 @@ export function dbGenerateAppSlug(): string {
 
 export const isNumericAppSlug = (slug: string): boolean => /^\d{5,}$/.test(slug);
 
-export const dbUpdateApp = (id: string, data: { title?: string; description?: string; configJson?: string }) => {
+export const dbUpdateApp = (id: string, data: { title?: string; description?: string; configJson?: string; isDraft?: boolean }) => {
   const now = new Date().toISOString();
   const title = data.title;
   const description = data.description;
   const configJson = data.configJson;
+  const isDraft = data.isDraft === undefined ? null : data.isDraft ? 1 : 0;
   return db
     .query(`
       UPDATE apps
       SET title = COALESCE(?, title),
           description = COALESCE(?, description),
           config_json = COALESCE(?, config_json),
+          is_draft = COALESCE(?, is_draft),
           updated_at = ?
       WHERE id = ?
     `)
-    .run(title ?? null, description ?? null, configJson ?? null, now, id);
+    .run(title ?? null, description ?? null, configJson ?? null, isDraft, now, id);
 };

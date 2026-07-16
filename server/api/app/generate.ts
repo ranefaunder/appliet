@@ -2,33 +2,38 @@ import type { BunRequest } from "bun";
 import { withAuth } from "/utils/auth.server";
 import { apiError, apiSuccess } from "/utils/api.server";
 import { dbCreateApp, dbGenerateAppSlug } from "/server/database/queries/apps";
-import { generateAppConfig } from "/utils/ai-apps.server";
-import { apiErrorFromAi } from "/utils/ai-api.server";
+import { dbAddAppMessage } from "/server/database/queries/app-messages";
+import type { AppConfig } from "/types/app-config-types";
 import type { Language } from "/types/i18n-types";
 import { t } from "/utils/i18n";
 import { checkRateLimit } from "/utils/rate-limit.server";
 import { getClientIP } from "/utils/request.server";
 
+function buildEmptyDraftConfig(title: string): AppConfig {
+  return {
+    version: 2,
+    status: "draft",
+    prompt: "",
+    title,
+    description: "",
+    tagName: "applet-draft",
+    code: "// draft",
+  };
+}
+
+/** Creates an empty draft app with a welcome chat message, then client opens the editor. */
 export default {
   async POST(req: BunRequest) {
     return withAuth(req, async (user) => {
-      let body: unknown;
+      let body: unknown = {};
       try {
         body = await req.json();
       } catch {
-        return apiError({ code: "INVALID_JSON" });
+        // empty body is fine
       }
 
-      const b = body as { prompt?: string; language?: string };
-      const prompt = typeof b.prompt === "string" ? b.prompt.trim() : "";
+      const b = body as { language?: string };
       const language = (b.language || "en") as Language;
-
-      if (!prompt || prompt.length > 2000) {
-        return apiError({
-          code: "INVALID_PROMPT",
-          message: t("Describe your app in a few words.", language),
-        });
-      }
 
       const clientIP = getClientIP(req);
       if (!checkRateLimit(clientIP, "app_generate", 20, 60)) {
@@ -39,22 +44,8 @@ export default {
         });
       }
 
-      let config;
-      try {
-        config = await generateAppConfig(prompt, language);
-      } catch (err) {
-        const aiError = apiErrorFromAi(err, language);
-        if (aiError) return aiError;
-        throw err;
-      }
-      if (!config) {
-        return apiError({
-          code: "GENERATION_FAILED",
-          message: t("Could not create app. Try again.", language),
-          status: 500,
-        });
-      }
-
+      const title = t("New Applet", language);
+      const config = buildEmptyDraftConfig(title);
       const id = crypto.randomUUID();
       const slug = dbGenerateAppSlug();
 
@@ -65,10 +56,21 @@ export default {
         description: config.description,
         slug,
         configJson: JSON.stringify(config),
+        isDraft: true,
+      });
+
+      dbAddAppMessage({
+        id: crypto.randomUUID(),
+        appId: id,
+        role: "assistant",
+        content: t(
+          "Hi! I'm Applet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?",
+          language,
+        ),
       });
 
       return apiSuccess({
-        data: { id, slug, title: config.title },
+        data: { id, slug, title: config.title, isDraft: true },
         status: 201,
       });
     });
