@@ -22,23 +22,20 @@ const DOCK_ITEMS = [
     href: (lang: string) => `/${lang}/`,
     label: "Apps" as const,
     image: "/static/images/dock-apps.png",
-    tone: "image",
     active: isHomePath,
   },
   {
     key: "create",
     href: (lang: string) => `/${lang}/create`,
     label: "Create" as const,
-    icon: "magic-wand",
-    tone: "violet",
+    image: "/static/images/dock-create.png",
     active: isCreatePath,
   },
   {
     key: "settings",
     href: (lang: string) => `/${lang}/settings`,
     label: "Settings" as const,
-    icon: "user-circle-gear",
-    tone: "slate",
+    image: "/static/images/dock-settings.png",
     active: isSettingsPath,
   },
 ] as const;
@@ -66,27 +63,22 @@ export default function MobileNavigation() {
         <div class="dock-shell">
           ${DOCK_ITEMS.map((item) => {
             const active = item.active(path, lang);
-            const image = "image" in item ? item.image : null;
-            const icon = "icon" in item ? item.icon : null;
             return html`
               <a
-                class=${`dock-item ${item.tone}${active ? " active" : ""}`}
+                class=${`dock-item${active ? " active" : ""}`}
                 href=${item.href(lang)}
                 aria-label=${t(item.label)}
                 aria-current=${active ? "page" : undefined}
               >
-                <span class=${image ? "dock-glyph image" : "dock-glyph"}>
-                  ${image
-                    ? html`<img
-                        class="dock-img"
-                        src=${image}
-                        alt=""
-                        width="128"
-                        height="128"
-                        decoding="async"
-                      />`
-                    : html`<i ui-icon=${`${icon} lg`} aria-hidden="true"></i>`}
-                  ${image ? "" : html`<span class="dock-shine" aria-hidden="true"></span>`}
+                <span class="dock-glyph">
+                  <img
+                    class="dock-img"
+                    src=${item.image}
+                    alt=""
+                    width="128"
+                    height="128"
+                    decoding="async"
+                  />
                 </span>
               </a>`;
           })}
@@ -157,7 +149,6 @@ export default function MobileNavigation() {
         place-items: center;
         width: var(--dock-icon);
         height: var(--dock-icon);
-        color: var(--white);
         filter: drop-shadow(0 1px 0.5px oklch(from var(--black) l c h / 16%))
           drop-shadow(0 6px 12px oklch(from var(--black) l c h / 20%));
         transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.2, 1);
@@ -169,39 +160,11 @@ export default function MobileNavigation() {
         mask-repeat: no-repeat;
       }
 
-      .dock-glyph.image {
-        background: transparent;
-      }
-
       .dock-img {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-      }
-
-      .dock-item.violet .dock-glyph {
-        background:
-          radial-gradient(120% 90% at 30% 15%, oklch(from var(--white) l c h / 32%), transparent 42%),
-          linear-gradient(165deg, #ffa9f0 0%, #bf5af2 45%, #8944ab 100%);
-      }
-
-      .dock-item.slate .dock-glyph {
-        background:
-          radial-gradient(120% 90% at 30% 15%, oklch(from var(--white) l c h / 40%), transparent 42%),
-          linear-gradient(165deg, #e5e5ea 0%, #8e8e93 52%, #636366 100%);
-      }
-
-      .dock-shine {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(
-          180deg,
-          oklch(from var(--white) l c h / 30%) 0%,
-          oklch(from var(--white) l c h / 6%) 40%,
-          transparent 55%
-        );
       }
 
       .dock-item:hover .dock-glyph,
