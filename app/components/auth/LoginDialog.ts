@@ -51,7 +51,7 @@ export default function LoginDialog() {
         </header>
         <p>Logged in as: <strong>${user.value.email}</strong></p>
         <footer>
-          <button onClick=${async () => { await logout(); closeDialog(); }} ui-button="primary">Log out</button>
+          <button type="button" onClick=${async () => { await logout(); closeDialog(); }} ui-button="primary">${t("Log out")}</button>
         </footer>
       </dialog>
     `;

@@ -30,8 +30,8 @@ export default async function (req: BunRequest): Promise<Response> {
   }
 
   const manifest = {
-    name: "Applet",
-    short_name: "Applet",
+    name: "Abblet",
+    short_name: "Abblet",
     description: t("Your apps evolve with your needs.", lang),
     start_url: `/${lang}/`,
     scope: "/",

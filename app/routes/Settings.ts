@@ -31,17 +31,19 @@ export default function Settings({ params }: RoutePropsForPath<typeof SettingsPa
   }
 
   const view = html`
-    <div data-scope="Settings" ui-container="sm" ui-padding="block-xl">
-      <header ui-margin="bottom-md">
+    <div data-scope="Settings" ui-container="sm" ui-padding="block-xl" ui-column="gap-lg">
+      <header>
         <h1 ui-heading="lg">${t("Settings")}</h1>
       </header>
 
-      <section ui-card ui-padding="lg" ui-margin="bottom-lg" ui-column="gap-sm">
-        <h2 ui-heading="sm">Account</h2>
-        <p>${user.value.email}</p>
-        ${user.value.nickname ? html`<p class="nickname">${user.value.nickname}</p>` : ""}
-        <button type="button" ui-button="tertiary" ui-margin="top-sm" onClick=${handleLogout}>
-          Log out
+      <section ui-card ui-padding="lg" ui-column="gap-md">
+        <h2 ui-heading="sm">${t("Account")}</h2>
+        <div ui-column="gap-xs">
+          <p class="email">${user.value.email}</p>
+          ${user.value.nickname ? html`<p class="nickname">${user.value.nickname}</p>` : ""}
+        </div>
+        <button type="button" ui-button="tertiary" onClick=${handleLogout}>
+          ${t("Log out")}
         </button>
       </section>
 
@@ -52,7 +54,7 @@ export default function Settings({ params }: RoutePropsForPath<typeof SettingsPa
             checked=${user.value.marketingOptIn === true}
             onChange=${handleMarketingChange}
           />
-          <span>${t("Email me about Applet updates")}</span>
+          <span>${t("Email me about Abblet updates")}</span>
         </label>
       </section>
     </div>
@@ -60,7 +62,14 @@ export default function Settings({ params }: RoutePropsForPath<typeof SettingsPa
 
   const style = css`
     @scope ([data-scope="Settings"]) to ([data-scope]) {
+      .email {
+        margin: 0;
+        color: var(--neutral-800);
+        word-break: break-word;
+      }
+
       .nickname {
+        margin: 0;
         color: var(--neutral-500);
         font-size: 0.875rem;
       }

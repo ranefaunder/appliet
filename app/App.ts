@@ -17,7 +17,6 @@ import { initAppEditStore } from "./stores/appEditStore";
 import DevStores from "./components/headless/DevStores";
 import Home, { HomePath } from "./routes/Home";
 import Create, { CreatePath } from "./routes/Create";
-import EditApps, { EditAppsPath } from "./routes/EditApps";
 import MyApps, { MyAppsPath } from "./routes/MyApps";
 import Settings, { SettingsPath } from "./routes/Settings";
 import Login, { LoginPath } from "./routes/Login";
@@ -60,7 +59,6 @@ export default function App() {
         <div data-scope="App" ui-column>
           <${Router}>
             <${Route} path=${CreatePath} component=${Create} />
-            <${Route} path=${EditAppsPath} component=${withLayout(EditApps)} />
             <${Route} path=${MyAppsPath} component=${withLayout(MyApps)} />
             <${Route} path=${HomePath} component=${withLayout(Home)} />
             <${Route} path=${SettingsPath} component=${withLayout(Settings)} />

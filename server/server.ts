@@ -67,4 +67,4 @@ const server = Bun.serve({
   },
 });
 
-console.log(`🚀 Applet running at http://localhost:${server.port}`);
+console.log(`🚀 Abblet running at http://localhost:${server.port}`);

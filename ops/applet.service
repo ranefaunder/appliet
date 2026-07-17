@@ -1,5 +1,5 @@
 [Unit]
-Description=Applet
+Description=Abblet
 After=network.target
 
 [Service]

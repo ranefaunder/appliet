@@ -11,7 +11,7 @@ const aiEditSchema = z.object({
   title: z.string().min(1).max(80).optional(),
   description: z.string().optional(),
   code: z.string().min(1),
-  /** True when the app's visual identity / purpose changed enough to warrant a new launcher icon. */
+  /** True only when the user clearly asked to create or change the launcher icon. */
   needsNewIcon: z.boolean().optional(),
 });
 
@@ -136,7 +136,7 @@ Responsiveness & safe areas:
 - Perfect on iPhone widths (375–430px) first; scales to a centered column on desktop. Only add multi-column layouts on ≥760px if it truly helps.
 - Respect the notch/home indicator: use env(safe-area-inset-*) — sticky headers add padding-top: env(safe-area-inset-top); sticky bottom bars add padding-bottom: max(var(--space), env(safe-area-inset-bottom)).
 - Support Dynamic-Type feel by using rem/relative sizing where reasonable.
-- Light-first (matches Applet). Optionally add a @media (prefers-color-scheme: dark) block reusing the same token names with iOS dark values (--bg:#000; --surface:#1c1c1e; --text:#fff; --separator:#54545899; keep systemBlue accent).
+- Light-first (matches Abblet). Optionally add a @media (prefers-color-scheme: dark) block reusing the same token names with iOS dark values (--bg:#000; --surface:#1c1c1e; --text:#fff; --separator:#54545899; keep systemBlue accent).
 
 Quality bar:
 - Accessible: <label> tied to inputs, aria-label on icon-only buttons, role="switch" for toggles, visible focus, semantic <button>/<form>.
@@ -171,7 +171,7 @@ export async function generateAppConfig(
 ): Promise<AppConfig | null> {
   const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
 
-  const systemPrompt = `You build small personal apps for Applet. Each app is a single, self-contained Web Component (custom element) written in vanilla JavaScript.
+  const systemPrompt = `You build small personal apps for Abblet. Each app is a single, self-contained Web Component (custom element) written in vanilla JavaScript.
 
 Return one JSON object with:
 - title: short app name (max 60 chars), not the raw user prompt
@@ -216,7 +216,7 @@ export async function editAppConfig(opts: {
   const { current, history, instruction, language, model } = opts;
   const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
 
-  const systemPrompt = `You are iterating on an existing Applet app. The app is a single self-contained Web Component (custom element) written in vanilla JavaScript.
+  const systemPrompt = `You are iterating on an existing Abblet app. The app is a single self-contained Web Component (custom element) written in vanilla JavaScript.
 
 You will receive the current full source code and a conversation of change requests. Apply the latest request and return the COMPLETE updated source code (never a diff, never partial code).
 
@@ -225,7 +225,7 @@ Return one JSON object with:
 - title: (optional) updated short app name, only if the change warrants it
 - description: (optional) updated 1-2 sentence description, only if it changed
 - code: the complete, updated JavaScript that registers the custom element
-- needsNewIcon: boolean — set true when the app's purpose, theme, or visual identity changed enough that the home-screen icon should be regenerated (e.g. renamed to a different concept, new primary theme, user asked for a new icon). Set false for bugfixes, small UI tweaks, copy edits, or unrelated feature tweaks.
+- needsNewIcon: boolean — set true ONLY when the user explicitly and clearly asked to create, change, or regenerate the home-screen / launcher app icon (e.g. "make a new icon", "vaihda kuvake"). Set false for everything else — including renames, theme changes, new features, bugfixes, and UI tweaks. Never invent an icon request.
 
 ## Hard constraints
 - Keep the EXACT same custom element tagName: "${current.tagName}". The code must still call customElements.define("${current.tagName}", ...). Do NOT rename it.

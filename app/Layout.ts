@@ -27,16 +27,17 @@ export default function Layout({ children }: LayoutProps) {
   const home = isLauncherPath(path ?? "", lang);
   const editor = isAppEditPath(path ?? "");
   const hideFooter = home || editor;
-  const layoutClass = editor ? "editor" : undefined;
+  const layoutClass = editor ? "editor" : home ? "home" : undefined;
+  const mainClass = editor ? "layout-main editor" : home ? "layout-main home" : "layout-main";
 
   const view = html`
     <div data-scope="Layout" class=${layoutClass} ui-column>
       <${Header} />
-      <main class=${editor ? "layout-main editor" : "layout-main"}>
+      <main class=${mainClass}>
         ${children}
       </main>
       ${hideFooter ? "" : html`<${Footer} />`}
-      <${MobileNavigation} />
+      ${editor ? "" : html`<${MobileNavigation} />`}
       <${Dialogs} />
     </div>
   `;
@@ -47,6 +48,7 @@ export default function Layout({ children }: LayoutProps) {
         min-height: 100%;
       }
 
+      &.home,
       &.editor {
         height: 100dvh;
         max-height: 100dvh;
@@ -56,9 +58,10 @@ export default function Layout({ children }: LayoutProps) {
       .layout-main {
         flex-grow: 1;
         min-height: 0;
-        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0));
+        padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0));
       }
 
+      .layout-main.home,
       .layout-main.editor {
         display: flex;
         flex-direction: column;
@@ -66,7 +69,7 @@ export default function Layout({ children }: LayoutProps) {
       }
 
       @media (min-width: 800px) {
-        .layout-main {
+        .layout-main:not(.home):not(.editor) {
           padding-bottom: 0;
         }
       }

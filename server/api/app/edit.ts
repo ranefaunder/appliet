@@ -4,7 +4,7 @@ import { apiError, apiSuccess } from "/utils/api.server";
 import { dbGetAppBySlug, dbUpdateApp } from "/server/database/queries/apps";
 import { dbAddAppMessage, dbListAppMessages } from "/server/database/queries/app-messages";
 import { editAppConfig, generateAppConfig } from "/utils/ai-apps.server";
-import { generateAppIcon } from "/utils/ai-app-icons.server";
+import { generateAppIcon, userAskedForAppIcon } from "/utils/ai-app-icons.server";
 import { apiErrorFromAi } from "/utils/ai-api.server";
 import { resolveEditAiModel } from "/utils/ai-core.server";
 import { DEFAULT_EDIT_AI_MODEL, isEditAiModelKey } from "/utils/ai-models";
@@ -127,7 +127,8 @@ export default {
         }
         nextConfig = result.config;
         assistantReply = result.summary;
-        needsNewIcon = result.needsNewIcon;
+        // Icon only on an explicit user request — not on theme/title/feature edits.
+        needsNewIcon = userAskedForAppIcon(message);
       }
 
       let iconId: string | null | undefined;

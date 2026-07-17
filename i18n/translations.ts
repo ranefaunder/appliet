@@ -3,20 +3,20 @@ import { AVAILABLE_LANGUAGES } from "/i18n/languages";
 export type Language = keyof typeof AVAILABLE_LANGUAGES;
 
 export const translations = {
-  "Applet — Apply it.": {
-    fi: "Applet — Toteuta se.",
+  "Abblet — Apply it.": {
+    fi: "Abblet — Toteuta se.",
   },
-  "Applet — Your apps evolve with your needs.": {
-    fi: "Applet — Appisi kehittyvät tarpeidesi mukana.",
+  "Abblet — Your apps evolve with your needs.": {
+    fi: "Abblet — Appisi kehittyvät tarpeidesi mukana.",
   },
   "Your apps evolve with your needs.": {
     fi: "Appisi kehittyvät tarpeidesi mukana.",
   },
-  "Describe what you need in plain language. Applet builds your app in minutes — no code required.": {
-    fi: "Kuvaile mitä tarvitset arkikielellä. Applet rakentaa sovelluksen minuuteissa — ei koodia.",
+  "Describe what you need in plain language. Abblet builds your app in minutes — no code required.": {
+    fi: "Kuvaile mitä tarvitset arkikielellä. Abblet rakentaa sovelluksen minuuteissa — ei koodia.",
   },
-  "Build personal apps for your needs. Describe what you need — Applet builds it in minutes.": {
-    fi: "Tee henkilökohtaisia appeja tarpeisiisi. Kuvaile mitä tarvitset — Applet rakentaa sen minuuteissa.",
+  "Build personal apps for your needs. Describe what you need — Abblet builds it in minutes.": {
+    fi: "Tee henkilökohtaisia appeja tarpeisiisi. Kuvaile mitä tarvitset — Abblet rakentaa sen minuuteissa.",
   },
   "Apply It": {
     fi: "Toteuta se",
@@ -57,8 +57,8 @@ export const translations = {
   "I built \"$title\" for you. Open the app or tell me what to change.": {
     fi: "Rakensin sinulle appin \"$title\". Avaa app tai kerro mitä muutetaan.",
   },
-  "Hi! I'm Applet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?": {
-    fi: "Hei! Olen Applet — autan sinua rakentamaan henkilökohtaisen appin.\n\nKuvaile mitä tarvitset arkikielellä, esimerkiksi:\n• tapaseuranta\n• viinipäiväkirja\n• retken pakkauslista\n• tippilaskuri\n• lukulista\n\nParhaiten toimivat pienet, henkilökohtaiset työkalut — seurannat, päiväkirjat, checklistat, laskurit ja kertakäyttöiset apurit.\n\nMitä haluaisit rakentaa?",
+  "Hi! I'm Abblet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?": {
+    fi: "Hei! Olen Abblet — autan sinua rakentamaan henkilökohtaisen appin.\n\nKuvaile mitä tarvitset arkikielellä, esimerkiksi:\n• tapaseuranta\n• viinipäiväkirja\n• retken pakkauslista\n• tippilaskuri\n• lukulista\n\nParhaiten toimivat pienet, henkilökohtaiset työkalut — seurannat, päiväkirjat, checklistat, laskurit ja kertakäyttöiset apurit.\n\nMitä haluaisit rakentaa?",
   },
   "Sign in to open your apps": {
     fi: "Kirjaudu avataksesi appisi",
@@ -90,14 +90,14 @@ export const translations = {
   "Describe your idea": {
     fi: "Kuvaile ideasi",
   },
-  "Tell Applet what you need — a packing list, budget tracker, or anything else.": {
-    fi: "Kerro Appletille mitä tarvitset — pakkauslista, budjettiseuranta tai mikä tahansa muu.",
+  "Tell Abblet what you need — a packing list, budget tracker, or anything else.": {
+    fi: "Kerro Abbletille mitä tarvitset — pakkauslista, budjettiseuranta tai mikä tahansa muu.",
   },
   "Apply it": {
     fi: "Toteuta se",
   },
-  "Applet applies your idea into a working app you can use right away.": {
-    fi: "Applet toteuttaa ideasi toimivana sovelluksena, jota voit käyttää heti.",
+  "Abblet applies your idea into a working app you can use right away.": {
+    fi: "Abblet toteuttaa ideasi toimivana sovelluksena, jota voit käyttää heti.",
   },
   "Edit anytime": {
     fi: "Muokkaa milloin tahansa",
@@ -126,23 +126,23 @@ export const translations = {
   "No apps yet": {
     fi: "Ei vielä appeja",
   },
-  "Welcome to Applet!": { fi: "Tervetuloa Appletiin!" },
+  "Welcome to Abblet!": { fi: "Tervetuloa Abbletiin!" },
   "Hello,": { fi: "Hei," },
-  "Thank you for joining Applet. Describe what you need and Applet applies it — your first app in minutes.": {
-    fi: "Kiitos liittymisestä Appletiin. Kuvaile mitä tarvitset — Applet toteuttaa sen, ensimmäinen app minuuteissa.",
+  "Thank you for joining Abblet. Describe what you need and Abblet applies it — your first app in minutes.": {
+    fi: "Kiitos liittymisestä Abbletiin. Kuvaile mitä tarvitset — Abblet toteuttaa sen, ensimmäinen app minuuteissa.",
   },
-  "Open Applet:\n$url": { fi: "Avaa Applet:\n$url" },
-  "Best regards\nRane Faunder\nFounder of Applet": { fi: "Ystävällisin terveisin\nRane Faunder\nAppletin perustaja" },
-  "Applet - Login Code": { fi: "Applet – kirjautumiskoodi" },
+  "Open Abblet:\n$url": { fi: "Avaa Abblet:\n$url" },
+  "Best regards\nRane Faunder\nFounder of Abblet": { fi: "Ystävällisin terveisin\nRane Faunder\nAbbletin perustaja" },
+  "Abblet - Login Code": { fi: "Abblet – kirjautumiskoodi" },
   "Hello!": { fi: "Hei!" },
-  "Use the following code to log in to Applet:": { fi: "Käytä seuraavaa koodia kirjautuaksesi Appletiin:" },
+  "Use the following code to log in to Abblet:": { fi: "Käytä seuraavaa koodia kirjautuaksesi Abbletiin:" },
   "Important:": { fi: "Tärkeää:" },
   "• Code is valid for 10 minutes": { fi: "• Koodi on voimassa 10 minuuttia" },
   "• Code can only be used once": { fi: "• Koodia voi käyttää vain kerran" },
   "• If you didn't request this code, you can safely ignore this message": {
     fi: "• Jos et pyytänyt tätä koodia, voit jättää viestin huomiotta",
   },
-  "Applet Team": { fi: "Applet-tiimi" },
+  "Abblet Team": { fi: "Abblet-tiimi" },
   "Email address required": { fi: "Sähköpostiosoite vaaditaan" },
   "Email address is too long": { fi: "Sähköpostiosoite on liian pitkä" },
   "Invalid email address": { fi: "Virheellinen sähköpostiosoite" },
@@ -162,6 +162,7 @@ export const translations = {
   },
   "AI is designing your app.": { fi: "Tekoäly suunnittelee appiasi." },
   "AI is building your web component.": { fi: "Tekoäly rakentaa web-komponenttiasi." },
+  "AI is building your app.": { fi: "Tekoäly rakentaa appiasi." },
   "Fill in the required fields.": { fi: "Täytä pakolliset kentät." },
   "Add entry": { fi: "Lisää merkintä" },
   "Add": { fi: "Lisää" },
@@ -200,40 +201,45 @@ export const translations = {
   "Invalid AI model.": { fi: "Virheellinen tekoälymalli." },
   "Building": { fi: "Rakenteilla" },
   "Describe your app": { fi: "Kuvaile appisi" },
-  "Tell Applet what you need — it builds a working app in minutes.": {
-    fi: "Kerro mitä tarvitset — Applet rakentaa toimivan apin minuuteissa.",
+  "Tell Abblet what you need — it builds a working app in minutes.": {
+    fi: "Kerro mitä tarvitset — Abblet rakentaa toimivan apin minuuteissa.",
   },
   "Enter to send · Shift+Enter for a new line": {
     fi: "Enter lähettää · Shift+Enter rivinvaihto",
   },
   "Unsaved changes": { fi: "Tallentamattomia muutoksia" },
   "Saved": { fi: "Tallennettu" },
+  "Save": { fi: "Tallenna" },
   "Revert": { fi: "Palauta" },
   "Save & run": { fi: "Tallenna ja aja" },
   "Saving…": { fi: "Tallennetaan…" },
+  "Account": { fi: "Tili" },
+  "Log out": { fi: "Kirjaudu ulos" },
+  "Back": { fi: "Takaisin" },
+  "Cancel": { fi: "Peruuta" },
   "Describe the change you want.": { fi: "Kuvaile haluamasi muutos." },
   "Could not update app. Try again.": { fi: "Appin päivitys epäonnistui. Yritä uudelleen." },
   "Code must still register <$tag>.": { fi: "Koodin on yhä rekisteröitävä <$tag>." },
   "Applied in minutes": { fi: "Toteutettu minuuteissa" },
-  "Describe your idea and Applet applies it instantly — no setup, no waiting.": {
-    fi: "Kuvaile ideasi — Applet toteuttaa sen heti. Ei asennusta, ei odottelua.",
+  "Describe your idea and Abblet applies it instantly — no setup, no waiting.": {
+    fi: "Kuvaile ideasi — Abblet toteuttaa sen heti. Ei asennusta, ei odottelua.",
   },
   "Truly yours": { fi: "Täysin sinun" },
   "Your apps store data right in your browser. No accounts to wire up, no servers to manage.": {
     fi: "Appit tallentavat datan suoraan selaimeesi. Ei tilien kytkentää, ei palvelimien ylläpitoa.",
   },
   "No code required": { fi: "Ei koodia" },
-  "Just describe it in plain language. Applet applies the rest.": {
-    fi: "Kuvaile arkikielellä. Applet toteuttaa loput.",
+  "Just describe it in plain language. Abblet applies the rest.": {
+    fi: "Kuvaile arkikielellä. Abblet toteuttaa loput.",
   },
   "Make every idea an app": { fi: "Tee jokaisesta ideasta app" },
   "Describe it, apply it — right where you work.": {
     fi: "Kuvaile, toteuta — juuri siellä missä työskentelet.",
   },
   "Frequently asked questions": { fi: "Usein kysytyt kysymykset" },
-  "What is Applet?": { fi: "Mikä on Applet?" },
-  "Applet lets you apply your ideas as small personal apps. Describe what you need and Applet builds a working app that runs in your browser and keeps your data on your device.": {
-    fi: "Appletilla toteutat ideasi pieninä henkilökohtaisina appeina. Kuvaile mitä tarvitset — Applet rakentaa toimivan appin selaimeesi, data pysyy laitteellasi.",
+  "What is Abblet?": { fi: "Mikä on Abblet?" },
+  "Abblet lets you apply your ideas as small personal apps. Describe what you need and Abblet builds a working app that runs in your browser and keeps your data on your device.": {
+    fi: "Abbletilla toteutat ideasi pieninä henkilökohtaisina appeina. Kuvaile mitä tarvitset — Abblet rakentaa toimivan appin selaimeesi, data pysyy laitteellasi.",
   },
   "What kind of apps can I build?": { fi: "Millaisia appeja voin tehdä?" },
   "Anything small and personal: trackers, journals, calculators, checklists, simple games, or quick one-off tools that make your life easier.": {
@@ -244,8 +250,8 @@ export const translations = {
     fi: "Jokainen app tallentaa datansa paikallisesti selaimeesi. Mitään ei lähetetä palvelimelle — merkintäsi pysyvät yksityisinä.",
   },
   "What will you apply?": { fi: "Mitä toteutat seuraavaksi?" },
-  "Describe your idea and watch Applet apply it in minutes.": {
-    fi: "Kuvaile ideasi ja katso Appletin toteuttavan sen minuuteissa.",
+  "Describe your idea and watch Abblet apply it in minutes.": {
+    fi: "Kuvaile ideasi ja katso Abbletin toteuttavan sen minuuteissa.",
   },
   "Apply your first app": {
     fi: "Toteuta ensimmäinen appisi",
@@ -253,11 +259,11 @@ export const translations = {
   "Describe your idea and see your first app in minutes.": {
     fi: "Kuvaile ideasi ja näe ensimmäinen app minuuteissa.",
   },
-  "Email me about Applet updates": {
-    fi: "Lähetä minulle sähköpostia Applet-päivityksistä",
+  "Email me about Abblet updates": {
+    fi: "Lähetä minulle sähköpostia Abblet-päivityksistä",
   },
-  "Applet is a platform for creating personal apps. By using the service you accept these terms.": {
-    fi: "Applet on alusta henkilökohtaisten appien luomiseen. Käyttämällä palvelua hyväksyt nämä ehdot.",
+  "Abblet is a platform for creating personal apps. By using the service you accept these terms.": {
+    fi: "Abblet on alusta henkilökohtaisten appien luomiseen. Käyttämällä palvelua hyväksyt nämä ehdot.",
   },
 } as const;
 

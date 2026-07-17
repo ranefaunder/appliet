@@ -64,7 +64,7 @@ export default {
         appId: id,
         role: "assistant",
         content: t(
-          "Hi! I'm Applet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?",
+          "Hi! I'm Abblet — I'll help you build a personal app.\n\nDescribe what you need in plain language, for example:\n• a habit tracker\n• a wine journal\n• a packing list for camping\n• a tip calculator\n• a reading list\n\nSmall, personal tools work best — trackers, journals, checklists, calculators, and simple one-off utilities.\n\nWhat would you like to build?",
           language,
         ),
       });

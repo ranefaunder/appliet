@@ -10,10 +10,18 @@ function isHomePath(path: string, lang: string): boolean {
   return normalized === `/${lang}` || normalized === "";
 }
 
+function isAppEditPath(path: string): boolean {
+  return /\/app\/[^/]+\/edit\/?$/.test(path);
+}
+
 export default function Header() {
   const { path } = useLocation();
   const lang = getLang(path ?? "") ?? "en";
+  const editor = isAppEditPath(path ?? "");
   const home = isHomePath(path ?? "", lang);
+
+  /* Etusivu on iOS home screen — ei erillistä headeria. Editorilla oma topbar. */
+  if (editor || home) return null;
 
   function pathForLang(currentPath: string, langCode: string): string {
     const parts = (currentPath || "/").split("/").filter(Boolean);
@@ -26,21 +34,20 @@ export default function Header() {
       ui-container="lg"
       ui-row="x-between y-center gap-xl"
       ui-padding="block-sm"
-      class=${home ? "app-header home" : "app-header"}
+      class="app-header"
       data-scope="Header"
     >
-      <a href=${`/${lang}/`} class="logo" ui-row="gap-sm y-center" aria-label="Applet">
+      <a href=${`/${lang}/`} class="logo" ui-row="gap-sm y-center" aria-label="Abblet">
         <span class="logo-icon" aria-hidden="true">
           <span class="logo-icon-letter faunder-logo-font">A</span>
         </span>
         <span class="logo-copy" ui-column="gap-xs">
-          <span class="logo-text faunder-logo-font">Applet</span>
+          <span class="logo-text faunder-logo-font">Abblet</span>
           <span class="logo-tagline">${t("Your apps evolve with your needs.")}</span>
         </span>
       </a>
       <nav class="navigation" ui-row="gap-lg y-center">
         <a href="/${lang}/" ui-button="inline">${t("Apps")}</a>
-        <a href="/${lang}/edit" ui-button="inline">${t("Edit")}</a>
         <a href="/${lang}/create" ui-button="inline">${t("Create")}</a>
         <a href="/${lang}/settings" ui-button="inline">${t("Settings")}</a>
       </nav>
@@ -82,9 +89,9 @@ export default function Header() {
         z-index: 100;
       }
 
-      /* Mobiilissa header on osa etusivua; muilla sivuilla bottom-nav riittää. */
+      /* Mobiilissa bottom-dock riittää; header vain desktopilla. */
       @media (max-width: 799px) {
-        &:not(.home) {
+        & {
           display: none;
         }
       }

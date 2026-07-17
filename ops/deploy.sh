@@ -2,7 +2,7 @@
 
 set -e
 
-echo "🔗 Deploying Applet to server..."
+echo "🔗 Deploying Abblet to server..."
 
 ssh faunder@faunder.fi << 'EOF'
   set -e
@@ -34,9 +34,9 @@ ssh faunder@faunder.fi << 'EOF'
   sudo -n systemctl restart applet.service
 
   if sudo -n systemctl status applet.service > /dev/null 2>&1; then
-    echo "✅ Applet deploy complete! (systemd service)"
+    echo "✅ Abblet deploy complete! (systemd service)"
   else
-    echo "❌ Applet service failed to start"
+    echo "❌ Abblet service failed to start"
     echo "Check logs with: journalctl -u applet.service -f"
     exit 1
   fi

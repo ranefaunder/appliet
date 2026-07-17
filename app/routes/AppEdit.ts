@@ -65,59 +65,64 @@ export default function AppEdit(_props: RoutePropsForPath<typeof AppEditPath>) {
 
   const view = html`
     <div data-scope="AppEdit" ui-column>
-      <header class="topbar">
-        <div class="topbar-title">
+      <header class="topbar" ui-row="x-between y-center gap-md" ui-padding="inline-md block-sm">
+        <div class="topbar-title" ui-row="y-center gap-sm">
+          <a
+            href=${`/${lang}/`}
+            ui-button="tertiary square sm"
+            ui-icon="arrow-left"
+            aria-label=${t("Back")}
+          ></a>
           ${app
             ? html`
-              <div class="app-chip" title=${app.title}>
-                ${iconSrc
-                  ? html`<img class="app-chip-icon" src=${iconSrc} alt="" width="28" height="28" />`
-                  : html`
-                    <span
-                      class="app-chip-fallback"
-                      style=${`background: ${previewGradient(slug)}`}
-                      aria-hidden="true"
-                    >${draftLetter(app.title)}</span>`}
-                <span class="app-chip-title">${app.title}</span>
-                ${creating || app.isDraft
-                  ? html`<span class="badge">${creating ? t("Building") : t("Draft")}</span>`
-                  : ""}
-              </div>`
-            : html`<div class="app-chip"><span class="app-chip-title muted">${t("Editor")}</span></div>`}
+              ${iconSrc
+                ? html`<img class="app-chip-icon" src=${iconSrc} alt="" width="28" height="28" />`
+                : html`
+                  <span
+                    class="app-chip-fallback"
+                    style=${`background: ${previewGradient(slug)}`}
+                    aria-hidden="true"
+                  >${draftLetter(app.title)}</span>`}
+              <span class="app-chip-title">${app.title}</span>
+              ${creating || app.isDraft
+                ? html`<span class="badge">${creating ? t("Building") : t("Draft")}</span>`
+                : ""}`
+            : html`<span class="app-chip-title muted">${t("Editor")}</span>`}
         </div>
 
-        <div class="topbar-actions">
+        <div ui-row="y-center gap-xs">
           ${app?.canEdit
             ? html`
               <button
                 type="button"
-                class="icon-btn danger"
+                ui-button="tertiary square sm"
+                ui-icon="trash"
                 aria-label=${t("Delete")}
                 disabled=${deleting}
+                aria-busy=${deleting}
                 onClick=${() => void handleDelete()}
-              >
-                <i ui-icon="trash sm" aria-hidden="true"></i>
-              </button>`
+              ></button>`
             : ""}
           ${app && !creating
             ? html`
-              <a class="open-btn" href=${appPageUrl(lang, slug)} target="_blank" rel="noopener">
+              <a ui-button="sm" href=${appPageUrl(lang, slug)} target="_blank" rel="noopener">
                 ${t("Open app")}
               </a>`
             : app
-              ? html`<span class="open-btn disabled">${t("Open app")}</span>`
+              ? html`<button type="button" ui-button="sm" disabled>${t("Open app")}</button>`
               : ""}
         </div>
       </header>
 
       ${canAddToHome
         ? html`
-          <div class="draft-banner">
+          <div class="draft-banner" ui-row="x-between y-center gap-md wrap" ui-padding="md">
             <p>${t("This app is still a draft. Add it to My Apps when you're ready.")}</p>
             <button
               type="button"
-              class="draft-cta"
+              ui-button="primary sm"
               disabled=${publishing}
+              aria-busy=${publishing}
               onClick=${() => void publishToMyApps(slug)}
             >
               ${publishing ? t("Adding…") : t("Add to My Apps")}
@@ -127,18 +132,18 @@ export default function AppEdit(_props: RoutePropsForPath<typeof AppEditPath>) {
 
       ${loading && !app
         ? html`
-          <div class="state" ui-column="gap-md x-center y-center">
+          <div class="state" ui-column="gap-md x-center y-center" ui-padding="xl">
             <i ui-icon="spinner lg"></i>
             <p>${t("Loading…")}</p>
           </div>`
         : !app
           ? html`
-            <div class="state" ui-column="gap-md x-center y-center">
+            <div class="state" ui-column="gap-md x-center y-center" ui-padding="xl">
               <p>${editError.value ?? t("App not found")}</p>
             </div>`
           : !app.canEdit
             ? html`
-              <div class="state" ui-column="gap-md x-center y-center">
+              <div class="state" ui-column="gap-md x-center y-center" ui-padding="xl">
                 <p ui-heading="sm">${t("You can only edit your own apps.")}</p>
                 <a href=${appPageUrl(lang, slug)} ui-button="primary">${t("Open app")}</a>
               </div>`
@@ -154,7 +159,7 @@ function EditWorkspace({ slug, creating }: { slug: string; creating: boolean }) 
     <div class="workspace" ui-column>
       ${creating ? "" : html`<${ModeTabs} />`}
       ${editError.value
-        ? html`<div class="error-banner" role="alert">${editError.value}</div>`
+        ? html`<div class="error-banner" role="alert" ui-margin="inline-md top-sm">${editError.value}</div>`
         : ""}
       ${creating || editMode.value === "chat"
         ? html`<${ChatPanel} slug=${slug} creating=${creating} />`
@@ -166,13 +171,13 @@ function EditWorkspace({ slug, creating }: { slug: string; creating: boolean }) 
 function ModeTabs() {
   const mode = editMode.value;
   return html`
-    <div class="tabs-wrap">
-      <div class="tabs" role="tablist" aria-label=${t("Editor")}>
+    <div class="tabs-wrap" ui-row="x-center" ui-padding="top-sm inline-md">
+      <div ui-group role="tablist" aria-label=${t("Editor")}>
         <button
           type="button"
           role="tab"
           aria-selected=${mode === "chat"}
-          class=${mode === "chat" ? "tab active" : "tab"}
+          ui-button=${mode === "chat" ? "primary sm" : "sm"}
           onClick=${() => (editMode.value = "chat")}
         >
           ${t("Chat")}
@@ -181,7 +186,7 @@ function ModeTabs() {
           type="button"
           role="tab"
           aria-selected=${mode === "code"}
-          class=${mode === "code" ? "tab active" : "tab"}
+          ui-button=${mode === "code" ? "primary sm" : "sm"}
           onClick=${() => (editMode.value = "code")}
         >
           ${t("Code")}
@@ -254,15 +259,14 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
   return html`
     <div class="chat" ui-column>
       <div class="messages" ref=${listRef}>
-        <div class="messages-inner">
+        <div class="messages-inner" ui-column="gap-md">
           ${displayMessages.length === 0 && !sending
             ? html`
-              <div class="chat-empty">
-                <div class="chat-empty-mark" aria-hidden="true"></div>
-                <p class="chat-empty-title">${creating ? t("Describe your app") : t("Describe a change")}</p>
+              <div class="chat-empty" ui-column="gap-sm x-center">
+                <p ui-heading="sm">${creating ? t("Describe your app") : t("Describe a change")}</p>
                 <p class="chat-empty-copy">
                   ${creating
-                    ? t("Tell Applet what you need — it builds a working app in minutes.")
+                    ? t("Tell Abblet what you need — it builds a working app in minutes.")
                     : t("Ask the AI to tweak your app — colors, features, wording, anything.")}
                 </p>
               </div>`
@@ -281,21 +285,19 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
           ${sending
             ? html`
               <div class="msg assistant">
-                <div class="bubble typing" aria-live="polite">
-                  <span class="typing-label">
+                <div class="bubble typing" aria-live="polite" ui-row="y-center gap-sm">
+                  <span>
                     ${creating ? t("AI is building your app.") : t("AI is updating your app…")}
                   </span>
-                  <span class="typing-dots" aria-hidden="true">
-                    <i></i><i></i><i></i>
-                  </span>
+                  <i ui-icon="spinner sm" aria-hidden="true"></i>
                 </div>
               </div>`
             : ""}
         </div>
       </div>
 
-      <form class="composer" onSubmit=${submit}>
-        <div class=${canSend || draft ? "composer-shell focused" : "composer-shell"}>
+      <form class="composer" ui-column="gap-xs" ui-padding="inline-md bottom-md top-sm" onSubmit=${submit}>
+        <div class="composer-shell" ui-column="gap-sm" ui-padding="sm">
           <textarea
             ref=${inputRef}
             class="composer-input"
@@ -309,11 +311,11 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
             }}
             onKeyDown=${onKeyDown}
           ></textarea>
-          <div class="composer-toolbar">
+          <div ui-row="x-between y-center gap-sm">
             <label class="model-picker">
               <span class="sr-only">${t("AI model")}</span>
               <select
-                class="model-select"
+                ui-input="sm"
                 aria-label=${t("AI model")}
                 disabled=${sending}
                 value=${editAiModel.value}
@@ -327,12 +329,11 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
             </label>
             <button
               type="submit"
-              class=${canSend ? "send-btn ready" : "send-btn"}
+              ui-button="primary square sm"
+              ui-icon="arrow-up"
               disabled=${!canSend}
               aria-label=${creating ? t("Apply It") : t("Send")}
-            >
-              <i ui-icon="arrow-up sm" aria-hidden="true"></i>
-            </button>
+            ></button>
           </div>
         </div>
         <p class="composer-hint">${t("Enter to send · Shift+Enter for a new line")}</p>
@@ -360,17 +361,17 @@ function CodePanel({ slug }: { slug: string }) {
 
   return html`
     <div class="code" ui-column>
-      <div class="code-bar">
-        <div class="code-meta">
+      <div class="code-bar" ui-row="x-between y-center gap-md" ui-padding="inline-md block-sm">
+        <div ui-row="y-center gap-sm">
           <span class="code-label">${t("Code")}</span>
           ${dirty
             ? html`<span class="code-dirty">${t("Unsaved changes")}</span>`
             : html`<span class="code-clean">${t("Saved")}</span>`}
         </div>
-        <div class="code-actions">
+        <div ui-row="gap-xs">
           <button
             type="button"
-            class="code-btn ghost"
+            ui-button="tertiary sm"
             disabled=${!dirty || saving}
             onClick=${() => app && (codeDraft.value = app.config.code)}
           >
@@ -378,8 +379,9 @@ function CodePanel({ slug }: { slug: string }) {
           </button>
           <button
             type="button"
-            class=${dirty ? "code-btn primary" : "code-btn primary muted"}
+            ui-button="primary sm"
             disabled=${!dirty || saving}
+            aria-busy=${saving}
             onClick=${() => void saveCode(slug)}
           >
             ${saving ? t("Saving…") : t("Save")}
@@ -415,15 +417,9 @@ function style() {
         color: var(--neutral-900);
       }
 
-      /* —— Top bar —— */
       .topbar {
         flex: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
         min-height: 3.25rem;
-        padding: 0.5rem 0.875rem;
         background: color-mix(in oklab, var(--white) 88%, transparent);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--neutral-200);
@@ -433,20 +429,6 @@ function style() {
       .topbar-title {
         min-width: 0;
         flex: 1;
-      }
-
-      .topbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 0.375rem;
-        flex: none;
-      }
-
-      .app-chip {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-width: 0;
       }
 
       .app-chip-icon,
@@ -469,8 +451,7 @@ function style() {
 
       .app-chip-title {
         min-width: 0;
-        font-family: "Noto Serif", serif;
-        font-weight: 700;
+        font-weight: 650;
         font-size: 0.9375rem;
         letter-spacing: -0.01em;
         white-space: nowrap;
@@ -480,7 +461,6 @@ function style() {
 
       .app-chip-title.muted {
         color: var(--neutral-500);
-        font-weight: 600;
       }
 
       .badge {
@@ -496,76 +476,9 @@ function style() {
         text-transform: uppercase;
       }
 
-      .icon-btn {
-        display: grid;
-        place-items: center;
-        width: 2.25rem;
-        height: 2.25rem;
-        border: none;
-        border-radius: 0.625rem;
-        background: transparent;
-        color: var(--neutral-500);
-        cursor: pointer;
-        transition: background 0.15s ease, color 0.15s ease;
-      }
-
-      .icon-btn:hover:not(:disabled) {
-        background: var(--neutral-100);
-        color: var(--neutral-800);
-      }
-
-      .icon-btn.danger:hover:not(:disabled) {
-        background: oklch(from var(--danger, #ff3b30) l c h / 10%);
-        color: var(--danger, #c00);
-      }
-
-      .icon-btn:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-
-      .open-btn {
-        display: inline-flex;
-        align-items: center;
-        min-height: 2.25rem;
-        padding: 0.35rem 0.75rem;
-        border-radius: 0.625rem;
-        background: var(--neutral-900);
-        color: var(--white);
-        font-size: 0.8125rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: transform 0.15s ease, background 0.15s ease;
-      }
-
-      .open-btn:hover {
-        background: var(--neutral-800);
-      }
-
-      .open-btn:active {
-        transform: scale(0.98);
-      }
-
-      .open-btn.disabled {
-        background: var(--neutral-200);
-        color: var(--neutral-500);
-        pointer-events: none;
-      }
-
-      /* —— Draft banner —— */
       .draft-banner {
         flex: none;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0.75rem 1rem;
-        background: linear-gradient(
-          90deg,
-          color-mix(in oklab, var(--primary-50) 90%, white),
-          var(--white)
-        );
+        background: color-mix(in oklab, var(--primary-50) 70%, white);
         border-bottom: 1px solid var(--primary-100);
       }
 
@@ -578,34 +491,10 @@ function style() {
         line-height: 1.4;
       }
 
-      .draft-cta {
-        flex: none;
-        border: none;
-        border-radius: 0.625rem;
-        padding: 0.45rem 0.85rem;
-        background: var(--primary-600);
-        color: white;
-        font: inherit;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.15s ease, transform 0.15s ease;
-      }
-
-      .draft-cta:hover:not(:disabled) {
-        background: var(--primary-700);
-      }
-
-      .draft-cta:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-
       .state {
         flex: 1;
         color: var(--neutral-600);
         text-align: center;
-        padding: 2rem;
       }
 
       .workspace {
@@ -614,52 +503,12 @@ function style() {
         background: var(--white);
       }
 
-      /* —— Mode tabs —— */
       .tabs-wrap {
         flex: none;
-        display: flex;
-        justify-content: center;
-        padding: 0.625rem 1rem 0;
-        background: var(--white);
-      }
-
-      .tabs {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.2rem;
-        width: min(100%, 16rem);
-        padding: 0.2rem;
-        border-radius: 0.75rem;
-        background: var(--neutral-100);
-        border: 1px solid var(--neutral-200);
-      }
-
-      .tab {
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        padding: 0.45rem 0.75rem;
-        border-radius: 0.575rem;
-        font: inherit;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        color: var(--neutral-500);
-        transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
-      }
-
-      .tab:hover:not(.active) {
-        color: var(--neutral-700);
-      }
-
-      .tab.active {
-        background: var(--white);
-        color: var(--neutral-950);
-        box-shadow: 0 1px 2px oklch(from var(--neutral-900) l c h / 8%);
       }
 
       .error-banner {
         flex: none;
-        margin: 0.625rem 1rem 0;
         padding: 0.625rem 0.875rem;
         border-radius: 0.625rem;
         background: oklch(from var(--danger, #ff3b30) l c h / 10%);
@@ -668,13 +517,10 @@ function style() {
         line-height: 1.4;
       }
 
-      /* —— Chat —— */
       .chat {
         flex: 1;
         min-height: 0;
-        background:
-          radial-gradient(120% 80% at 50% -20%, color-mix(in oklab, var(--primary-100) 55%, transparent), transparent 55%),
-          var(--neutral-50);
+        background: var(--neutral-50);
       }
 
       .messages {
@@ -685,9 +531,6 @@ function style() {
       }
 
       .messages-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
         width: min(100%, 42rem);
         margin: 0 auto;
         padding: 1.25rem 1rem 1rem;
@@ -699,36 +542,6 @@ function style() {
         text-align: center;
         max-width: 22rem;
         padding: 2rem 1rem;
-        animation: fade-up 0.35s ease both;
-      }
-
-      .chat-empty-mark {
-        width: 2.75rem;
-        height: 2.75rem;
-        margin: 0 auto 1rem;
-        border-radius: 0.85rem;
-        background:
-          linear-gradient(145deg, var(--primary-400), var(--primary-700));
-        box-shadow: 0 8px 20px oklch(from var(--primary-700) l c h / 22%);
-        position: relative;
-      }
-
-      .chat-empty-mark::after {
-        content: "";
-        position: absolute;
-        inset: 0.55rem;
-        border-radius: 0.4rem;
-        background: color-mix(in oklab, white 22%, transparent);
-        border: 1px solid color-mix(in oklab, white 35%, transparent);
-      }
-
-      .chat-empty-title {
-        margin: 0 0 0.35rem;
-        font-family: "Noto Serif", serif;
-        font-size: 1.125rem;
-        font-weight: 700;
-        color: var(--neutral-900);
-        letter-spacing: -0.02em;
       }
 
       .chat-empty-copy {
@@ -743,8 +556,6 @@ function style() {
         flex-direction: column;
         gap: 0.3rem;
         max-width: min(100%, 34rem);
-        animation: fade-up 0.28s ease both;
-        animation-delay: calc(min(var(--i, 0), 8) * 20ms);
       }
 
       .msg.user { align-self: flex-end; align-items: flex-end; }
@@ -779,67 +590,22 @@ function style() {
         color: var(--neutral-800);
         border: 1px solid var(--neutral-200);
         border-bottom-left-radius: 0.3rem;
-        box-shadow: 0 1px 2px oklch(from var(--neutral-900) l c h / 4%);
       }
 
-      .bubble.typing {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.65rem;
-        color: var(--neutral-500);
-        font-style: normal;
-      }
-
-      .typing-label {
-        font-size: 0.875rem;
-      }
-
-      .typing-dots {
-        display: inline-flex;
-        gap: 0.22rem;
-        align-items: center;
-      }
-
-      .typing-dots i {
-        width: 0.35rem;
-        height: 0.35rem;
-        border-radius: 999px;
-        background: var(--neutral-400);
-        animation: typing-bounce 1s ease-in-out infinite;
-      }
-
-      .typing-dots i:nth-child(2) { animation-delay: 0.12s; }
-      .typing-dots i:nth-child(3) { animation-delay: 0.24s; }
-
-      /* —— Composer —— */
       .composer {
         flex: none;
         width: min(100%, 42rem);
         margin: 0 auto;
-        padding: 0.5rem 1rem 0.75rem;
-        background: linear-gradient(180deg, transparent, var(--neutral-50) 28%);
       }
 
       .composer-shell {
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem;
-        padding: 0.65rem 0.7rem 0.55rem;
-        border-radius: 1.1rem;
+        border-radius: 1rem;
         background: var(--white);
-        border: 1px solid var(--neutral-250, var(--neutral-200));
-        box-shadow:
-          0 1px 2px oklch(from var(--neutral-900) l c h / 4%),
-          0 8px 24px oklch(from var(--neutral-900) l c h / 4%);
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        border: 1px solid var(--neutral-200);
       }
 
-      .composer-shell:focus-within,
-      .composer-shell.focused {
+      .composer-shell:focus-within {
         border-color: color-mix(in oklab, var(--primary-400) 55%, var(--neutral-300));
-        box-shadow:
-          0 0 0 3px oklch(from var(--primary-500) l c h / 12%),
-          0 8px 24px oklch(from var(--neutral-900) l c h / 5%);
       }
 
       .composer-input {
@@ -847,7 +613,7 @@ function style() {
         resize: none;
         border: none;
         background: transparent;
-        padding: 0.2rem 0.35rem;
+        padding: 0.2rem 0.15rem;
         font: inherit;
         font-size: 16px;
         line-height: 1.45;
@@ -864,79 +630,18 @@ function style() {
         opacity: 0.65;
       }
 
-      .composer-toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.5rem;
-        padding-top: 0.15rem;
-      }
-
       .model-picker {
-        display: block;
+        flex: none;
+        width: auto;
       }
 
-      .model-select {
-        appearance: none;
-        border: 1px solid var(--neutral-200);
-        border-radius: 999px;
-        padding: 0.3rem 1.6rem 0.3rem 0.65rem;
-        font: inherit;
-        font-size: 0.75rem;
-        font-weight: 650;
-        color: var(--neutral-600);
-        background:
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M3 4.5L6 8l3-3.5'/%3E%3C/svg%3E")
-            no-repeat right 0.45rem center / 0.7rem,
-          var(--neutral-50);
-        cursor: pointer;
-        transition: border-color 0.15s ease, color 0.15s ease;
-      }
-
-      .model-select:hover:not(:disabled) {
-        border-color: var(--neutral-300);
-        color: var(--neutral-800);
-      }
-
-      .model-select:disabled {
-        opacity: 0.55;
-        cursor: not-allowed;
-      }
-
-      .model-select:focus {
-        outline: none;
-        border-color: var(--primary-400);
-      }
-
-      .send-btn {
-        display: grid;
-        place-items: center;
-        width: 2.15rem;
-        height: 2.15rem;
-        border: none;
-        border-radius: 999px;
-        background: var(--neutral-200);
-        color: var(--neutral-500);
-        cursor: not-allowed;
-        transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
-      }
-
-      .send-btn.ready {
-        background: var(--neutral-900);
-        color: white;
-        cursor: pointer;
-      }
-
-      .send-btn.ready:hover {
-        background: var(--neutral-800);
-      }
-
-      .send-btn.ready:active {
-        transform: scale(0.96);
+      .model-picker select {
+        width: auto;
+        min-width: 5.5rem;
       }
 
       .composer-hint {
-        margin: 0.4rem 0 0;
+        margin: 0;
         text-align: center;
         font-size: 0.6875rem;
         color: var(--neutral-400);
@@ -954,7 +659,6 @@ function style() {
         border: 0;
       }
 
-      /* —— Code —— */
       .code {
         flex: 1;
         min-height: 0;
@@ -963,20 +667,8 @@ function style() {
 
       .code-bar {
         flex: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0.55rem 0.85rem;
-        background: #1a1a1a;
-        border-bottom: 1px solid #2a2a2a;
-      }
-
-      .code-meta {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        min-width: 0;
+        background: var(--white);
+        border-bottom: 1px solid var(--neutral-200);
       }
 
       .code-label {
@@ -984,7 +676,7 @@ function style() {
         font-weight: 700;
         letter-spacing: 0.04em;
         text-transform: uppercase;
-        color: #a3a3a3;
+        color: var(--neutral-500);
       }
 
       .code-dirty,
@@ -993,53 +685,8 @@ function style() {
         font-weight: 500;
       }
 
-      .code-dirty { color: #f0c674; }
-      .code-clean { color: #6a6a6a; }
-
-      .code-actions {
-        display: flex;
-        gap: 0.4rem;
-      }
-
-      .code-btn {
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.35rem 0.7rem;
-        font: inherit;
-        font-size: 0.75rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: opacity 0.15s ease, background 0.15s ease;
-      }
-
-      .code-btn:disabled {
-        opacity: 0.35;
-        cursor: not-allowed;
-      }
-
-      .code-btn.ghost {
-        background: transparent;
-        color: #b0b0b0;
-      }
-
-      .code-btn.ghost:hover:not(:disabled) {
-        background: #262626;
-        color: #eee;
-      }
-
-      .code-btn.primary {
-        background: #f5f5f5;
-        color: #111;
-      }
-
-      .code-btn.primary.muted {
-        background: #333;
-        color: #888;
-      }
-
-      .code-btn.primary:hover:not(:disabled) {
-        background: white;
-      }
+      .code-dirty { color: var(--warning, #b45309); }
+      .code-clean { color: var(--neutral-400); }
 
       .code-editor {
         position: relative;
@@ -1098,36 +745,6 @@ function style() {
       .code-highlight .hl-function { color: #dcdcaa; }
       .code-highlight .hl-class { color: #4ec9b0; }
       .code-highlight .hl-builtin { color: #569cd6; }
-
-      @keyframes fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(6px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      @keyframes typing-bounce {
-        0%, 60%, 100% {
-          transform: translateY(0);
-          opacity: 0.45;
-        }
-        30% {
-          transform: translateY(-3px);
-          opacity: 1;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .msg,
-        .chat-empty,
-        .typing-dots i {
-          animation: none;
-        }
-      }
     }
   `;
 }

@@ -10,7 +10,7 @@ export default function Footer() {
         <a href=${socialLinks.twitter} target="_blank" rel="noopener noreferrer" ui-link="inherit">X</a>
         <a href=${socialLinks.bluesky} target="_blank" rel="noopener noreferrer" ui-link="inherit">Bluesky</a>
       </div>
-      <p>© ${new Date().getFullYear()} Applet</p>
+      <p>© ${new Date().getFullYear()} Abblet</p>
     </footer>
   `;
 

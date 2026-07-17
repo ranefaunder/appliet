@@ -20,7 +20,7 @@ export async function getMeta(req: BunRequest): Promise<string> {
   const { origin, pathname } = new URL(req.url);
   const staticRoot = resolveStaticRootFromUrl(req.url);
 
-  const title = metaPlainForTitleElement(t("Applet — Your apps evolve with your needs.", lang));
+  const title = metaPlainForTitleElement(t("Abblet — Your apps evolve with your needs.", lang));
   const description = metaPlainForHtmlAttribute(
     t("Your apps evolve with your needs.", lang),
   );
@@ -58,7 +58,7 @@ export type ClientMeta = Record<string, string>;
 
 export async function getClientMeta(req: Pick<Request, "url">): Promise<ClientMeta> {
   const lang = getLang(req.url) ?? DEFAULT_LANGUAGE;
-  const title = metaPlainForTitleElement(t("Applet — Your apps evolve with your needs.", lang));
+  const title = metaPlainForTitleElement(t("Abblet — Your apps evolve with your needs.", lang));
   const description = metaPlainForHtmlAttribute(
     t("Your apps evolve with your needs.", lang),
   );
