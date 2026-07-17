@@ -125,14 +125,14 @@ export default function MobileNavigation() {
         width: 100%;
         padding: 0.7rem 1rem;
         border-radius: 2.1rem;
-        background: oklch(from var(--white) l c h / 18%);
+        background: rgba(255, 255, 255, 0.18);
         backdrop-filter: blur(50px) saturate(190%);
         -webkit-backdrop-filter: blur(50px) saturate(190%);
-        border: 1px solid oklch(from var(--white) l c h / 28%);
+        border: 1px solid rgba(255, 255, 255, 0.28);
         box-shadow:
-          0 12px 40px oklch(from var(--black) l c h / 18%),
-          inset 0 0.5px 0 oklch(from var(--white) l c h / 45%),
-          inset 0 -0.5px 0 oklch(from var(--black) l c h / 8%);
+          0 12px 40px rgba(0, 0, 0, 0.18),
+          inset 0 0.5px 0 rgba(255, 255, 255, 0.45),
+          inset 0 -0.5px 0 rgba(0, 0, 0, 0.08);
       }
 
       .dock-item {
@@ -149,8 +149,8 @@ export default function MobileNavigation() {
         place-items: center;
         width: var(--dock-icon);
         height: var(--dock-icon);
-        filter: drop-shadow(0 1px 0.5px oklch(from var(--black) l c h / 16%))
-          drop-shadow(0 6px 12px oklch(from var(--black) l c h / 20%));
+        filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.16))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
         transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.2, 1);
         -webkit-mask-image: var(--squircle);
         mask-image: var(--squircle);
@@ -178,8 +178,8 @@ export default function MobileNavigation() {
       }
 
       .dock-item.active .dock-glyph {
-        filter: drop-shadow(0 1px 0.5px oklch(from var(--black) l c h / 16%))
-          drop-shadow(0 6px 12px oklch(from var(--black) l c h / 20%))
+        filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.16))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2))
           brightness(1.06);
       }
 

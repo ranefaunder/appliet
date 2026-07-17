@@ -64,13 +64,13 @@ export default function AppLauncher() {
         padding: 1.6rem 1.35rem;
         text-align: center;
         border-radius: 1.65rem;
-        background: oklch(from var(--white) l c h / 16%);
+        background: rgba(255, 255, 255, 0.16);
         backdrop-filter: blur(36px) saturate(170%);
         -webkit-backdrop-filter: blur(36px) saturate(170%);
-        border: 1px solid oklch(from var(--white) l c h / 28%);
+        border: 1px solid rgba(255, 255, 255, 0.28);
         box-shadow:
-          0 16px 48px oklch(from var(--black) l c h / 22%),
-          inset 0 0.5px 0 oklch(from var(--white) l c h / 40%);
+          0 16px 48px rgba(0, 0, 0, 0.22),
+          inset 0 0.5px 0 rgba(255, 255, 255, 0.4);
       }
 
       .glass-title {
@@ -79,8 +79,8 @@ export default function AppLauncher() {
         font-weight: 700;
         line-height: 1.35;
         letter-spacing: -0.01em;
-        color: var(--white);
-        text-shadow: 0 1px 2px oklch(from var(--black) l c h / 35%);
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
       }
     }
   `;

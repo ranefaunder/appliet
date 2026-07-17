@@ -50,9 +50,12 @@ export default function Layout({ children }: LayoutProps) {
 
       &.home,
       &.editor {
+        height: 100svh;
         height: 100dvh;
+        max-height: 100svh;
         max-height: 100dvh;
         overflow: hidden;
+        background-color: #1a1848;
       }
 
       .layout-main {
@@ -66,6 +69,7 @@ export default function Layout({ children }: LayoutProps) {
         display: flex;
         flex-direction: column;
         padding-bottom: 0;
+        min-height: 0;
       }
 
       @media (min-width: 800px) {

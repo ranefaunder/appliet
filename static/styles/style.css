@@ -1,11 +1,22 @@
 @import "./icons.css";
 @import "./heading.css";
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   font-family: "Geist", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estää valkoiset reunat iOS:llä ennen kuin home-screen / wallpaper ehtii piirtyä. */
+html:has([data-scope="Layout"].home),
+html:has([data-scope="Layout"].home) body {
+  background-color: #1a1848;
 }
 
 /* iOS zooms focused fields under 16px — keep a hard floor. */

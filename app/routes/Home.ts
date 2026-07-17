@@ -42,6 +42,7 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
         overflow: hidden;
         background-color: #1a1848;
         font-family: var(--home-font);
+        color: #fff;
       }
 
       .wallpaper {

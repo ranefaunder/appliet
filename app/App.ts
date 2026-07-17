@@ -77,6 +77,7 @@ export default function App() {
   const style = css`
     @scope ([data-scope="App"]) to ([data-scope]) {
       & {
+        min-height: 100svh;
         min-height: 100dvh;
       }
     }

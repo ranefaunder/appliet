@@ -212,8 +212,8 @@ export default function AppIcon({ app }: Props) {
         width: var(--home-icon, 4.25rem);
         height: var(--home-icon, 4.25rem);
         flex: none;
-        filter: drop-shadow(0 1px 0.5px oklch(from var(--black) l c h / 18%))
-          drop-shadow(0 8px 14px oklch(from var(--black) l c h / 22%));
+        filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.18))
+          drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
         transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1);
       }
 
@@ -238,7 +238,7 @@ export default function AppIcon({ app }: Props) {
         font-weight: 700;
         line-height: 1;
         letter-spacing: -0.03em;
-        color: var(--white);
+        color: #fff;
       }
 
       .glyph-img {
@@ -252,8 +252,8 @@ export default function AppIcon({ app }: Props) {
         pointer-events: none;
         background: linear-gradient(
           180deg,
-          oklch(from var(--white) l c h / 28%) 0%,
-          oklch(from var(--white) l c h / 8%) 38%,
+          rgba(255, 255, 255, 0.28) 0%,
+          rgba(255, 255, 255, 0.08) 38%,
           transparent 52%
         );
         -webkit-mask-image: ${SQUIRCLE_MASK};
@@ -282,16 +282,15 @@ export default function AppIcon({ app }: Props) {
         line-height: 1.15;
         letter-spacing: -0.01em;
         text-align: center;
-        color: var(--white);
+        color: #fff;
         text-shadow:
-          0 0 1.5px oklch(from var(--black) l c h / 58%),
-          0 1px 2.5px oklch(from var(--black) l c h / 45%);
+          0 0 1.5px rgba(0, 0, 0, 0.58),
+          0 1px 2.5px rgba(0, 0, 0, 0.45);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
-      /* Valikko: varmista että se nousee wallpaperin päälle */
       [role="menu"] {
         z-index: 200;
         min-width: 10.5rem;
