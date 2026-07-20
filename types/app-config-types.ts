@@ -43,6 +43,15 @@ export type AppDetail = {
 
 export type AppEditRole = "user" | "assistant";
 
+/** One AI tool call within an assistant edit turn. */
+export type AppEditToolUsage = {
+  /** Tool id shown in chat stats. */
+  tool: "intent" | "updateCode" | "rename" | "regenerateIcon" | "generate";
+  modelKey?: string | null;
+  costUsd?: number | null;
+  durationMs?: number | null;
+};
+
 export type AppEditMessage = {
   id: string;
   role: AppEditRole;
@@ -60,6 +69,8 @@ export type AppEditMessage = {
   iconCostUsd?: number | null;
   /** Wall time for icon generation in ms, if any. */
   iconDurationMs?: number | null;
+  /** Per-tool usage lines (intent, code, rename, icon, …). Prefer over legacy fields. */
+  usage?: AppEditToolUsage[] | null;
 };
 
 export function parseAppConfig(json: string): AppConfig | null {

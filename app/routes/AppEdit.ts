@@ -4,7 +4,7 @@ import type { RoutePropsForPath } from "preact-iso";
 import { useLocation, useRoute } from "preact-iso";
 import { useSignal } from "@preact/signals";
 import { useEffect, useRef } from "preact/hooks";
-import type { AppEditMessage } from "/types/app-config-types";
+import type { AppEditMessage, AppEditToolUsage } from "/types/app-config-types";
 import { isDraftConfig } from "/types/app-config-types";
 import { t } from "/utils/i18n";
 import { highlightJavaScript } from "/utils/highlight-js";
@@ -31,10 +31,24 @@ import {
 } from "/app/stores/appEditStore";
 import {
   EDIT_AI_MODELS,
-  formatAiCostUsd,
   formatAiRequestStats,
   type EditAiModelKey,
 } from "/utils/ai-models";
+
+function toolUsageLabel(tool: AppEditToolUsage["tool"]): string {
+  switch (tool) {
+    case "intent":
+      return t("Intent");
+    case "updateCode":
+      return t("Code");
+    case "rename":
+      return t("Name");
+    case "regenerateIcon":
+      return t("Icon");
+    case "generate":
+      return t("Build");
+  }
+}
 
 export const AppEditPath = "/:lang/app/:slug/edit" as const;
 
@@ -203,13 +217,6 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
   const messages = editMessages.value;
   const sending = editSending.value;
   const canSend = Boolean(draft.value.trim()) && !sending;
-  const totalCostUsd = messages.reduce(
-    (sum, m) =>
-      sum +
-      (typeof m.costUsd === "number" ? m.costUsd : 0) +
-      (typeof m.iconCostUsd === "number" ? m.iconCostUsd : 0),
-    0,
-  );
 
   const displayMessages: AppEditMessage[] =
     messages.length > 0
@@ -275,22 +282,21 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
               </div>`
             : displayMessages.map(
                 (m, i) => {
-                  const textStats =
-                    m.role === "assistant"
-                      ? formatAiRequestStats({
-                          modelKey: m.modelKey,
-                          durationMs: m.durationMs,
-                          costUsd: m.costUsd,
-                        })
-                      : null;
-                  const iconStats =
-                    m.role === "assistant"
-                      ? formatAiRequestStats({
-                          modelKey: m.iconModelKey,
-                          durationMs: m.iconDurationMs,
-                          costUsd: m.iconCostUsd,
-                        })
-                      : null;
+                  const usageLines =
+                    m.role === "assistant" && m.usage && m.usage.length > 0
+                      ? m.usage
+                          .map((u) => {
+                            const stats = formatAiRequestStats({
+                              modelKey: u.modelKey,
+                              durationMs: u.durationMs,
+                              costUsd: u.costUsd,
+                            });
+                            return stats
+                              ? { label: toolUsageLabel(u.tool), stats }
+                              : null;
+                          })
+                          .filter((line): line is { label: string; stats: string } => line != null)
+                      : [];
                   return html`
                   <div
                     class=${`msg ${m.role === "user" ? "user" : "assistant"}`}
@@ -300,12 +306,11 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
                       ? html`<p class="msg-label">${t("Original prompt")}</p>`
                       : ""}
                     <div class="bubble">${m.content}</div>
-                    ${textStats
-                      ? html`<p class="msg-stats">${textStats}</p>`
-                      : ""}
-                    ${iconStats
-                      ? html`<p class="msg-stats">${t("Icon")} · ${iconStats}</p>`
-                      : ""}
+                    ${usageLines.map(
+                      (line) => html`
+                        <p class="msg-stats">${line.label} · ${line.stats}</p>
+                      `,
+                    )}
                   </div>`;
                 },
               )}
@@ -367,12 +372,6 @@ function ChatPanel({ slug, creating }: { slug: string; creating: boolean }) {
             ></button>
           </div>
         </div>
-        ${totalCostUsd > 0
-          ? html`
-            <p class="composer-hint">
-              <span class="composer-cost" title=${t("Total AI cost")}>${t("Total")} ${formatAiCostUsd(totalCostUsd)}</span>
-            </p>`
-          : ""}
       </form>
     </div>
   `;

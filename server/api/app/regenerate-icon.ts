@@ -60,6 +60,14 @@ export default {
         iconModelKey: iconResult.model,
         iconCostUsd: iconResult.costUsd,
         iconDurationMs: iconResult.durationMs,
+        usage: [
+          {
+            tool: "regenerateIcon",
+            modelKey: iconResult.model,
+            costUsd: iconResult.costUsd,
+            durationMs: iconResult.durationMs,
+          },
+        ],
       });
 
       const updated = dbGetAppBySlug(slug)!;

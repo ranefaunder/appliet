@@ -126,6 +126,24 @@ export default {
         iconModelKey: iconResult?.model ?? null,
         iconCostUsd: iconResult?.costUsd ?? null,
         iconDurationMs: iconResult?.durationMs ?? null,
+        usage: [
+          {
+            tool: "generate",
+            modelKey: generated.modelUsed,
+            costUsd: generated.costUsd,
+            durationMs,
+          },
+          ...(iconResult
+            ? [
+                {
+                  tool: "regenerateIcon" as const,
+                  modelKey: iconResult.model,
+                  costUsd: iconResult.costUsd,
+                  durationMs: iconResult.durationMs,
+                },
+              ]
+            : []),
+        ],
       });
 
       const row = dbGetAppBySlug(slug)!;

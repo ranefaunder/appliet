@@ -3,12 +3,24 @@ import { withAuth } from "/utils/auth.server";
 import { apiError, apiSuccess } from "/utils/api.server";
 import { dbGetAppBySlug, dbUpdateApp } from "/server/database/queries/apps";
 import { dbAddAppMessage, dbListAppMessages } from "/server/database/queries/app-messages";
-import { editAppConfig, generateAppConfig } from "/utils/ai-apps.server";
+import {
+  addCost,
+  classifyEditIntent,
+  editAppConfig,
+  generateAppConfig,
+  generateAppName,
+} from "/utils/ai-apps.server";
 import { generateAppIcon } from "/utils/ai-app-icons.server";
 import { apiErrorFromAi } from "/utils/ai-api.server";
 import { resolveEditAiModel } from "/utils/ai-core.server";
 import { DEFAULT_EDIT_AI_MODEL, isEditAiModelKey, resolveStoredModelRef } from "/utils/ai-models";
-import { isDraftConfig, parseAppConfig, type AppConfig, type AppDetail } from "/types/app-config-types";
+import {
+  isDraftConfig,
+  parseAppConfig,
+  type AppConfig,
+  type AppDetail,
+  type AppEditToolUsage,
+} from "/types/app-config-types";
 import type { Language } from "/types/i18n-types";
 import { getLang } from "/utils/lang";
 import { t } from "/utils/i18n";
@@ -84,14 +96,16 @@ export default {
         });
       }
 
-      let nextConfig: AppConfig;
+      let nextConfig: AppConfig = current;
       let assistantReply: string;
       let needsNewIcon = false;
       let costUsd: number | null = null;
       let modelUsed: string | null = null;
-      const aiStartedAt = Date.now();
+      const usage: AppEditToolUsage[] = [];
+      const replyParts: string[] = [];
 
       if (creating) {
+        const started = Date.now();
         let generated;
         try {
           generated = await generateAppConfig(message, language, model);
@@ -110,37 +124,137 @@ export default {
         nextConfig = generated.config;
         costUsd = generated.costUsd;
         modelUsed = generated.modelUsed;
+        usage.push({
+          tool: "generate",
+          modelKey: generated.modelUsed,
+          costUsd: generated.costUsd,
+          durationMs: Date.now() - started,
+        });
         assistantReply = t("I built \"$title\" for you. Open the app or tell me what to change.", {
           title: generated.config.title,
         }, language);
-        // Legacy empty drafts: finish into My Apps and generate icon below.
         needsNewIcon = true;
       } else {
         const history = dbListAppMessages(row.id);
-        let result;
+        const intentModel = resolveEditAiModel("gpt-mini");
+        const intentStarted = Date.now();
+        let intent;
         try {
-          result = await editAppConfig({ current, history, instruction: message, language, model });
+          intent = await classifyEditIntent({
+            current,
+            history,
+            instruction: message,
+            language,
+            model: intentModel,
+          });
         } catch (err) {
           const aiError = apiErrorFromAi(err, language);
           if (aiError) return aiError;
           throw err;
         }
-        if (!result) {
+        if (!intent) {
           return apiError({
             code: "GENERATION_FAILED",
             message: t("Could not update app. Try again.", language),
             status: 500,
           });
         }
-        nextConfig = result.config;
-        costUsd = result.costUsd;
-        modelUsed = result.modelUsed;
-        assistantReply = result.summary;
-        // Regenerates only when an icon already exists and the model flags an explicit request.
-        needsNewIcon = Boolean(row.icon_id) && result.needsNewIcon;
+
+        usage.push({
+          tool: "intent",
+          modelKey: intent.modelUsed,
+          costUsd: intent.costUsd,
+          durationMs: Date.now() - intentStarted,
+        });
+        costUsd = intent.costUsd;
+        modelUsed = intent.modelUsed;
+        const { tools } = intent;
+
+        if (tools.includes("updateCode")) {
+          const started = Date.now();
+          let result;
+          try {
+            result = await editAppConfig({
+              current: nextConfig,
+              history,
+              instruction: message,
+              language,
+              model,
+            });
+          } catch (err) {
+            const aiError = apiErrorFromAi(err, language);
+            if (aiError) return aiError;
+            throw err;
+          }
+          if (!result) {
+            return apiError({
+              code: "GENERATION_FAILED",
+              message: t("Could not update app. Try again.", language),
+              status: 500,
+            });
+          }
+          nextConfig = result.config;
+          costUsd = addCost(costUsd, result.costUsd);
+          modelUsed = result.modelUsed ?? modelUsed;
+          usage.push({
+            tool: "updateCode",
+            modelKey: result.modelUsed,
+            costUsd: result.costUsd,
+            durationMs: Date.now() - started,
+          });
+          replyParts.push(result.summary);
+        }
+
+        if (tools.includes("rename")) {
+          const started = Date.now();
+          let renamed;
+          try {
+            renamed = await generateAppName({
+              current: nextConfig,
+              instruction: message,
+              language,
+              model,
+            });
+          } catch (err) {
+            const aiError = apiErrorFromAi(err, language);
+            if (aiError) return aiError;
+            throw err;
+          }
+          if (!renamed) {
+            return apiError({
+              code: "GENERATION_FAILED",
+              message: t("Could not update app. Try again.", language),
+              status: 500,
+            });
+          }
+          nextConfig = {
+            ...nextConfig,
+            title: renamed.title,
+            description: renamed.description,
+          };
+          costUsd = addCost(costUsd, renamed.costUsd);
+          modelUsed = renamed.modelUsed ?? modelUsed;
+          usage.push({
+            tool: "rename",
+            modelKey: renamed.modelUsed,
+            costUsd: renamed.costUsd,
+            durationMs: Date.now() - started,
+          });
+          replyParts.push(renamed.summary);
+        }
+
+        needsNewIcon = tools.includes("regenerateIcon") && Boolean(row.icon_id);
+
+        if (tools.length === 0) {
+          assistantReply = intent.reply;
+        } else if (replyParts.length > 0) {
+          assistantReply = replyParts.join("\n\n");
+        } else {
+          assistantReply = intent.reply;
+        }
       }
 
-      const durationMs = Date.now() - aiStartedAt;
+      const durationMs = usage.reduce((sum, u) => sum + (u.durationMs ?? 0), 0);
       const storedModelRef = resolveStoredModelRef({ requestedKey: modelKey, modelUsed });
 
       let iconId: string | null | undefined;
@@ -158,20 +272,34 @@ export default {
           iconModelKey = iconResult.model;
           iconCostUsd = iconResult.costUsd;
           iconDurationMs = iconResult.durationMs;
+          usage.push({
+            tool: "regenerateIcon",
+            modelKey: iconResult.model,
+            costUsd: iconResult.costUsd,
+            durationMs: iconResult.durationMs,
+          });
           assistantReply = `${assistantReply}\n\n${t("I updated the app icon.", language)}`;
         } else {
           assistantReply = `${assistantReply}\n\n${t("I couldn't update the app icon right now. Try again in a moment.", language)}`;
         }
       }
 
-      dbUpdateApp(row.id, {
-        title: nextConfig.title,
-        description: nextConfig.description,
-        configJson: JSON.stringify(nextConfig),
-        // Legacy draft rows become My Apps immediately after first build.
-        isDraft: creating ? false : undefined,
-        ...(iconId ? { iconId } : {}),
-      });
+      const configChanged =
+        creating ||
+        nextConfig.code !== current.code ||
+        nextConfig.title !== current.title ||
+        nextConfig.description !== current.description ||
+        Boolean(iconId);
+
+      if (configChanged) {
+        dbUpdateApp(row.id, {
+          title: nextConfig.title,
+          description: nextConfig.description,
+          configJson: JSON.stringify(nextConfig),
+          isDraft: creating ? false : undefined,
+          ...(iconId ? { iconId } : {}),
+        });
+      }
 
       dbAddAppMessage({ id: crypto.randomUUID(), appId: row.id, role: "user", content: message });
       dbAddAppMessage({
@@ -185,6 +313,7 @@ export default {
         iconModelKey,
         iconCostUsd,
         iconDurationMs,
+        usage,
       });
 
       const updated = dbGetAppBySlug(slug)!;

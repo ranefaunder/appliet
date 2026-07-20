@@ -22,14 +22,32 @@ const aiAppSchema = appConfigSchema
   .omit({ version: true, status: true, prompt: true, emoji: true })
   .extend({ title: aiTitleSchema });
 
+/** Tools the edit orchestrator can run after intent classification. */
+export const EDIT_TOOLS = ["updateCode", "rename", "regenerateIcon"] as const;
+export type EditTool = (typeof EDIT_TOOLS)[number];
+
+const editIntentSchema = z.object({
+  /** Which tools to run. Empty = reply only (question, thanks, unclear, etc.). */
+  tools: z.array(z.enum(EDIT_TOOLS)).max(3),
+  /** Chat reply in the user's language. Used when tools is empty; otherwise a short preamble is fine. */
+  reply: z.string().min(1),
+});
+
+const aiRenameSchema = z.object({
+  summary: z.string().min(1),
+  title: aiTitleSchema,
+  description: z.string().min(1).max(500),
+});
+
 const aiEditSchema = z.object({
   summary: z.string().min(1),
-  title: aiTitleSchema.optional(),
-  description: z.string().optional(),
   code: z.string().min(1),
-  /** True only when the user clearly asked to change the existing launcher icon. */
-  needsNewIcon: z.boolean(),
 });
+
+export function addCost(a: number | null, b: number | null): number | null {
+  if (a == null && b == null) return null;
+  return (a ?? 0) + (b ?? 0);
+}
 
 /** Shared design + architecture guidelines used by both create and edit flows. */
 function designGuidelines(langName: string): string {
@@ -223,9 +241,133 @@ ${designGuidelines(langName)}`;
 }
 
 /**
- * Edit an existing app based on a natural-language instruction. Keeps the same
- * custom element tagName so persisted localStorage data survives. Returns the
- * updated config plus a short human-readable summary of what changed.
+ * Lightweight first pass: decide which edit tools to run. Does NOT receive app
+ * source code — only title, description, and recent chat.
+ * Caller should pass a fixed routing model (gpt-mini); not the chat picker model.
+ */
+export async function classifyEditIntent(opts: {
+  current: AppConfig;
+  history: AppEditMessage[];
+  instruction: string;
+  language: Language;
+  model?: string;
+}): Promise<{
+  tools: EditTool[];
+  reply: string;
+  costUsd: number | null;
+  modelUsed: string | null;
+} | null> {
+  const { current, history, instruction, language, model } = opts;
+  const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
+
+  const systemPrompt = `You route Abblet app-edit chat messages to tools. You do NOT edit code or icons yourself — you only choose tools and write a short chat reply.
+
+Available tools:
+- updateCode: change the app's features, UI, behavior, bugfixes, layout, text inside the app, or anything that requires modifying the Web Component source.
+- rename: change only the home-screen app name (title, max 12 chars) and/or the short store description. Use when the user asks to rename, retitle, or rewrite the description — without needing code changes for that part.
+- regenerateIcon: regenerate the home-screen / launcher icon. Use ONLY for an explicit icon request (e.g. "new icon", "vaihda kuvake", "make the icon blue"). Never invent an icon request.
+
+Rules:
+- Pick ONLY the tools the latest user message clearly needs. Prefer fewer tools.
+- Do NOT select updateCode for pure rename, pure icon, questions, thanks, or vague chat.
+- Do NOT select regenerateIcon unless the user explicitly asks about the launcher/home-screen icon.
+- Multiple tools are OK when clearly requested together (e.g. rename + new icon).
+- If nothing actionable (question, greeting, unclear): tools = [] and reply asks a clarifying question or answers briefly.
+- reply: 1-3 short sentences in ${langName}. When tools is empty this is the full chat answer. When tools is non-empty, a brief acknowledgement is enough (the tools will add detail).
+
+Return JSON: { "tools": [...], "reply": "..." }`;
+
+  const recent = history.slice(-12);
+  const historyText = recent.length
+    ? recent
+        .map((m) => `${m.role === "user" ? "USER" : "ASSISTANT"}: ${m.content}`)
+        .join("\n")
+    : "(no previous messages)";
+
+  const userPrompt = `App title: ${current.title}
+App description: ${current.description}
+
+Recent chat:
+${historyText}
+
+Latest user message:
+${instruction}
+
+Choose tools and write reply.`;
+
+  const { data, costUsd, model: modelUsed } = await requestJsonFromAi({
+    systemPrompt,
+    userPrompt,
+    schema: editIntentSchema,
+    model,
+  });
+  if (!data) return null;
+
+  // Dedupe while preserving order
+  const tools: EditTool[] = [];
+  for (const tool of data.tools) {
+    if (!tools.includes(tool)) tools.push(tool);
+  }
+
+  return {
+    tools,
+    reply: data.reply.trim(),
+    costUsd,
+    modelUsed,
+  };
+}
+
+/** Generate a short home-screen title + description (no code changes). */
+export async function generateAppName(opts: {
+  current: AppConfig;
+  instruction: string;
+  language: Language;
+  model?: string;
+}): Promise<{
+  title: string;
+  description: string;
+  summary: string;
+  costUsd: number | null;
+  modelUsed: string | null;
+} | null> {
+  const { current, instruction, language, model } = opts;
+  const langName = AVAILABLE_LANGUAGES[language]?.name ?? "English";
+
+  const systemPrompt = `You name Abblet apps for a phone home screen.
+
+Return JSON:
+- title: short app name, MAXIMUM 12 characters (including spaces). Prefer 1–2 words. Must fit under an icon.
+- description: 1-2 sentences in ${langName} describing what the app does
+- summary: 1 short sentence in ${langName} for the chat (what you renamed it to)
+
+Keep the meaning of the existing app unless the user asks otherwise.`;
+
+  const userPrompt = `Current title: ${current.title}
+Current description: ${current.description}
+
+User request:
+${instruction}`;
+
+  const { data, costUsd, model: modelUsed } = await requestJsonFromAi({
+    systemPrompt,
+    userPrompt,
+    schema: aiRenameSchema,
+    model,
+  });
+  if (!data) return null;
+
+  return {
+    title: data.title,
+    description: data.description.trim(),
+    summary: data.summary.trim(),
+    costUsd,
+    modelUsed,
+  };
+}
+
+/**
+ * Edit an existing app's Web Component code. Does not rename or regenerate icons —
+ * those are separate tools chosen by classifyEditIntent.
  */
 export async function editAppConfig(opts: {
   current: AppConfig;
@@ -236,7 +378,6 @@ export async function editAppConfig(opts: {
 }): Promise<{
   config: AppConfig;
   summary: string;
-  needsNewIcon: boolean;
   costUsd: number | null;
   modelUsed: string | null;
 } | null> {
@@ -249,10 +390,9 @@ You will receive the current full source code and a conversation of change reque
 
 Return one JSON object with:
 - summary: 1-2 sentences in ${langName} describing exactly what you changed (shown in the chat)
-- title: (optional) updated short app name, MAXIMUM 12 characters (including spaces), only if the change warrants it
-- description: (optional) updated 1-2 sentence description, only if it changed
 - code: the complete, updated JavaScript that registers the custom element
-- needsNewIcon: boolean — your judgment of whether the user clearly asked to change or regenerate the existing home-screen / launcher app icon. true only for an explicit icon request (e.g. "make a new icon", "vaihda kuvake"). false for everything else — renames, theme changes, features, bugfixes, UI tweaks. Never invent an icon request. The first launcher icon is created with the app; regenerating happens only on an explicit request (or the editor icon button). When you set needsNewIcon true, the server regenerates the icon after your reply.
+
+Do NOT change the home-screen title, description, or launcher icon — those are handled by other tools. Focus only on the app's code/features/UI.
 
 ## Hard constraints
 - Keep the EXACT same custom element tagName: "${current.tagName}". The code must still call customElements.define("${current.tagName}", ...). Do NOT rename it.
@@ -302,14 +442,13 @@ Return the complete updated code and a short summary of what you changed.`;
     ...current,
     status: "ready",
     code: generated.code,
-    title: generated.title ? generated.title : clampAppTitle(current.title),
-    description: generated.description?.trim() || current.description,
+    title: clampAppTitle(current.title),
+    description: current.description,
   };
 
   return {
     config,
     summary: generated.summary.trim(),
-    needsNewIcon: generated.needsNewIcon,
     costUsd,
     modelUsed,
   };
