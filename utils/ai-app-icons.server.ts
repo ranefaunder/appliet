@@ -46,13 +46,13 @@ const hexColorSchema = z
 
 const iconSpecSchema = z.object({
   /**
-   * Exactly 8 semantic tags used to pick a Lucide icon from its metadata.
-   * Prefer concrete nouns Lucide might tag with.
+   * Exactly 8 semantic tags — used to score/boost AI icon suggestions,
+   * and as a high-confidence fallback if suggested names are invalid.
    */
   tags: z.array(z.string().min(1)).length(8),
   /**
-   * Exactly 8 Lucide icon name suggestions in kebab-case.
-   * Entered into the same weighted lottery as tag matches.
+   * Exactly 8 Lucide icon names in kebab-case, best fit first.
+   * Primary selection pool: we almost always pick from the top few.
    */
   icons: z.array(z.string().min(1)).length(8),
   /** Visual treatment of the icon. */
@@ -159,23 +159,28 @@ async function designIconSpec(
   title: string,
   description: string,
 ): Promise<{ spec: IconSpec; costUsd: number | null; model: string | null } | null> {
-  const systemPrompt = `You design minimalist app icons built from a single Lucide line icon centered on a colored square background. You do NOT draw the icon — you propose semantic tags and Lucide icon names so we can lottery-pick a glyph, plus an exact color palette in hex so a home screen of many apps never looks uniform.
+  const systemPrompt = `You design minimalist app icons built from a single Lucide line icon centered on a colored square background. You do NOT draw the icon — you propose the best on-topic Lucide glyph names (and supporting tags), plus an exact color palette in hex so a home screen of many apps never looks uniform.
 
 Think like a product designer picking a palette: background colors and the glyph color must work together — clear contrast, intentional harmony or tasteful tension, readable at ~60–120px. Never pick colors that would make a light glyph disappear into a light background (or dark on dark).
 
-CRITICAL variety rules:
+CRITICAL variety rules (colors/style — not the glyph metaphor):
 - Do NOT default every app to teal/cyan + white glyph.
 - Explore the full range: vivid hues, muted pastels, warm earth tones, cool grays, near-black, cream/off-white, charcoal, blush, olive, rust, navy, sand, etc.
 - Different apps should get clearly different palettes (light vs dark, saturated vs muted, warm vs cool).
 
+GLYPH relevance is critical:
+- The Lucide icon MUST clearly communicate what the app is about at a glance (todo → checklist, gym → dumbbell, budget → wallet, recipes → chef-hat, etc.).
+- Never suggest decorative, abstract, or loosely related icons.
+
 Return JSON with:
-- tags: REQUIRED exactly 8 short English semantic tags that describe the app's purpose and imagery.
-    Matched against Lucide icon metadata tags (each match = lottery tickets).
+- icons: REQUIRED exactly 8 real Lucide icon names in kebab-case, ordered best → least.
+    icons[0] = the single clearest metaphor for this app (most important).
+    icons[1]–icons[2] = close on-topic alternatives (same idea, slightly different glyph).
+    icons[3]–icons[7] = still clearly on-topic variants only — never off-topic filler.
+    Real Lucide names only (e.g. "list-checks", "dumbbell", "wallet", "book-open", "chef-hat", "droplet", "calendar-check", "heart-pulse"). No invented names.
+- tags: REQUIRED exactly 8 short English semantic tags for the app's purpose/imagery.
     Prefer concrete nouns Lucide metadata might use (e.g. "checklist", "fitness", "wallet", "recipe", "calendar", "water", "music", "travel").
-    Mix domain words + visual concepts. Avoid vague fillers like "app", "tool", "modern". No duplicates.
-- icons: REQUIRED exactly 8 Lucide icon names in kebab-case, best fits first.
-    Real Lucide names only (e.g. "list-checks", "dumbbell", "wallet", "book-open", "chef-hat", "droplet", "calendar-check", "heart-pulse").
-    These enter the same lottery as tag matches (each valid name = one ticket). Prefer variety — different related icons, not near-duplicates. No invented names.
+    Used to confirm relevance of your icon picks. No vague fillers like "app", "tool", "modern". No duplicates.
 - style: one of ${ICON_STYLES.join(", ")}.
     - gradient: two-color linear gradient (uses bgColors[0] → bgColors[1]).
     - radial: glowing radial gradient (center bgColors[1] or [0], edge the other).
@@ -204,7 +209,7 @@ Always keep the glyph readable as a small home-screen icon.`;
   const userPrompt = `App name: ${title.trim() || "Personal app"}
 What it does: ${description.trim() || "(no description)"}
 
-Return exactly 8 semantic tags, exactly 8 kebab-case Lucide icon names, plus a distinctive color/style recipe (bgColors, glyphColor, style, size, stroke).`;
+Pick the clearest on-topic Lucide icon metaphor (icons[0] most important, then close alternatives). Also return 8 tags and a distinctive color/style recipe.`;
 
   try {
     const { data, costUsd, model } = await requestJsonFromAi({
@@ -428,32 +433,72 @@ function normalizeIconName(raw: string): string {
 }
 
 /**
- * Weighted lottery from tags + direct icon suggestions:
- * - each AI tag match on an icon's Lucide tags/categories → 1 ticket
- * - each valid AI-suggested Lucide name → 1 ticket
- * (an icon that matches 3 tags and was also suggested gets 4 tickets)
+ * Pick a relevant Lucide glyph with light variation.
+ *
+ * Primary: AI's ordered `icons` (best first). Score by rank + tag agreement,
+ * then draw only among the top 3 — so the result stays on-topic but isn't
+ * always identical.
+ *
+ * Fallback: library icons with ≥2 tag hits (top 5 by score), then none.
  */
-function pickIconByLottery(tags: string[], icons: string[]): string | null {
+function pickIcon(tags: string[], icons: string[]): string | null {
   const { names, tagsByIcon } = lucideMeta();
-  const tickets: string[] = [];
-
   const query = [...new Set(tags.map(normalizeTag).filter(Boolean))];
-  if (query.length && tagsByIcon.size > 0) {
-    for (const [name, iconTags] of tagsByIcon) {
-      let score = 0;
-      for (const tag of query) {
-        if (iconTags.has(tag)) score++;
-      }
-      for (let i = 0; i < score; i++) tickets.push(name);
-    }
-  }
 
+  const suggestions: string[] = [];
   for (const candidate of icons) {
     const name = normalizeIconName(candidate);
-    if (name && names.has(name)) tickets.push(name);
+    if (!name || !names.has(name) || suggestions.includes(name)) continue;
+    suggestions.push(name);
   }
 
-  if (!tickets.length) return null;
+  if (suggestions.length > 0) {
+    /** Steep rank curve: prefer icons[0], allow light swaps with close runners-up. */
+    const RANK_WEIGHT = [10, 4, 2, 1, 1, 1, 1, 1];
+    const scored = new Map<string, number>();
+    for (let i = 0; i < suggestions.length; i++) {
+      const name = suggestions[i]!;
+      let score = RANK_WEIGHT[i] ?? 1;
+      const iconTags = tagsByIcon.get(name);
+      if (iconTags) {
+        for (const tag of query) {
+          if (iconTags.has(tag)) score += 2;
+        }
+      }
+      for (const token of name.split("-")) {
+        if (token.length < 3) continue;
+        if (query.some((t) => t === token || t.includes(token) || token.includes(t.split(" ")[0]!))) {
+          score += 1;
+        }
+      }
+      scored.set(name, score);
+    }
+    return drawTopWeighted(scored, 3);
+  }
+
+  // No valid AI names — only strong tag matches from the library
+  if (!query.length || tagsByIcon.size === 0) return null;
+  const tagScored = new Map<string, number>();
+  for (const [name, iconTags] of tagsByIcon) {
+    let hits = 0;
+    for (const tag of query) {
+      if (iconTags.has(tag)) hits++;
+    }
+    if (hits >= 2) tagScored.set(name, hits * hits);
+  }
+  if (tagScored.size === 0) return null;
+  return drawTopWeighted(tagScored, 5);
+}
+
+/** Weighted draw among the top-N highest-scoring names. */
+function drawTopWeighted(scored: Map<string, number>, topN: number): string {
+  const ranked = [...scored.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const top = ranked.slice(0, Math.max(1, topN));
+  const tickets: string[] = [];
+  for (const [name, score] of top) {
+    const n = Math.max(1, Math.round(score));
+    for (let i = 0; i < n; i++) tickets.push(name);
+  }
   return tickets[Math.floor(Math.random() * tickets.length)]!;
 }
 
@@ -508,11 +553,9 @@ const KEYWORD_ICONS: Record<string, string> = {
 };
 
 function resolveIconName(spec: ResolvedIconSpec, title: string, description: string): string {
-  // 1) Primary: weighted lottery (tag matches + direct icon suggestions)
-  const fromLottery = pickIconByLottery(spec.tags, spec.icons);
-  if (fromLottery) return fromLottery;
+  const picked = pickIcon(spec.tags, spec.icons);
+  if (picked) return picked;
 
-  // 2) Last resort: keyword / filename search
   const available = lucideNames();
   return searchIconByKeywords(`${title} ${description}`, available) ?? "layout-grid";
 }
