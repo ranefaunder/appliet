@@ -134,6 +134,24 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
   };
   editMessages.value = [...editMessages.value, optimistic];
 
+  const failAsAssistant = (errorText: string, messages?: AppEditMessage[]) => {
+    // Never surface chat failures in the top banner — keep them in the thread.
+    editError.value = null;
+    if (messages && messages.length > 0) {
+      editMessages.value = messages;
+      return;
+    }
+    editMessages.value = [
+      ...editMessages.value,
+      {
+        id: `local-err-${Date.now()}`,
+        role: "assistant",
+        content: errorText,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+  };
+
   try {
     const res = await fetch(`/api/${lang()}/app/edit`, {
       method: "POST",
@@ -148,8 +166,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
       try {
         json = await res.json();
       } catch {
-        editError.value = "Server returned invalid JSON";
-        editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+        failAsAssistant("Server returned invalid JSON");
         return true;
       }
       const body = json as {
@@ -158,8 +175,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
         data?: { app: AppDetail; messages: AppEditMessage[] };
       };
       if (!body.success) {
-        editError.value = body.error?.message ?? body.error?.code ?? "Request failed";
-        editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+        failAsAssistant(body.error?.message ?? body.error?.code ?? "Request failed");
         return true;
       }
       if (body.data) {
@@ -171,8 +187,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
     }
 
     if (!res.body) {
-      editError.value = "Empty response";
-      editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+      failAsAssistant("Empty response");
       return true;
     }
 
@@ -197,6 +212,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
           index?: number;
           data?: { app: AppDetail; messages: AppEditMessage[] };
           error?: { message?: string; code?: string };
+          messages?: AppEditMessage[];
         };
         try {
           event = JSON.parse(trimmedLine) as typeof event;
@@ -213,27 +229,36 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
           if (typeof event.text === "string" && event.text.trim()) {
             editStatusText.value = event.text.trim();
           }
+        } else if (event.type === "heartbeat") {
+          // Keepalive only — ignore.
         } else if (event.type === "done" && event.data) {
           gotDone = true;
           editApp.value = event.data.app;
           codeDraft.value = event.data.app.config.code;
           editMessages.value = event.data.messages;
         } else if (event.type === "error") {
-          editError.value = event.error?.message ?? event.error?.code ?? "Request failed";
-          editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+          failAsAssistant(
+            event.error?.message ?? event.error?.code ?? "Request failed",
+            event.messages,
+          );
           return true;
         }
       }
     }
 
     if (!gotDone) {
-      editError.value = "Incomplete response";
-      editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+      failAsAssistant("Incomplete response");
     }
     return true;
-  } catch {
-    editError.value = "Network request failed";
-    editMessages.value = editMessages.value.filter((m) => m.id !== optimistic.id);
+  } catch (err) {
+    console.error("Edit chat request failed:", err);
+    const timedOut =
+      err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError");
+    failAsAssistant(
+      timedOut
+        ? "Request timed out. Try a smaller change or retry."
+        : "Network request failed. Try again.",
+    );
     return true;
   } finally {
     editSending.value = false;

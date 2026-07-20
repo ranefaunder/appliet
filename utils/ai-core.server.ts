@@ -77,7 +77,7 @@ function parseOpenRouterCost(usage: unknown): number | null {
   return typeof cost === "number" && Number.isFinite(cost) ? cost : null;
 }
 
-const OPENROUTER_TIMEOUT_MS = 120_000;
+const OPENROUTER_TIMEOUT_MS = 240_000;
 
 /** OpenRouter chat completion; returns assistant text + usage cost. */
 async function fetchOpenRouterCompletionForModel(
