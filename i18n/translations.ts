@@ -45,6 +45,9 @@ export const translations = {
   "Build it with AI": {
     fi: "Rakenna tekoälyllä",
   },
+  "Describe your idea and build it with AI": {
+    fi: "Kuvaile ideasi ja rakenna se tekoälyllä",
+  },
   "Draft": {
     fi: "Luonnos",
   },

@@ -162,7 +162,7 @@ export default function AppLauncher() {
         <span class="shortcut-badge">${plusSvg}</span>
         <span class="shortcut-text">
           <span class="shortcut-title">${t("Create New App")}</span>
-          <span class="shortcut-desc">${t("Build it with AI")}</span>
+          <span class="shortcut-desc">${t("Describe your idea and build it with AI")}</span>
         </span>
         <span class="shortcut-chevron">${chevronSvg}</span>
       </a>
@@ -345,27 +345,27 @@ export default function AppLauncher() {
         flex: none;
         display: flex;
         flex-direction: column;
-        gap: 0.85rem;
-        width: 100%;
-        max-width: calc(20rem + 2 * var(--home-inline, 0.85rem));
-        padding-inline: var(--home-inline, 0.85rem);
+        gap: 0.75rem;
+        width: calc(100% - 2 * var(--home-inline, 1.25rem));
+        max-width: 100%;
+        margin-inline: auto;
         box-sizing: border-box;
       }
 
       .shortcut {
         display: flex;
         align-items: center;
-        gap: 0.85rem;
-        padding: 0.85rem 1rem;
-        border-radius: 1.45rem;
+        gap: 0.9rem;
+        min-height: 4.75rem;
+        padding: 1rem 1.15rem;
+        border-radius: 1.5rem;
         text-decoration: none;
-        background: rgba(255, 255, 255, 0.22);
-        backdrop-filter: blur(28px) saturate(160%);
-        -webkit-backdrop-filter: blur(28px) saturate(160%);
-        border: 1px solid rgba(255, 255, 255, 0.38);
+        backdrop-filter: blur(28px) saturate(180%);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow:
-          0 10px 28px rgba(0, 0, 0, 0.18),
-          inset 0 0.5px 0 rgba(255, 255, 255, 0.5);
+          0 8px 24px rgba(0, 0, 0, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
         -webkit-tap-highlight-color: transparent;
         transition: transform 0.16s cubic-bezier(0.2, 0.9, 0.2, 1);
       }
@@ -377,53 +377,56 @@ export default function AppLauncher() {
       .shortcut.explore {
         background:
           linear-gradient(
-            120deg,
-            rgba(140, 120, 255, 0.28),
-            rgba(180, 140, 255, 0.22)
-          ),
-          rgba(255, 255, 255, 0.18);
+            105deg,
+            rgba(120, 100, 210, 0.55),
+            rgba(140, 130, 200, 0.42) 55%,
+            rgba(150, 145, 195, 0.38)
+          );
       }
 
       .shortcut.create {
         background:
           linear-gradient(
-            120deg,
-            rgba(255, 130, 170, 0.32),
-            rgba(255, 150, 140, 0.26)
-          ),
-          rgba(255, 255, 255, 0.18);
+            105deg,
+            rgba(200, 70, 170, 0.62),
+            rgba(220, 90, 150, 0.55) 45%,
+            rgba(230, 120, 140, 0.48)
+          );
       }
 
       .shortcut-badge {
         flex: none;
         display: grid;
         place-items: center;
-        width: 2.75rem;
-        height: 2.75rem;
+        width: 2.85rem;
+        height: 2.85rem;
         border-radius: 50%;
         color: #fff;
-        background: rgba(255, 255, 255, 0.28);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        box-shadow:
-          0 3px 10px rgba(0, 0, 0, 0.14),
-          inset 0 1px 0 rgba(255, 255, 255, 0.45);
-      }
-
-      .shortcut.create .shortcut-badge {
-        background: linear-gradient(145deg, rgba(255, 120, 170, 0.85), rgba(230, 90, 150, 0.8));
-        border-color: rgba(255, 255, 255, 0.45);
+        border: 0;
+        box-shadow: none;
       }
 
       .shortcut.explore .shortcut-badge {
-        background: linear-gradient(145deg, rgba(150, 140, 255, 0.8), rgba(120, 110, 230, 0.75));
-        border-color: rgba(255, 255, 255, 0.45);
+        background: linear-gradient(
+          160deg,
+          rgba(165, 150, 235, 0.78) 0%,
+          rgba(135, 120, 210, 0.68) 100%
+        );
+      }
+
+      .shortcut.create .shortcut-badge {
+        background: linear-gradient(
+          160deg,
+          rgba(235, 130, 185, 0.82) 0%,
+          rgba(215, 95, 155, 0.72) 100%
+        );
       }
 
       .shortcut-badge svg {
-        width: 1.35rem;
-        height: 1.35rem;
+        width: 1.55rem;
+        height: 1.55rem;
         display: block;
-        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.22));
       }
 
       .shortcut-text {
@@ -431,41 +434,37 @@ export default function AppLauncher() {
         min-width: 0;
         display: flex;
         flex-direction: column;
-        gap: 0.12rem;
+        gap: 0.18rem;
       }
 
       .shortcut-title {
-        font-size: 1rem;
-        font-weight: 750;
-        letter-spacing: -0.015em;
+        font-size: 1.0625rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
         line-height: 1.15;
         color: #fff;
-        text-shadow:
-          0 0 1px rgba(0, 0, 0, 0.35),
-          0 1px 3px rgba(0, 0, 0, 0.45);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
       }
 
       .shortcut-desc {
-        font-size: 0.78rem;
-        font-weight: 550;
+        font-size: 0.8125rem;
+        font-weight: 450;
         line-height: 1.25;
-        color: rgba(255, 255, 255, 0.9);
-        text-shadow:
-          0 0 1px rgba(0, 0, 0, 0.3),
-          0 1px 2px rgba(0, 0, 0, 0.4);
+        color: rgba(255, 255, 255, 0.78);
+        text-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.22);
       }
 
       .shortcut-chevron {
         flex: none;
         display: grid;
         place-items: center;
-        color: rgba(255, 255, 255, 0.92);
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+        color: rgba(255, 255, 255, 0.88);
+        opacity: 0.92;
       }
 
       .shortcut-chevron svg {
-        width: 1.2rem;
-        height: 1.2rem;
+        width: 1.15rem;
+        height: 1.15rem;
         display: block;
       }
 

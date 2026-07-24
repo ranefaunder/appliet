@@ -78,7 +78,6 @@ export default function Edit(_props: EditRouteProps) {
   const isNew = !slug;
   const loggedIn = !!user.value;
   const deleting = useSignal(false);
-  const entered = useSignal(false);
 
   useEffect(() => {
     if (isNew) {
@@ -87,24 +86,6 @@ export default function Edit(_props: EditRouteProps) {
     }
     void loadEdit(slug);
   }, [slug, isNew]);
-
-  useEffect(() => {
-    // Skip slide-in when store already has this app (e.g. /edit → /edit/:slug after generate).
-    if (slug && editApp.value?.slug === slug) {
-      entered.value = true;
-      return;
-    }
-    let raf2 = 0;
-    const raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => {
-        entered.value = true;
-      });
-    });
-    return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
-    };
-  }, [slug]);
 
   const app = editApp.value;
   const loading = editLoading.value;
@@ -123,7 +104,7 @@ export default function Edit(_props: EditRouteProps) {
   }
 
   const view = html`
-    <div data-scope="Edit" class=${entered.value ? "in" : ""} ui-column>
+    <div data-scope="Edit" ui-column>
       <header class="topbar" ui-row="x-between y-center gap-md" ui-padding="inline-md block-sm">
         <div class="topbar-title" ui-row="y-center gap-sm">
           <a
@@ -705,20 +686,6 @@ function style() {
         min-height: 0;
         background: var(--neutral-50);
         color: var(--neutral-900);
-        transform: translate3d(100%, 0, 0);
-        transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
-        will-change: transform;
-      }
-
-      &.in {
-        transform: translate3d(0, 0, 0);
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        & {
-          transform: none;
-          transition: none;
-        }
       }
 
       .topbar {
