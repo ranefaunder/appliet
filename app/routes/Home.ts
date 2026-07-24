@@ -17,8 +17,8 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
     @scope ([data-scope="Home"]) to ([data-scope]) {
       &.home-screen {
         --home-cols: 4;
-        --home-width: min(100%, 24.75rem);
-        --home-inline: 1.7rem;
+        --home-width: 100%;
+        --home-inline: 1.25rem;
         --home-icon: clamp(3.65rem, 15.4vw, 4.25rem);
         --home-gap-x: 1.05rem;
         --home-gap-y: 1.55rem;
@@ -45,18 +45,13 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
         max-width: var(--home-width);
         margin: 0 auto;
         padding:
-          calc(1.15rem + env(safe-area-inset-top, 0px))
-          var(--home-inline)
-          calc(7.5rem + env(safe-area-inset-bottom, 0px));
-        overflow-x: hidden;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-
-      .home-content::-webkit-scrollbar {
-        display: none;
+          calc(2.1rem + env(safe-area-inset-top, 0px))
+          0
+          calc(2.4rem + env(safe-area-inset-bottom, 0px));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
       }
 
       /* iPad portrait — 5 saraketta, tilavampi layout */
@@ -64,15 +59,15 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
         &.home-screen {
           --home-cols: 5;
           --home-width: min(100%, 46rem);
-          --home-inline: 2.75rem;
+          --home-inline: 1.75rem;
           --home-icon: 4.15rem;
           --home-gap-x: 1.65rem;
           --home-gap-y: 1.85rem;
         }
 
         .home-content {
-          padding-top: calc(1.75rem + env(safe-area-inset-top, 0px));
-          padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+          padding-top: calc(2.5rem + env(safe-area-inset-top, 0px));
+          padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
         }
       }
 
@@ -81,21 +76,22 @@ export default function Home(_props: RoutePropsForPath<typeof HomePath>) {
         &.home-screen {
           --home-cols: 6;
           --home-width: min(100%, 58rem);
-          --home-inline: 3.5rem;
+          --home-inline: 2.25rem;
           --home-icon: 4.35rem;
           --home-gap-x: 2rem;
           --home-gap-y: 2.1rem;
         }
 
         .home-content {
-          padding-top: calc(2.25rem + env(safe-area-inset-top, 0px));
+          padding-top: calc(3rem + env(safe-area-inset-top, 0px));
+          padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
         }
       }
 
       @media (min-width: 1280px) {
         &.home-screen {
           --home-width: min(100%, 66rem);
-          --home-inline: 4rem;
+          --home-inline: 2.75rem;
           --home-icon: 4.5rem;
           --home-gap-x: 2.25rem;
           --home-gap-y: 2.25rem;

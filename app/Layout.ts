@@ -5,7 +5,6 @@ import { useLocation } from "preact-iso";
 import { getLang } from "/utils/lang";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import MobileNavigation from "./components/footer/MobileNavigation";
 import Dialogs from "/app/components/Dialogs";
 
 type LayoutProps = {
@@ -37,7 +36,6 @@ export default function Layout({ children }: LayoutProps) {
         ${children}
       </main>
       ${hideFooter ? "" : html`<${Footer} />`}
-      ${editor ? "" : html`<${MobileNavigation} />`}
       <${Dialogs} />
     </div>
   `;

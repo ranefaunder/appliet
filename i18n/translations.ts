@@ -27,6 +27,24 @@ export const translations = {
   "Apps": {
     fi: "Appit",
   },
+  "$count apps": {
+    fi: "$count appia",
+  },
+  "1 app": {
+    fi: "1 appi",
+  },
+  "Explorer Apps": {
+    fi: "Selaa appeja",
+  },
+  "Discover apps made by others": {
+    fi: "Löydä muiden tekemiä appeja",
+  },
+  "Create New App": {
+    fi: "Luo uusi app",
+  },
+  "Describe your idea and build it with AI": {
+    fi: "Kuvaile ideasi ja rakenna se tekoälyllä",
+  },
   "Draft": {
     fi: "Luonnos",
   },
