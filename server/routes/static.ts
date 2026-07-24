@@ -42,6 +42,11 @@ export default async function (req: BunRequest): Promise<Response> {
     const headers = new Headers();
     const ct = contentTypes[ext];
     if (ct) headers.set("Content-Type", ct);
+    // Allow SW under /static/ to control the whole origin (app runtimes live at /{slug}).
+    if (filePath === "sw.js") {
+      headers.set("Service-Worker-Allowed", "/");
+      headers.set("Cache-Control", "no-cache");
+    }
     return new Response(file, { headers });
   }
 

@@ -18,7 +18,7 @@ export function registerServiceWorker(): void {
 
     // Sama origin kuin sivu — ei CDN/staticRoot (cross-origin SW ei kelpaa).
     navigator.serviceWorker
-      .register("/static/sw.js", { updateViaCache: "none" })
+      .register("/static/sw.js", { scope: "/", updateViaCache: "none" })
       .then((registration) => {
         console.info("[PWA] Service Worker registered:", registration.scope);
 

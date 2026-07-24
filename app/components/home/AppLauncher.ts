@@ -9,29 +9,6 @@ import { apps, loadApps, clearApps } from "/app/stores/appStore";
 import { isLoggedIn, user } from "/app/stores/userStore";
 import AppIcon from "/app/components/home/AppIcon";
 
-const compassSvg = html`
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75" />
-    <path
-      d="M14.7 9.3 13.1 13.1 9.3 14.7l1.6-3.8z"
-      fill="currentColor"
-      stroke="currentColor"
-      stroke-width="1"
-      stroke-linejoin="round"
-    />
-  </svg>`;
-
-const plusSvg = html`
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M12 6.5v11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-    <path d="M6.5 12h11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-  </svg>`;
-
-const chevronSvg = html`
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
-  </svg>`;
-
 function remToPx(value: string): number {
   const rem = parseFloat(value);
   if (!Number.isFinite(rem)) return 0;
@@ -151,20 +128,24 @@ export default function AppLauncher() {
   const shortcuts = html`
     <div class="shortcuts">
       <a class="shortcut gallery" href=${`/${lang}/gallery`}>
-        <span class="shortcut-badge">${compassSvg}</span>
+        <span class="shortcut-badge">
+          <i ui-icon="squares-four" aria-hidden="true"></i>
+        </span>
         <span class="shortcut-text">
           <span class="shortcut-title">${t("App Gallery")}</span>
           <span class="shortcut-desc">${t("Discover apps made by others")}</span>
         </span>
-        <span class="shortcut-chevron">${chevronSvg}</span>
+        <i class="shortcut-chevron" ui-icon="chevron-right" aria-hidden="true"></i>
       </a>
       <a class="shortcut create" href=${`/${lang}/edit`}>
-        <span class="shortcut-badge">${plusSvg}</span>
+        <span class="shortcut-badge">
+          <i ui-icon="plus" aria-hidden="true"></i>
+        </span>
         <span class="shortcut-text">
           <span class="shortcut-title">${t("Create New App")}</span>
           <span class="shortcut-desc">${t("Describe your idea and build it with AI")}</span>
         </span>
-        <span class="shortcut-chevron">${chevronSvg}</span>
+        <i class="shortcut-chevron" ui-icon="chevron-right" aria-hidden="true"></i>
       </a>
     </div>
   `;
@@ -434,10 +415,9 @@ export default function AppLauncher() {
         );
       }
 
-      .shortcut-badge svg {
-        width: 1.55rem;
-        height: 1.55rem;
-        display: block;
+      .shortcut-badge [ui-icon] {
+        --ui-icon-size: 1.55rem;
+        color: #fff;
         filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.22));
       }
 
@@ -468,16 +448,9 @@ export default function AppLauncher() {
 
       .shortcut-chevron {
         flex: none;
-        display: grid;
-        place-items: center;
+        --ui-icon-size: 1.15rem;
         color: rgba(255, 255, 255, 0.88);
         opacity: 0.92;
-      }
-
-      .shortcut-chevron svg {
-        width: 1.15rem;
-        height: 1.15rem;
-        display: block;
       }
 
       .glass-card {

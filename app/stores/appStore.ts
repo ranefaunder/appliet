@@ -3,6 +3,11 @@ import type { AppSummary } from "/types/app-types";
 import { ssrContext } from "/utils/ssr.client";
 import { apiFetch } from "/utils/api.client";
 import { getLang } from "/utils/lang";
+import {
+  precacheInstalledApp,
+  precacheLibraryApps,
+  uncacheInstalledApp,
+} from "/utils/offline-apps.client";
 
 export const apps = signal<AppSummary[]>([]);
 
@@ -10,6 +15,9 @@ export function initAppStore(): void {
   const { initialApps } = ssrContext();
   if (initialApps !== undefined) {
     apps.value = initialApps;
+    if (initialApps.length > 0) {
+      precacheLibraryApps(initialApps);
+    }
   }
 }
 
@@ -18,12 +26,14 @@ export async function loadApps(): Promise<void> {
   const result = await apiFetch<{ apps: AppSummary[] }>(`/api/${lang}/app/list`);
   if (result.success) {
     apps.value = result.data.apps;
+    precacheLibraryApps(result.data.apps, lang);
   }
 }
 
 export async function deleteApp(slug: string): Promise<boolean> {
   const lang = getLang(window.location.pathname) ?? "en";
   const previous = apps.value;
+  const removed = previous.find((app) => app.slug === slug);
   apps.value = previous.filter((app) => app.slug !== slug);
 
   const result = await apiFetch<{ slug: string }>(`/api/${lang}/app/delete`, {
@@ -35,6 +45,7 @@ export async function deleteApp(slug: string): Promise<boolean> {
     apps.value = previous;
     return false;
   }
+  if (removed) void uncacheInstalledApp(removed, lang);
   return true;
 }
 
@@ -42,6 +53,7 @@ export async function deleteApp(slug: string): Promise<boolean> {
 export async function uninstallFromLibrary(slug: string): Promise<boolean> {
   const lang = getLang(window.location.pathname) ?? "en";
   const previous = apps.value;
+  const removed = previous.find((app) => app.slug === slug);
   apps.value = previous.filter((app) => app.slug !== slug);
 
   const result = await apiFetch<{ slug: string; installed: boolean }>(
@@ -56,9 +68,16 @@ export async function uninstallFromLibrary(slug: string): Promise<boolean> {
     apps.value = previous;
     return false;
   }
+  if (removed) void uncacheInstalledApp(removed, lang);
   return true;
 }
 
 export function clearApps(): void {
   apps.value = [];
+}
+
+/** Refresh offline cache after an owned app's code/icon changes. */
+export function refreshOfflineAppCache(app: { slug: string; iconId?: string | null }): void {
+  const lang = getLang(window.location.pathname) ?? "en";
+  void precacheInstalledApp(app, lang);
 }

@@ -173,8 +173,8 @@ export default function Gallery(_props: RoutePropsForPath<typeof GalleryPath>) {
             : apps.length === 0
               ? html`
                 <div ui-column="gap-sm x-center" ui-padding="xl">
-                  <p ui-heading="sm">${t("No apps in App Gallery yet")}</p>
-                  <p>${t("Apps published to App Gallery will show up here.")}</p>
+                  <p ui-heading="sm">${t("No apps in Gallery yet")}</p>
+                  <p>${t("Apps published to Gallery will show up here.")}</p>
                 </div>`
               : html`
                 ${showFeatured

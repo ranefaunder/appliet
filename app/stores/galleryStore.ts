@@ -5,6 +5,7 @@ import { apiFetch } from "/utils/api.client";
 import { getLang } from "/utils/lang";
 import { isAppCategory, type AppCategory } from "/utils/app-categories";
 import { apps, loadApps } from "/app/stores/appStore";
+import { precacheInstalledApp, uncacheInstalledApp } from "/utils/offline-apps.client";
 
 export const galleryApps = signal<GalleryAppCard[]>([]);
 export const galleryCategories = signal<AppCategory[]>([]);
@@ -101,6 +102,8 @@ export async function installGalleryApp(slug: string): Promise<boolean> {
           }
         : a,
     );
+    const iconId = galleryApp.value?.slug === slug ? galleryApp.value.iconId : null;
+    void precacheInstalledApp({ slug, iconId }, lang());
     void loadApps();
     return true;
   } finally {
@@ -140,7 +143,9 @@ export async function uninstallGalleryApp(slug: string): Promise<boolean> {
           }
         : a,
     );
+    const iconId = galleryApp.value?.slug === slug ? galleryApp.value.iconId : null;
     apps.value = apps.value.filter((a) => a.slug !== slug);
+    void uncacheInstalledApp({ slug, iconId }, lang());
     return true;
   } finally {
     galleryBusy.value = false;

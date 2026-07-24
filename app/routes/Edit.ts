@@ -161,8 +161,8 @@ export default function Edit(_props: EditRouteProps) {
                       ${creating
                         ? html`<span class="top-meta">${t("Building")}</span>`
                         : isPublished
-                          ? html`<span class="top-meta published">${t("In App Gallery")}</span>`
-                          : ""}
+                        ? html`<span class="top-meta published">${t("In Gallery")}</span>`
+                        : ""}
                     </div>`
                   : html`<h1 ui-heading="sm" class="muted">${t("Editor")}</h1>`}
             </div>
@@ -196,7 +196,7 @@ export default function Edit(_props: EditRouteProps) {
                             onClick=${() => void handlePublishToggle()}
                           >
                             <i ui-icon=${isPublished ? "prohibit" : "share"} aria-hidden="true"></i>
-                            ${isPublished ? t("Remove from App Gallery") : t("Publish to App Gallery")}
+                            ${isPublished ? t("Remove from Gallery") : t("Publish to Gallery")}
                           </button>
                           <button
                             type="button"

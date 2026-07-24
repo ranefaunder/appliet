@@ -8,6 +8,7 @@ import {
   isEditAiModelKey,
   type EditAiModelKey,
 } from "/utils/ai-models";
+import { refreshOfflineAppCache } from "/app/stores/appStore";
 
 export type EditMode = "chat" | "code";
 
@@ -166,6 +167,7 @@ export async function createAppFromPrompt(text: string): Promise<string | null> 
     editApp.value = result.data.app;
     editMessages.value = result.data.messages;
     codeDraft.value = result.data.app.config.code;
+    refreshOfflineAppCache(result.data.app);
     return result.data.app.slug;
   } catch (err) {
     console.error("Create app request failed:", err);
@@ -250,6 +252,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
         editApp.value = body.data.app;
         codeDraft.value = body.data.app.config.code;
         editMessages.value = body.data.messages;
+        refreshOfflineAppCache(body.data.app);
       }
       return true;
     }
@@ -304,6 +307,7 @@ export async function sendChatMessage(slug: string, text: string): Promise<boole
           editApp.value = event.data.app;
           codeDraft.value = event.data.app.config.code;
           editMessages.value = event.data.messages;
+          refreshOfflineAppCache(event.data.app);
         } else if (event.type === "error") {
           failAsAssistant(
             event.error?.message ?? event.error?.code ?? "Request failed",
@@ -351,6 +355,7 @@ export async function saveCode(slug: string): Promise<void> {
     }
     editApp.value = result.data.app;
     codeDraft.value = result.data.app.config.code;
+    refreshOfflineAppCache(result.data.app);
   } finally {
     editSavingCode.value = false;
   }
@@ -375,6 +380,7 @@ export async function regenerateIcon(slug: string): Promise<boolean> {
     }
     editApp.value = result.data.app;
     editMessages.value = result.data.messages;
+    refreshOfflineAppCache(result.data.app);
     return true;
   } finally {
     editRegeneratingIcon.value = false;

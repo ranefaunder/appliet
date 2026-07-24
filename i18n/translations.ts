@@ -34,6 +34,9 @@ export const translations = {
     fi: "1 appi",
   },
   "App Gallery": {
+    fi: "App Galleria",
+  },
+  "Gallery": {
     fi: "Galleria",
   },
   "Discover apps made by others": {
@@ -57,10 +60,10 @@ export const translations = {
   "Results": {
     fi: "Tulokset",
   },
-  "No apps in App Gallery yet": {
+  "No apps in Gallery yet": {
     fi: "Galleriassa ei ole vielä appeja",
   },
-  "Apps published to App Gallery will show up here.": {
+  "Apps published to Gallery will show up here.": {
     fi: "Galleriaan julkaistut appit näkyvät täällä.",
   },
   "App": {
@@ -102,14 +105,14 @@ export const translations = {
   "By $name": {
     fi: "Tekijä: $name",
   },
-  "Publish to App Gallery": {
-    fi: "Julkaise Galleriaan",
+  "Publish to Gallery": {
+    fi: "Julkaise galleriaan",
   },
-  "In App Gallery": {
+  "In Gallery": {
     fi: "Galleriassa",
   },
-  "Remove from App Gallery": {
-    fi: "Poista Galleriasta",
+  "Remove from Gallery": {
+    fi: "Poista galleriasta",
   },
   "Remove from library": {
     fi: "Poista kirjastosta",

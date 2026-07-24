@@ -65,7 +65,7 @@ export default function GalleryApp(_props: RoutePropsForPath<typeof GalleryAppPa
             ></a>
           </div>
           <div class="top-center">
-            <h1 ui-heading="sm">${t("App Gallery")}</h1>
+            <h1 ui-heading="sm">${t("Gallery")}</h1>
           </div>
           <div class="top-end" aria-hidden="true"></div>
         </div>
@@ -81,7 +81,7 @@ export default function GalleryApp(_props: RoutePropsForPath<typeof GalleryAppPa
           ? html`
             <div ui-column="gap-md x-center y-center" ui-padding="xl" class="state">
               <p>${galleryAppError.value ?? t("App not found")}</p>
-              <a href=${galleryUrl(lang)} ui-button="primary sm">${t("App Gallery")}</a>
+              <a href=${galleryUrl(lang)} ui-button="primary sm">${t("Gallery")}</a>
             </div>`
           : html`
             <div class="content" ui-column="gap-lg x-center">
