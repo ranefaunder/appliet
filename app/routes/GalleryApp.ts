@@ -3,36 +3,36 @@ import type { RoutePropsForPath } from "preact-iso";
 import { useEffect } from "preact/hooks";
 import { useRoute } from "preact-iso";
 import { t } from "/utils/i18n";
-import { appEditUrl, appPageUrl, exploreUrl } from "/utils/app-url";
+import { appEditUrl, appPageUrl, galleryUrl } from "/utils/app-url";
 import { appIconSrc } from "/utils/app-icon";
 import { previewGradient, draftLetter } from "/utils/app-preview";
 import { isLoggedIn } from "/app/stores/userStore";
 import {
-  clearStoreApp,
-  installStoreApp,
-  loadStoreApp,
-  storeApp,
-  storeBusy,
-  storeError,
-  storeLoading,
-  uninstallStoreApp,
-} from "/app/stores/exploreStore";
+  clearGalleryApp,
+  installGalleryApp,
+  loadGalleryApp,
+  galleryApp,
+  galleryBusy,
+  galleryAppError,
+  galleryAppLoading,
+  uninstallGalleryApp,
+} from "/app/stores/galleryStore";
 import type { AppCategory } from "/utils/app-categories";
 
-export const StoreAppPath = "/:lang/store/:slug" as const;
+export const GalleryAppPath = "/:lang/gallery/:slug" as const;
 
-export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>) {
+export default function GalleryApp(_props: RoutePropsForPath<typeof GalleryAppPath>) {
   const { params } = useRoute();
   const lang = params.lang ?? "en";
   const slug = params.slug ?? "";
-  const app = storeApp.value;
-  const loading = storeLoading.value;
-  const busy = storeBusy.value;
+  const app = galleryApp.value;
+  const loading = galleryAppLoading.value;
+  const busy = galleryBusy.value;
   const loggedIn = isLoggedIn();
 
   useEffect(() => {
-    if (slug) void loadStoreApp(slug);
-    return () => clearStoreApp();
+    if (slug) void loadGalleryApp(slug);
+    return () => clearGalleryApp();
   }, [slug]);
 
   async function onAddRemove() {
@@ -42,10 +42,10 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
     }
     if (!app) return;
     if (app.installed) {
-      await uninstallStoreApp(app.slug);
+      await uninstallGalleryApp(app.slug);
       return;
     }
-    await installStoreApp(app.slug);
+    await installGalleryApp(app.slug);
   }
 
   const iconSrc = appIconSrc(app?.iconId);
@@ -53,20 +53,22 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
   const letter = draftLetter(app?.title ?? "?");
 
   const view = html`
-    <div data-scope="StoreApp" ui-column>
-      <header
-        class="topbar"
-        ui-row="x-between y-center"
-        ui-padding="inline-md block-sm"
-      >
-        <a
-          href=${exploreUrl(lang)}
-          ui-button="tertiary square sm"
-          ui-icon="arrow-left"
-          aria-label=${t("Back")}
-        ></a>
-        <span ui-heading="xs">${t("App")}</span>
-        <span class="top-spacer" aria-hidden="true"></span>
+    <div data-scope="GalleryApp" ui-column>
+      <header class="top" ui-padding="inline-md block-md">
+        <div class="top-row">
+          <div class="top-start">
+            <a
+              href=${galleryUrl(lang)}
+              ui-button="tertiary square sm"
+              ui-icon="arrow-left"
+              aria-label=${t("Back")}
+            ></a>
+          </div>
+          <div class="top-center">
+            <h1 ui-heading="sm">${t("App Gallery")}</h1>
+          </div>
+          <div class="top-end" aria-hidden="true"></div>
+        </div>
       </header>
 
       ${loading && !app
@@ -78,11 +80,11 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
         : !app
           ? html`
             <div ui-column="gap-md x-center y-center" ui-padding="xl" class="state">
-              <p>${storeError.value ?? t("App not found")}</p>
-              <a href=${exploreUrl(lang)} ui-button="primary sm">${t("Explore")}</a>
+              <p>${galleryAppError.value ?? t("App not found")}</p>
+              <a href=${galleryUrl(lang)} ui-button="primary sm">${t("App Gallery")}</a>
             </div>`
           : html`
-            <div class="content" ui-padding="inline-md block-md" ui-column="gap-lg x-center">
+            <div class="content" ui-column="gap-lg x-center">
               <div ui-column="gap-sm x-center" class="hero">
                 <span class="app-icon" style=${`background: ${gradient}`} aria-hidden="true">
                   ${iconSrc
@@ -132,8 +134,8 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
                     </a>`}
               </div>
 
-              ${storeError.value
-                ? html`<p ui-card="error" ui-padding="md" role="alert">${storeError.value}</p>`
+              ${galleryAppError.value
+                ? html`<p ui-card="error" ui-padding="md" role="alert">${galleryAppError.value}</p>`
                 : ""}
 
               <section ui-card ui-padding="lg" ui-column="gap-md" class="panel">
@@ -161,38 +163,70 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
   `;
 
   const style = css`
-    @scope ([data-scope="StoreApp"]) to ([data-scope]) {
+    @scope ([data-scope="GalleryApp"]) to ([data-scope]) {
       & {
         flex: 1;
         min-height: 0;
         background: var(--neutral-50);
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
-      .topbar {
+      .top {
         flex: none;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        background: color-mix(in oklab, var(--neutral-50) 86%, var(--white));
-        backdrop-filter: blur(12px);
+        padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
         border-bottom: 1px solid var(--neutral-200);
+        background: color-mix(in oklab, var(--neutral-50) 88%, var(--white));
+        backdrop-filter: blur(12px);
       }
 
-      .top-spacer {
-        width: 2.25rem;
+      .top-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .top-start {
+        justify-self: start;
+      }
+
+      .top-center {
+        justify-self: center;
+        min-width: 0;
+        text-align: center;
+      }
+
+      .top-center h1 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .top-end {
+        justify-self: stretch;
+        min-width: 0;
       }
 
       .state {
         flex: 1;
         color: var(--neutral-500);
         text-align: center;
+        overflow-y: auto;
       }
 
       .content {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         width: min(100%, 36rem);
         margin-inline: auto;
-        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+        padding: 1rem 1rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+        box-sizing: border-box;
       }
 
       .hero {
@@ -247,6 +281,13 @@ export default function StoreApp(_props: RoutePropsForPath<typeof StoreAppPath>)
         margin: 0;
         white-space: pre-wrap;
         color: var(--neutral-700);
+      }
+
+      @media (min-width: 720px) {
+        .top {
+          width: min(100%, 36rem);
+          margin-inline: auto;
+        }
       }
     }
   `;

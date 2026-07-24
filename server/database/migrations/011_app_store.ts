@@ -1,8 +1,8 @@
 import type { Database } from "bun:sqlite";
 
 /**
- * App Store (Explore) support.
- * - apps.category / apps.tagline: AI-generated store metadata.
+ * Gallery support.
+ * - apps.category / apps.tagline: AI-generated gallery metadata.
  * - app_installs: a user's library — "Get" installs a public app as a reference
  *   (the code stays with the author). Home screen = owned apps + installs.
  */

@@ -10,12 +10,12 @@ export function appEditUrl(lang: string, slug?: string): string {
   return slug ? `/${lang}/edit/${slug}` : `/${lang}/edit`;
 }
 
-export function exploreUrl(lang: string): string {
-  return `/${lang}/explore`;
+export function galleryUrl(lang: string): string {
+  return `/${lang}/gallery`;
 }
 
-export function storeAppUrl(lang: string, slug: string): string {
-  return `/${lang}/store/${slug}`;
+export function galleryAppUrl(lang: string, slug: string): string {
+  return `/${lang}/gallery/${slug}`;
 }
 
 /**

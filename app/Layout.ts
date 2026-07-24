@@ -14,17 +14,16 @@ function isLauncherPath(path: string, lang: string): boolean {
   return normalized === `/${lang}`;
 }
 
-function isAppEditPath(path: string): boolean {
-  return /\/edit(?:\/[^/]+)?\/?$/.test(path);
-}
-
+/**
+ * App shell: full viewport, flex column, page owns scrolling.
+ * Home (launcher) is the only exception — it has its own overflow rules.
+ */
 export default function Layout({ children }: LayoutProps) {
   const { path } = useLocation();
   const lang = getLang(path ?? "") ?? "en";
   const home = isLauncherPath(path ?? "", lang);
-  const editor = isAppEditPath(path ?? "");
-  const layoutClass = editor ? "editor" : home ? "home" : undefined;
-  const mainClass = editor ? "layout-main editor" : home ? "layout-main home" : "layout-main";
+  const layoutClass = home ? "home" : "shell";
+  const mainClass = home ? "layout-main home" : "layout-main shell";
 
   const view = html`
     <div data-scope="Layout" class=${layoutClass} ui-column>
@@ -42,7 +41,7 @@ export default function Layout({ children }: LayoutProps) {
       }
 
       &.home,
-      &.editor {
+      &.shell {
         height: 100svh;
         height: 100dvh;
         max-height: 100svh;
@@ -55,8 +54,8 @@ export default function Layout({ children }: LayoutProps) {
         background-color: transparent;
       }
 
-      &.editor {
-        background-color: #1a1848;
+      &.shell {
+        background-color: var(--neutral-50);
       }
 
       .layout-main {
@@ -65,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
       }
 
       .layout-main.home,
-      .layout-main.editor {
+      .layout-main.shell {
         display: flex;
         flex-direction: column;
         min-height: 0;

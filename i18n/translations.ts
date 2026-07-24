@@ -33,14 +33,11 @@ export const translations = {
   "1 app": {
     fi: "1 appi",
   },
-  "Explorer Apps": {
-    fi: "Selaa appeja",
+  "App Gallery": {
+    fi: "App Gallery",
   },
   "Discover apps made by others": {
     fi: "Löydä muiden tekemiä appeja",
-  },
-  "Explore": {
-    fi: "Selaa",
   },
   "Search apps": {
     fi: "Hae appeja",
@@ -60,11 +57,11 @@ export const translations = {
   "Results": {
     fi: "Tulokset",
   },
-  "No apps in Explore yet": {
-    fi: "Exploren appit puuttuvat vielä",
+  "No apps in App Gallery yet": {
+    fi: "App Galleryssa ei ole vielä appeja",
   },
-  "Published apps from the community will show up here.": {
-    fi: "Yhteisön julkaisemat appit näkyvät täällä.",
+  "Apps published to App Gallery will show up here.": {
+    fi: "App Galleryyn julkaistut appit näkyvät täällä.",
   },
   "App": {
     fi: "Appi",
@@ -105,14 +102,14 @@ export const translations = {
   "By $name": {
     fi: "Tekijä: $name",
   },
-  "Publish": {
-    fi: "Julkaise",
+  "Publish to App Gallery": {
+    fi: "Julkaise App Galleryyn",
   },
-  "Published": {
-    fi: "Julkaistu",
+  "In App Gallery": {
+    fi: "App Galleryssa",
   },
-  "Unpublish": {
-    fi: "Poista julkaisu",
+  "Remove from App Gallery": {
+    fi: "Poista App Gallerysta",
   },
   "Remove from library": {
     fi: "Poista kirjastosta",
@@ -303,6 +300,8 @@ export const translations = {
   "App preview": { fi: "Appin esikatselu" },
   "Chat": { fi: "Keskustelu" },
   "Code": { fi: "Koodi" },
+  "Show Chat": { fi: "Näytä keskustelu" },
+  "Show Code": { fi: "Näytä koodi" },
   "Describe a change": { fi: "Kuvaile muutos" },
   "Original prompt": { fi: "Alkuperäinen pyyntö" },
   "Ask the AI to tweak your app — colors, features, wording, anything.": {

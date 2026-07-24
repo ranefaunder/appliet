@@ -16,12 +16,11 @@ import { initAppStore } from "./stores/appStore";
 import { initEditStore } from "./stores/editStore";
 import DevStores from "./components/headless/DevStores";
 import Home, { HomePath } from "./routes/Home";
-import MyApps, { MyAppsPath } from "./routes/MyApps";
 import Settings, { SettingsPath } from "./routes/Settings";
 import Login, { LoginPath } from "./routes/Login";
 import Edit, { EditPath, EditSlugPath } from "./routes/Edit";
-import Explore, { ExplorePath } from "./routes/Explore";
-import StoreApp, { StoreAppPath } from "./routes/StoreApp";
+import Gallery, { GalleryPath } from "./routes/Gallery";
+import GalleryApp, { GalleryAppPath } from "./routes/GalleryApp";
 import NotFound from "./routes/NotFound";
 import { spaRouterScope } from "/utils/app-url";
 
@@ -59,10 +58,9 @@ export default function App() {
       >
         <div data-scope="App" ui-column>
           <${Router}>
-            <${Route} path=${MyAppsPath} component=${withLayout(MyApps)} />
             <${Route} path=${HomePath} component=${withLayout(Home)} />
-            <${Route} path=${ExplorePath} component=${withLayout(Explore)} />
-            <${Route} path=${StoreAppPath} component=${withLayout(StoreApp)} />
+            <${Route} path=${GalleryAppPath} component=${withLayout(GalleryApp)} />
+            <${Route} path=${GalleryPath} component=${withLayout(Gallery)} />
             <${Route} path=${SettingsPath} component=${withLayout(Settings)} />
             <${Route} path=${LoginPath} component=${withLayout(Login)} />
             <${Route} path=${EditSlugPath} component=${withLayout(Edit)} />

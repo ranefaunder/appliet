@@ -31,7 +31,8 @@ export default function Settings({ params }: RoutePropsForPath<typeof SettingsPa
   }
 
   const view = html`
-    <div data-scope="Settings" ui-container="sm" ui-padding="block-xl" ui-column="gap-lg">
+    <div data-scope="Settings" class="page" ui-column>
+      <div class="scroll" ui-container="sm" ui-column="gap-lg">
       <header>
         <h1 ui-heading="lg">${t("Settings")}</h1>
       </header>
@@ -57,11 +58,27 @@ export default function Settings({ params }: RoutePropsForPath<typeof SettingsPa
           <span>${t("Email me about Abblet updates")}</span>
         </label>
       </section>
+      </div>
     </div>
   `;
 
   const style = css`
     @scope ([data-scope="Settings"]) to ([data-scope]) {
+      &.page {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .scroll {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
+        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+      }
+
       .email {
         margin: 0;
         color: var(--neutral-800);

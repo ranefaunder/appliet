@@ -150,10 +150,10 @@ export default function AppLauncher() {
 
   const shortcuts = html`
     <div class="shortcuts">
-      <a class="shortcut explore" href=${`/${lang}/explore`}>
+      <a class="shortcut gallery" href=${`/${lang}/gallery`}>
         <span class="shortcut-badge">${compassSvg}</span>
         <span class="shortcut-text">
-          <span class="shortcut-title">${t("Explorer Apps")}</span>
+          <span class="shortcut-title">${t("App Gallery")}</span>
           <span class="shortcut-desc">${t("Discover apps made by others")}</span>
         </span>
         <span class="shortcut-chevron">${chevronSvg}</span>
@@ -386,7 +386,7 @@ export default function AppLauncher() {
         transform: scale(0.985);
       }
 
-      .shortcut.explore {
+      .shortcut.gallery {
         background:
           linear-gradient(
             105deg,
@@ -418,7 +418,7 @@ export default function AppLauncher() {
         box-shadow: none;
       }
 
-      .shortcut.explore .shortcut-badge {
+      .shortcut.gallery .shortcut-badge {
         background: linear-gradient(
           160deg,
           rgba(165, 150, 235, 0.78) 0%,

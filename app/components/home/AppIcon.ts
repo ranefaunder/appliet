@@ -8,7 +8,7 @@ import { appEditUrl, appPageUrl } from "/utils/app-url";
 import { appIconSrc } from "/utils/app-icon";
 import { previewGradient, draftLetter } from "/utils/app-preview";
 import { deleteApp, uninstallFromLibrary } from "/app/stores/appStore";
-import { remixStoreApp } from "/app/stores/exploreStore";
+import { remixGalleryApp } from "/app/stores/galleryStore";
 import {
   codeDraft,
   editApp,
@@ -156,7 +156,7 @@ export default function AppIcon({ app }: Props) {
   async function handleRemix(e: Event) {
     e.preventDefault();
     closeMenu();
-    const cloned = await remixStoreApp(app.slug);
+    const cloned = await remixGalleryApp(app.slug);
     if (!cloned) return;
     editApp.value = cloned;
     codeDraft.value = cloned.config.code;

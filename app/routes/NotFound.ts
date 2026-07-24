@@ -13,7 +13,7 @@ export default function NotFound({ path, params }: NotFoundPageProps) {
   const currentLang = params.lang || getLang(path) || "en";
 
   const view = html`
-    <div data-scope="NotFound" ui-column="x-center y-center" ui-padding="2xl" class="not-found">
+    <div data-scope="NotFound" ui-column="x-center y-center" class="not-found">
       <div ui-column="gap-sm x-center" class="content">
         <p class="code" aria-hidden="true">404</p>
         <h1 ui-heading="xl">${t("Page not found")}</h1>
@@ -27,8 +27,15 @@ export default function NotFound({ path, params }: NotFoundPageProps) {
 
   const style = css`
     @scope ([data-scope="NotFound"]) to ([data-scope]) {
-      .not-found {
-        min-height: 60vh;
+      &.not-found {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding:
+          calc(2rem + env(safe-area-inset-top, 0px))
+          1.5rem
+          calc(2rem + env(safe-area-inset-bottom, 0px));
       }
 
       .content {

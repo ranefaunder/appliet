@@ -27,9 +27,9 @@ export interface AppSummary {
   isDraft: boolean;
   /** Launcher icon reference under /static/app-icons/ (e.g. "abc123.svg"; legacy ids map to .webp) */
   iconId: string | null;
-  /** App Store category (nullable for older apps). */
+  /** Gallery category (nullable for older apps). */
   category: string | null;
-  /** Short App Store marketing line (nullable for older apps). */
+  /** Short Gallery marketing line (nullable for older apps). */
   tagline: string | null;
   /** How many users have this app in their library (app_installs). */
   installCount: number;
@@ -37,8 +37,8 @@ export interface AppSummary {
   owned: boolean;
 }
 
-/** Public Explore / store listing card. */
-export interface StoreAppCard {
+/** Public Gallery listing card. */
+export interface GalleryAppCard {
   id: string;
   slug: string;
   title: string;
@@ -57,7 +57,7 @@ export interface StoreAppCard {
   updatedAt: string;
 }
 
-/** Full store detail payload for /store/:slug. */
-export interface StoreAppDetail extends StoreAppCard {
+/** Full Gallery detail payload for /gallery/:slug. */
+export interface GalleryAppDetail extends GalleryAppCard {
   ownerId: string;
 }

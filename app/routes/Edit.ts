@@ -129,118 +129,121 @@ export default function Edit(_props: EditRouteProps) {
 
   const view = html`
     <div data-scope="Edit" ui-column>
-      <header class="topbar" ui-row="x-between y-center gap-sm" ui-padding="inline-sm block-sm">
-        <div class="topbar-lead" ui-row="y-center gap-xs">
-          <a
-            href=${`/${lang}/`}
-            ui-button="tertiary square sm"
-            ui-icon="arrow-left"
-            aria-label=${t("Back")}
-          ></a>
-          ${isNew
-            ? html`
-              <div class="topbar-identity" ui-row="y-center gap-sm">
-                <span class="app-chip-title">${t("New App")}</span>
-                <span class="badge">${t("Building")}</span>
-              </div>`
-            : app
-              ? html`
-                <div class="topbar-identity" ui-row="y-center gap-sm">
-                  ${iconSrc
-                    ? html`<img class="app-chip-icon" src=${iconSrc} alt="" width="28" height="28" />`
-                    : html`
-                      <span
-                        class="app-chip-fallback"
-                        style=${`background: ${previewGradient(slug)}`}
-                        aria-hidden="true"
-                      >${draftLetter(app.title)}</span>`}
-                  <div class="topbar-copy" ui-column>
-                    <span class="app-chip-title">${app.title}</span>
-                    ${creating
-                      ? html`<span class="topbar-meta">${t("Building")}</span>`
-                      : isPublished
-                        ? html`<span class="topbar-meta published">${t("Published")}</span>`
-                        : ""}
-                  </div>
-                </div>`
-              : html`<span class="app-chip-title muted">${t("Editor")}</span>`}
-        </div>
+      <header class="top" ui-padding="inline-md block-md">
+        <div class="top-row">
+          <div class="top-start">
+            <a
+              href=${`/${lang}/`}
+              ui-button="tertiary square sm"
+              ui-icon="arrow-left"
+              aria-label=${t("Back")}
+            ></a>
+          </div>
 
-        <div class="topbar-actions" ui-row="y-center gap-xs">
-          ${app && !creating && slug
-            ? html`
-              <a class="open-btn" ui-button="sm" href=${appPageUrl(lang, slug)}>
-                ${t("Open")}
-              </a>`
-            : app && slug
-              ? html`<button type="button" class="open-btn" ui-button="sm" disabled>${t("Open")}</button>`
-              : ""}
-          ${showTools
-            ? html`
-              <div class="topbar-menu" ui-menu="bottom-left">
-                <button
-                  type="button"
-                  ui-button="tertiary square sm"
-                  ui-icon="dots-three-vertical"
-                  aria-label=${t("More")}
-                  popovertarget="edit-topbar-menu"
-                ></button>
-                <div id="edit-topbar-menu" popover="auto" role="menu">
-                  ${showReadyTools
-                    ? html`
-                      <button
-                        type="button"
-                        role="menuitem"
-                        disabled=${publishing}
-                        onClick=${() => void handlePublishToggle()}
-                      >
-                        <i ui-icon=${isPublished ? "prohibit" : "share"} aria-hidden="true"></i>
-                        ${isPublished ? t("Unpublish") : t("Publish")}
-                      </button>
-                      <button
-                        type="button"
-                        role="menuitem"
-                        onClick=${() => {
-                          closeTopbarMenu();
-                          editMode.value = editMode.value === "chat" ? "code" : "chat";
-                        }}
-                      >
-                        <i
-                          ui-icon=${editMode.value === "chat" ? "code" : "message-circle"}
+          <div class="top-center">
+            <div class="top-title" ui-row="y-center gap-sm x-center">
+              ${isNew
+                ? html`
+                  <h1 ui-heading="sm">${t("New App")}</h1>
+                  <span class="badge">${t("Building")}</span>`
+                : app
+                  ? html`
+                    ${iconSrc
+                      ? html`<img class="app-chip-icon" src=${iconSrc} alt="" width="28" height="28" />`
+                      : html`
+                        <span
+                          class="app-chip-fallback"
+                          style=${`background: ${previewGradient(slug)}`}
                           aria-hidden="true"
-                        ></i>
-                        ${editMode.value === "chat" ? t("Code") : t("Chat")}
-                      </button>
+                        >${draftLetter(app.title)}</span>`}
+                    <div class="top-copy" ui-column>
+                      <h1 ui-heading="sm">${app.title}</h1>
+                      ${creating
+                        ? html`<span class="top-meta">${t("Building")}</span>`
+                        : isPublished
+                          ? html`<span class="top-meta published">${t("In App Gallery")}</span>`
+                          : ""}
+                    </div>`
+                  : html`<h1 ui-heading="sm" class="muted">${t("Editor")}</h1>`}
+            </div>
+          </div>
+
+          <div class="top-end">
+            <div class="top-actions" ui-row="y-center gap-xs">
+              ${app && !creating && slug
+                ? html`
+                  <a ui-button="sm" href=${appPageUrl(lang, slug)}>
+                    ${t("Open")}
+                  </a>`
+                : ""}
+              ${showTools
+                ? html`
+                  <div class="top-menu" ui-menu="bottom-left">
+                    <button
+                      type="button"
+                      ui-button="tertiary square sm"
+                      ui-icon="dots-three-vertical"
+                      aria-label=${t("More")}
+                      popovertarget="edit-topbar-menu"
+                    ></button>
+                    <div id="edit-topbar-menu" popover="auto" role="menu">
+                      ${showReadyTools
+                        ? html`
+                          <button
+                            type="button"
+                            role="menuitem"
+                            disabled=${publishing}
+                            onClick=${() => void handlePublishToggle()}
+                          >
+                            <i ui-icon=${isPublished ? "prohibit" : "share"} aria-hidden="true"></i>
+                            ${isPublished ? t("Remove from App Gallery") : t("Publish to App Gallery")}
+                          </button>
+                          <button
+                            type="button"
+                            role="menuitem"
+                            onClick=${() => {
+                              closeTopbarMenu();
+                              editMode.value = editMode.value === "chat" ? "code" : "chat";
+                            }}
+                          >
+                            <i
+                              ui-icon=${editMode.value === "chat" ? "code" : "message-circle"}
+                              aria-hidden="true"
+                            ></i>
+                            ${editMode.value === "chat" ? t("Show Code") : t("Show Chat")}
+                          </button>
+                          <button
+                            type="button"
+                            role="menuitem"
+                            disabled=${regeneratingIcon}
+                            onClick=${() => {
+                              closeTopbarMenu();
+                              void regenerateIcon(slug);
+                            }}
+                          >
+                            <i ui-icon="image" aria-hidden="true"></i>
+                            ${t("Generate new icon")}
+                          </button>
+                          <hr />`
+                        : ""}
                       <button
                         type="button"
                         role="menuitem"
-                        disabled=${regeneratingIcon}
+                        class="danger"
+                        disabled=${deleting.value}
                         onClick=${() => {
                           closeTopbarMenu();
-                          void regenerateIcon(slug);
+                          void handleDelete();
                         }}
                       >
-                        <i ui-icon="image" aria-hidden="true"></i>
-                        ${t("Generate new icon")}
+                        <i ui-icon="trash" aria-hidden="true"></i>
+                        ${t("Delete")}
                       </button>
-                      <hr />`
-                    : ""}
-                  <button
-                    type="button"
-                    role="menuitem"
-                    class="danger"
-                    disabled=${deleting.value}
-                    onClick=${() => {
-                      closeTopbarMenu();
-                      void handleDelete();
-                    }}
-                  >
-                    <i ui-icon="trash" aria-hidden="true"></i>
-                    ${t("Delete")}
-                  </button>
-                </div>
-              </div>`
-            : ""}
+                    </div>
+                  </div>`
+                : ""}
+            </div>
+          </div>
         </div>
       </header>
 
@@ -467,20 +470,19 @@ function ChatPanel({
       : null;
 
   return html`
-    <div class="chat" ui-column>
-      <div class="messages" ref=${listRef}>
-        <div class="messages-inner" ui-column="gap-md">
-          ${displayMessages.length === 0 && !sending
-            ? html`
-              <div class="chat-empty" ui-column="gap-sm x-center">
-                <p ui-heading="sm">${creating ? t("Describe your app") : t("Describe a change")}</p>
-                <p class="chat-empty-copy">
-                  ${creating
-                    ? t("Tell Abblet what you need — it builds a working app in minutes.")
-                    : t("Ask the AI to tweak your app — colors, features, wording, anything.")}
-                </p>
-              </div>`
-            : displayMessages.map(
+    <div class="chat" ref=${listRef}>
+      <div class="chat-inner" ui-column="gap-md">
+        ${displayMessages.length === 0 && !sending
+          ? html`
+            <div class="chat-empty" ui-column="gap-sm x-center">
+              <p ui-heading="sm">${creating ? t("Describe your app") : t("Describe a change")}</p>
+              <p class="chat-empty-copy">
+                ${creating
+                  ? t("Tell Abblet what you need — it builds a working app in minutes.")
+                  : t("Ask the AI to tweak your app — colors, features, wording, anything.")}
+              </p>
+            </div>`
+          : displayMessages.map(
                 (m, i) => {
                   const usageLines =
                     m.role === "assistant" && m.usage && m.usage.length > 0
@@ -575,68 +577,67 @@ function ChatPanel({
                 </div>
               </div>`
             : ""}
-        </div>
-      </div>
 
-      <form class="composer" ui-column="gap-xs" ui-padding="inline-md bottom-md top-sm" onSubmit=${submit}>
-        <div class="composer-shell" ui-column="gap-sm" ui-padding="sm">
-          <textarea
-            ref=${inputRef}
-            class="composer-input"
-            rows="1"
-            placeholder=${creating ? t("Create an app for…") : t("e.g. add a dark mode toggle")}
-            value=${draft.value}
-            disabled=${sending}
-            onInput=${(e: Event) => {
-              draft.value = (e.target as HTMLTextAreaElement).value;
-              resizeInput();
-            }}
-            onKeyDown=${(e: KeyboardEvent) => {
-              if (e.key === "Enter" && e.shiftKey && !e.metaKey && !e.ctrlKey && !e.altKey) {
-                e.preventDefault();
-                if (canSend) (e.currentTarget as HTMLTextAreaElement).form?.requestSubmit();
-              }
-            }}
-          ></textarea>
-          <div ui-row="x-between y-center gap-sm">
-            <label class="model-picker">
-              <span class="sr-only">${t("AI model")}</span>
-              <select
-                ui-input="sm"
-                aria-label=${t("AI model")}
-                disabled=${sending}
-                value=${editAiModel.value}
-                onChange=${(e: Event) => {
-                  const next = (e.target as HTMLSelectElement).value;
-                  if (next) setEditAiModel(next as EditAiModelKey);
-                }}
-              >
-                ${EDIT_AI_MODELS.map(
-                  (m) => html`
-                    <option value=${m.key} selected=${m.key === editAiModel.value}>
-                      ${m.label}
-                    </option>`,
-                )}
-              </select>
-            </label>
-            <div ui-row="y-center gap-sm">
-              ${typeof sessionCostUsd === "number"
-                ? html`
-                  <span class="composer-cost" title=${t("Total AI cost")}>
-                    ${t("Total")} · ${formatAiCostUsd(sessionCostUsd)}
-                  </span>`
-                : ""}
-              <button
-                type="submit"
-                ui-button="primary square sm"
-                ui-icon="arrow-up"
-                disabled=${!canSend}
-                aria-label=${creating ? t("Apply It") : t("Send")}
-              ></button>
+        <form class="composer" ui-column="gap-xs" ui-padding="top-sm" onSubmit=${submit}>
+          <div class="composer-shell" ui-column="gap-sm" ui-padding="sm">
+            <textarea
+              ref=${inputRef}
+              class="composer-input"
+              rows="1"
+              placeholder=${creating ? t("Create an app for…") : t("e.g. add a dark mode toggle")}
+              value=${draft.value}
+              disabled=${sending}
+              onInput=${(e: Event) => {
+                draft.value = (e.target as HTMLTextAreaElement).value;
+                resizeInput();
+              }}
+              onKeyDown=${(e: KeyboardEvent) => {
+                if (e.key === "Enter" && e.shiftKey && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                  e.preventDefault();
+                  if (canSend) (e.currentTarget as HTMLTextAreaElement).form?.requestSubmit();
+                }
+              }}
+            ></textarea>
+            <div ui-row="x-between y-center gap-sm">
+              <label class="model-picker">
+                <span class="sr-only">${t("AI model")}</span>
+                <select
+                  ui-input="sm"
+                  aria-label=${t("AI model")}
+                  disabled=${sending}
+                  value=${editAiModel.value}
+                  onChange=${(e: Event) => {
+                    const next = (e.target as HTMLSelectElement).value;
+                    if (next) setEditAiModel(next as EditAiModelKey);
+                  }}
+                >
+                  ${EDIT_AI_MODELS.map(
+                    (m) => html`
+                      <option value=${m.key} selected=${m.key === editAiModel.value}>
+                        ${m.label}
+                      </option>`,
+                  )}
+                </select>
+              </label>
+              <div ui-row="y-center gap-sm">
+                ${typeof sessionCostUsd === "number"
+                  ? html`
+                    <span class="composer-cost" title=${t("Total AI cost")}>
+                      ${t("Total")} · ${formatAiCostUsd(sessionCostUsd)}
+                    </span>`
+                  : ""}
+                <button
+                  type="submit"
+                  ui-button="primary square sm"
+                  ui-icon="arrow-up"
+                  disabled=${!canSend}
+                  aria-label=${creating ? t("Apply It") : t("Send")}
+                ></button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
       <dialog
         class="json-dialog"
@@ -749,43 +750,79 @@ function style() {
       & {
         flex: 1;
         min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
         background: var(--neutral-50);
         color: var(--neutral-900);
       }
 
-      .topbar {
+      .top {
         flex: none;
-        min-height: 3.25rem;
-        background: color-mix(in oklab, var(--white) 88%, transparent);
-        backdrop-filter: blur(12px);
+        padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
         border-bottom: 1px solid var(--neutral-200);
+        background: color-mix(in oklab, var(--neutral-50) 88%, var(--white));
+        backdrop-filter: blur(12px);
         z-index: 2;
       }
 
-      .topbar-lead {
+      .top-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        gap: 0.5rem;
         min-width: 0;
-        flex: 1;
       }
 
-      .topbar-identity {
-        min-width: 0;
-        flex: 1;
+      .top-start {
+        justify-self: start;
       }
 
-      .topbar-copy {
+      .top-center {
+        justify-self: center;
+        min-width: 0;
+        text-align: center;
+      }
+
+      .top-title {
+        min-width: 0;
+        justify-content: center;
+      }
+
+      .top-copy {
         min-width: 0;
         gap: 0.05rem;
+        align-items: center;
+        text-align: center;
       }
 
-      .topbar-actions {
+      .top-copy h1,
+      .top-title h1,
+      .top-center h1 {
+        margin: 0;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .top-title h1.muted {
+        color: var(--neutral-500);
+      }
+
+      .top-end {
+        justify-self: stretch;
+        min-width: 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .top-actions {
         flex: none;
+        justify-content: flex-end;
       }
 
-      .topbar-menu {
-        flex: none;
-      }
-
-      .open-btn {
+      .top-menu {
         flex: none;
       }
 
@@ -807,22 +844,7 @@ function style() {
         letter-spacing: -0.02em;
       }
 
-      .app-chip-title {
-        min-width: 0;
-        font-weight: 650;
-        font-size: 0.9375rem;
-        letter-spacing: -0.01em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: 1.15;
-      }
-
-      .app-chip-title.muted {
-        color: var(--neutral-500);
-      }
-
-      .topbar-meta {
+      .top-meta {
         font-size: 0.625rem;
         font-weight: 650;
         letter-spacing: 0.04em;
@@ -831,8 +853,8 @@ function style() {
         line-height: 1.2;
       }
 
-      .topbar-meta.published {
-        color: var(--primary-600, #3b5bdb);
+      .top-meta.published {
+        color: #007aff;
       }
 
       .badge {
@@ -854,20 +876,27 @@ function style() {
 
       .state {
         flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         color: var(--neutral-600);
         text-align: center;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
       }
 
       .workspace {
         flex: 1;
         min-height: 0;
-        background: var(--white);
+        background: var(--neutral-50);
+        overflow: hidden;
       }
 
       .error-banner {
         flex: none;
+        width: min(100%, 36rem);
+        margin: 0.75rem auto 0;
         padding: 0.625rem 0.875rem;
-        border-radius: 0.625rem;
+        border-radius: 0.75rem;
         background: oklch(from var(--danger, #ff3b30) l c h / 10%);
         color: var(--danger, #c00);
         font-size: 0.8125rem;
@@ -877,28 +906,24 @@ function style() {
       .chat {
         flex: 1;
         min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
         background: var(--neutral-50);
       }
 
-      .messages {
-        flex: 1;
-        min-height: 0;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-      }
-
-      .messages-inner {
-        width: min(100%, 42rem);
+      .chat-inner {
+        width: min(100%, 36rem);
         margin: 0 auto;
-        padding: 1.25rem 1rem 1rem;
-        min-height: 100%;
+        padding: 1rem 1rem 0;
+        box-sizing: border-box;
       }
 
       .chat-empty {
-        margin: auto;
         text-align: center;
         max-width: 22rem;
-        padding: 2rem 1rem;
+        padding: 1.25rem 0.25rem 0.25rem;
+        align-self: center;
       }
 
       .chat-empty-copy {
@@ -1133,9 +1158,17 @@ function style() {
       }
 
       .composer {
-        flex: none;
-        width: min(100%, 42rem);
-        margin: 0 auto;
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        width: 100%;
+        margin: 0;
+        padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        background: linear-gradient(
+          to bottom,
+          color-mix(in oklab, var(--neutral-50) 0%, transparent),
+          var(--neutral-50) 28%
+        );
       }
 
       .composer-shell {
@@ -1325,6 +1358,13 @@ function style() {
       .code-highlight .hl-function { color: #dcdcaa; }
       .code-highlight .hl-class { color: #4ec9b0; }
       .code-highlight .hl-builtin { color: #569cd6; }
+
+      @media (min-width: 720px) {
+        .top {
+          width: min(100%, 36rem);
+          margin-inline: auto;
+        }
+      }
     }
   `;
 }

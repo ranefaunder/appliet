@@ -5,33 +5,34 @@ import { useSignal } from "@preact/signals";
 import { useLocation } from "preact-iso";
 import { t } from "/utils/i18n";
 import { getLang } from "/utils/lang";
-import { APP_CATEGORIES, type AppCategory } from "/utils/app-categories";
-import { storeAppUrl } from "/utils/app-url";
+import { type AppCategory } from "/utils/app-categories";
+import { galleryAppUrl } from "/utils/app-url";
 import { appIconSrc } from "/utils/app-icon";
 import { previewGradient, draftLetter } from "/utils/app-preview";
-import type { StoreAppCard } from "/types/app-types";
+import type { GalleryAppCard } from "/types/app-types";
 import {
-  exploreApps,
-  exploreCategory,
-  exploreError,
-  exploreLoading,
-  exploreQuery,
-  loadExplore,
-} from "/app/stores/exploreStore";
+  galleryApps,
+  galleryCategories,
+  galleryCategory,
+  galleryError,
+  galleryLoading,
+  galleryQuery,
+  loadGallery,
+} from "/app/stores/galleryStore";
 
-export const ExplorePath = "/:lang/explore" as const;
+export const GalleryPath = "/:lang/gallery" as const;
 
 function categoryLabel(category: AppCategory): string {
   return t(category);
 }
 
-function StoreCard({ app, lang }: { app: StoreAppCard; lang: string }) {
+function GalleryCard({ app, lang }: { app: GalleryAppCard; lang: string }) {
   const iconSrc = appIconSrc(app.iconId);
   const gradient = previewGradient(app.slug);
   const letter = draftLetter(app.title);
 
   return html`
-    <a ui-card ui-padding="md" href=${storeAppUrl(lang, app.slug)} ui-row="y-center gap-md">
+    <a ui-card ui-padding="md" href=${galleryAppUrl(lang, app.slug)} ui-row="y-center gap-md">
       <span class="app-icon" style=${`background: ${gradient}`} aria-hidden="true">
         ${iconSrc
           ? html`<img src=${iconSrc} alt="" width="56" height="56" decoding="async" />`
@@ -49,94 +50,131 @@ function StoreCard({ app, lang }: { app: StoreAppCard; lang: string }) {
   `;
 }
 
-export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
+export default function Gallery(_props: RoutePropsForPath<typeof GalleryPath>) {
   const { path } = useLocation();
   const lang = getLang(path ?? "") ?? "en";
-  const draftQ = useSignal(exploreQuery.value);
+  const draftQ = useSignal(galleryQuery.value);
+  const searchOpen = useSignal(Boolean(galleryQuery.value.trim()));
   const searchRef = useRef<HTMLInputElement>(null);
-  const apps = exploreApps.value;
-  const loading = exploreLoading.value;
-  const category = exploreCategory.value;
+  const apps = galleryApps.value;
+  const loading = galleryLoading.value;
+  const category = galleryCategory.value;
+  const categories = galleryCategories.value;
+  const visibleCategories =
+    category && !categories.includes(category) ? [...categories, category] : categories;
   const featured = apps[0] ?? null;
   const rest = featured ? apps.slice(1) : apps;
-  const showFeatured = Boolean(featured && !exploreQuery.value.trim() && !category);
+  const showFeatured = Boolean(featured && !galleryQuery.value.trim() && !category);
 
   useEffect(() => {
-    void loadExplore();
+    void loadGallery();
   }, []);
+
+  useEffect(() => {
+    if (searchOpen.value) searchRef.current?.focus();
+  }, [searchOpen.value]);
 
   function submitSearch(e: Event) {
     e.preventDefault();
-    void loadExplore({ q: draftQ.value });
+    void loadGallery({ q: draftQ.value });
+  }
+
+  function openSearch() {
+    searchOpen.value = true;
+  }
+
+  function onSearchBlur() {
+    if (draftQ.value.trim()) return;
+    searchOpen.value = false;
+    if (galleryQuery.value.trim()) void loadGallery({ q: "" });
   }
 
   function selectCategory(next: AppCategory | null) {
-    void loadExplore({ category: next });
+    void loadGallery({ category: next });
   }
 
   const view = html`
-    <div data-scope="Explore" ui-column>
+    <div data-scope="Gallery" ui-column>
       <header ui-padding="inline-md block-md" ui-column="gap-md" class="top">
-        <div ui-row="x-between y-center gap-md">
-          <a
-            href=${`/${lang}/`}
-            ui-button="tertiary square sm"
-            ui-icon="arrow-left"
-            aria-label=${t("Back")}
-          ></a>
-          <h1 ui-heading="sm">${t("Explore")}</h1>
-          <span class="top-spacer" aria-hidden="true"></span>
+        <div class="top-row">
+          <div class="top-start">
+            <a
+              href=${`/${lang}/`}
+              ui-button="tertiary square sm"
+              ui-icon="arrow-left"
+              aria-label=${t("Back")}
+            ></a>
+          </div>
+          <div class="top-center">
+            <h1 ui-heading="sm">${t("App Gallery")}</h1>
+          </div>
+          <div class="top-end">
+            ${searchOpen.value
+              ? html`
+                <form onSubmit=${submitSearch} ui-field class="top-search">
+                  <label class="sr-only" for="gallery-search">${t("Search apps")}</label>
+                  <input
+                    id="gallery-search"
+                    ref=${searchRef}
+                    type="search"
+                    ui-input="sm"
+                    placeholder=${t("Search apps")}
+                    value=${draftQ.value}
+                    onInput=${(e: Event) => {
+                      draftQ.value = (e.target as HTMLInputElement).value;
+                    }}
+                    onBlur=${onSearchBlur}
+                  />
+                </form>`
+              : html`
+                <button
+                  type="button"
+                  ui-button="tertiary square sm"
+                  ui-icon="search"
+                  aria-label=${t("Search apps")}
+                  onClick=${openSearch}
+                ></button>`}
+          </div>
         </div>
 
-        <form onSubmit=${submitSearch} ui-field>
-          <label class="sr-only" for="explore-search">${t("Search apps")}</label>
-          <input
-            id="explore-search"
-            ref=${searchRef}
-            type="search"
-            placeholder=${t("Search apps")}
-            value=${draftQ.value}
-            onInput=${(e: Event) => {
-              draftQ.value = (e.target as HTMLInputElement).value;
-            }}
-          />
-        </form>
-
-        <div class="chips" role="tablist" aria-label=${t("Categories")} ui-row="gap-sm">
-          <button
-            type="button"
-            ui-button=${!category ? "primary sm" : "tertiary sm"}
-            onClick=${() => selectCategory(null)}
-          >
-            ${t("All")}
-          </button>
-          ${APP_CATEGORIES.map(
-            (c) => html`
+        ${visibleCategories.length > 0
+          ? html`
+            <div class="chips" role="tablist" aria-label=${t("Categories")} ui-row="gap-sm">
               <button
                 type="button"
-                ui-button=${category === c ? "primary sm" : "tertiary sm"}
-                onClick=${() => selectCategory(c)}
+                ui-button=${!category ? "primary sm" : "tertiary sm"}
+                onClick=${() => selectCategory(null)}
               >
-                ${categoryLabel(c)}
-              </button>`,
-          )}
-        </div>
+                ${t("All")}
+              </button>
+              ${visibleCategories.map(
+                (c) => html`
+                  <button
+                    type="button"
+                    ui-button=${category === c ? "primary sm" : "tertiary sm"}
+                    onClick=${() => selectCategory(c)}
+                  >
+                    ${categoryLabel(c)}
+                  </button>`,
+              )}
+            </div>`
+          : ""}
       </header>
 
-      <div class="body" ui-padding="inline-md block-md" ui-column="gap-lg">
+      <div class="body" ui-column="gap-lg">
         ${loading && apps.length === 0
           ? html`
             <div ui-column="gap-md x-center y-center" ui-padding="xl">
               <i ui-icon="spinner lg"></i>
               <p>${t("Loading…")}</p>
             </div>`
-          : exploreError.value
-            ? html`<p role="alert">${exploreError.value}</p>`
+          : galleryError.value
+            ? html`<p role="alert">${galleryError.value}</p>`
             : apps.length === 0
               ? html`
                 <div ui-column="gap-sm x-center" ui-padding="xl">
-                  <p ui-heading="sm">${t("No apps in Explore yet")}</p>
-                  <p>${t("Published apps from the community will show up here.")}</p>
+                  <p ui-heading="sm">${t("No apps in App Gallery yet")}</p>
+                  <p>${t("Apps published to App Gallery will show up here.")}</p>
                 </div>`
               : html`
                 ${showFeatured
@@ -145,7 +183,7 @@ export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
                       class="featured"
                       ui-card
                       ui-padding="lg"
-                      href=${storeAppUrl(lang, featured!.slug)}
+                      href=${galleryAppUrl(lang, featured!.slug)}
                       ui-row="x-between y-center gap-md"
                     >
                       <div ui-column="gap-xs" class="featured-copy">
@@ -174,13 +212,13 @@ export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
                   <h2 ui-heading="sm">
                     ${category
                       ? categoryLabel(category)
-                      : exploreQuery.value.trim()
+                      : galleryQuery.value.trim()
                         ? t("Results")
                         : t("New & Noteworthy")}
                   </h2>
                   <div ui-column="gap-sm">
                     ${(showFeatured ? rest : apps).map(
-                      (app) => html`<${StoreCard} app=${app} lang=${lang} />`,
+                      (app) => html`<${GalleryCard} app=${app} lang=${lang} />`,
                     )}
                   </div>
                 </section>`}
@@ -189,11 +227,14 @@ export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
   `;
 
   const style = css`
-    @scope ([data-scope="Explore"]) to ([data-scope]) {
+    @scope ([data-scope="Gallery"]) to ([data-scope]) {
       & {
         flex: 1;
         min-height: 0;
         background: var(--neutral-50);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
       .top {
@@ -204,8 +245,50 @@ export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
         backdrop-filter: blur(12px);
       }
 
-      .top-spacer {
-        width: 2.25rem;
+      .top-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .top-start {
+        justify-self: start;
+      }
+
+      .top-center {
+        justify-self: center;
+        min-width: 0;
+        text-align: center;
+      }
+
+      .top-center h1 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .top-end {
+        justify-self: stretch;
+        min-width: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .top-search {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .top-search input {
+        min-height: 2.25rem;
+        height: 2.25rem;
+        padding-block: 0.25rem;
+        font-size: 0.875rem;
+        line-height: 1.2;
       }
 
       .chips {
@@ -222,7 +305,8 @@ export default function Explore(_props: RoutePropsForPath<typeof ExplorePath>) {
         flex: 1;
         min-height: 0;
         overflow-y: auto;
-        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+        -webkit-overflow-scrolling: touch;
+        padding: 1rem 1rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
       }
 
       .card-copy {

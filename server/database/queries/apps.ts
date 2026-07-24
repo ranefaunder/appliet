@@ -1,5 +1,6 @@
 import { db } from "/server/database/db";
-import type { AppSummary, AppVisibility, StoreAppCard, StoreAppDetail } from "/types/app-types";
+import type { AppSummary, AppVisibility, GalleryAppCard, GalleryAppDetail } from "/types/app-types";
+import { isAppCategory } from "/utils/app-categories";
 
 type AppRow = {
   id: string;
@@ -45,7 +46,7 @@ function toSummary(row: AppRow, ownedFallback = true): AppSummary {
   };
 }
 
-function toStoreCard(row: AppRow): StoreAppCard {
+function toGalleryCard(row: AppRow): GalleryAppCard {
   return {
     id: row.id,
     slug: row.slug,
@@ -109,12 +110,12 @@ export const dbListPublicApps = (limit = 24): AppSummary[] =>
     .all(limit)
     .map((row) => toSummary(row, false));
 
-export function dbExploreApps(opts: {
+export function dbListGalleryApps(opts: {
   q?: string;
   category?: string | null;
   userId?: string | null;
   limit?: number;
-}): StoreAppCard[] {
+}): GalleryAppCard[] {
   const limit = Math.min(Math.max(opts.limit ?? 48, 1), 100);
   const q = opts.q?.trim() ?? "";
   const category = opts.category?.trim() || null;
@@ -152,10 +153,39 @@ export function dbExploreApps(opts: {
       LIMIT ?
     `)
     .all(...allParams)
-    .map(toStoreCard);
+    .map(toGalleryCard);
 }
 
-export function dbGetStoreAppBySlug(slug: string, userId: string | null): StoreAppDetail | null {
+/** Distinct Gallery categories that currently have at least one public app. */
+export function dbListGalleryCategories(opts?: { q?: string }): string[] {
+  const q = opts?.q?.trim() ?? "";
+  const where: string[] = [
+    "a.visibility = 'public'",
+    "a.is_draft = 0",
+    "a.category IS NOT NULL",
+    "TRIM(a.category) != ''",
+  ];
+  const params: string[] = [];
+
+  if (q) {
+    where.push("(a.title LIKE ? OR a.description LIKE ? OR IFNULL(a.tagline, '') LIKE ?)");
+    const like = `%${q.replace(/%/g, "")}%`;
+    params.push(like, like, like);
+  }
+
+  const rows = db
+    .query<{ category: string }, string[]>(`
+      SELECT DISTINCT a.category as category
+      FROM apps a
+      WHERE ${where.join(" AND ")}
+      ORDER BY a.category ASC
+    `)
+    .all(...params);
+
+  return rows.map((r) => r.category).filter(isAppCategory);
+}
+
+export function dbGetGalleryAppBySlug(slug: string, userId: string | null): GalleryAppDetail | null {
   const row =
     db
       .query<AppRow, [string | null, string | null, string | null, string | null, string]>(`
@@ -175,7 +205,7 @@ export function dbGetStoreAppBySlug(slug: string, userId: string | null): StoreA
 
   if (!row) return null;
   return {
-    ...toStoreCard(row),
+    ...toGalleryCard(row),
     ownerId: row.owner_id,
   };
 }
