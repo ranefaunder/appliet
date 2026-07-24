@@ -1,3 +1,4 @@
+import { isClient } from "/utils/env";
 import { appIconPngSrc, appIconSrc } from "/utils/app-icon";
 import { appModuleUrl, appPageUrl } from "/utils/app-url";
 
@@ -19,7 +20,7 @@ export function offlineAppUrls(app: OfflineAppRef, lang = "en"): string[] {
 }
 
 async function postToServiceWorker(message: { type: string; urls: string[] }): Promise<void> {
-  if (!("serviceWorker" in navigator)) return;
+  if (!isClient || !("serviceWorker" in navigator)) return;
   try {
     const reg = await navigator.serviceWorker.ready;
     const worker = reg.active ?? navigator.serviceWorker.controller;
@@ -32,7 +33,7 @@ async function postToServiceWorker(message: { type: string; urls: string[] }): P
 }
 
 async function precacheViaCacheApi(urls: string[]): Promise<void> {
-  if (!("caches" in window)) return;
+  if (!isClient || !("caches" in globalThis)) return;
   const cache = await caches.open(APP_CACHE);
   await Promise.all(
     urls.map(async (url) => {
@@ -47,13 +48,14 @@ async function precacheViaCacheApi(urls: string[]): Promise<void> {
 }
 
 async function uncacheViaCacheApi(urls: string[]): Promise<void> {
-  if (!("caches" in window)) return;
+  if (!isClient || !("caches" in globalThis)) return;
   const cache = await caches.open(APP_CACHE);
   await Promise.all(urls.map((url) => cache.delete(url).catch(() => false)));
 }
 
 /** Download + cache an installed app for offline use. */
 export async function precacheInstalledApp(app: OfflineAppRef, lang?: string): Promise<void> {
+  if (!isClient) return;
   const urls = offlineAppUrls(app, lang);
   await postToServiceWorker({ type: "PRECACHE", urls });
   // Also write from the page so cache is filled even if SW message is delayed.
@@ -62,6 +64,7 @@ export async function precacheInstalledApp(app: OfflineAppRef, lang?: string): P
 
 /** Remove cached assets for an uninstalled/deleted app. */
 export async function uncacheInstalledApp(app: OfflineAppRef, lang?: string): Promise<void> {
+  if (!isClient) return;
   const urls = offlineAppUrls(app, lang);
   await postToServiceWorker({ type: "UNCACHE", urls });
   await uncacheViaCacheApi(urls);
@@ -69,7 +72,7 @@ export async function uncacheInstalledApp(app: OfflineAppRef, lang?: string): Pr
 
 /** Background-precache every app currently in the home library. */
 export function precacheLibraryApps(apps: OfflineAppRef[], lang?: string): void {
-  if (apps.length === 0) return;
+  if (!isClient || apps.length === 0) return;
   void (async () => {
     for (const app of apps) {
       await precacheInstalledApp(app, lang);
