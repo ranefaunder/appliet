@@ -312,8 +312,9 @@ export default function AppIcon({ app }: Props) {
       }
 
       .label {
-        width: 100%;
-        max-width: 5.5rem;
+        width: calc(100% + 0.9rem);
+        max-width: calc(var(--home-icon, 4.25rem) + 0.9rem);
+        margin-inline: -0.45rem;
         font-size: 0.6875rem;
         font-weight: 700;
         line-height: 1.15;
